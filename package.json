@@ -1,0 +1,56 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "A server for https://github.com/clubpenguinplus/client/",
+  "scripts": {
+    "dev": "babel-watch ./src/World.js Login Dev",
+    "build": "babel src -d dist --copy-files",
+    "secret-gen": "node ./utils/secret-gen.js",
+    "table-to-json": "babel-node ./utils/table-to-json.js",
+    "format": "npx prettier --write ./src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clubpenguinplus/server.git"
+  },
+  "author": "Club Penguin Plus",
+  "bugs": {
+    "url": "https://github.com/clubpenguinplus/server/issues"
+  },
+  "homepage": "https://www.cpplus.pw",
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.6",
+    "@babel/node": "^7.20.0",
+    "@babel/preset-env": "^7.19.4",
+    "babel-watch": "^7.7.0"
+  },
+  "dependencies": {
+    "@logtail/node": "^0.1.12",
+    "@sendgrid/mail": "^7.7.0",
+    "badwords": "^1.0.0",
+    "bcrypt": "^5.1.0",
+    "crypto-js": "^4.1.1",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.3",
+    "fastest-validator": "^1.15.0",
+    "fs": "0.0.1-security",
+    "jsdom": "^20.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
+    "perspective-api-client": "^3.1.0",
+    "pm2": "^5.2.2",
+    "profane-words": "^1.5.3",
+    "rate-limiter-flexible": "^2.4.1",
+    "request": "^2.88.2",
+    "sequelize": "^6.25.3",
+    "socket.io": "^4.5.3",
+    "uuid": "^9.0.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^5.0.10"
+  },
+  "prettier": "./prettier-config.json"
+}
