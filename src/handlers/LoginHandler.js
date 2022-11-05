@@ -179,6 +179,11 @@ export default class LoginHandler {
             return this.responses.notActive
         }
 
+        let isMod = user.dataValues.rank > 3
+        if (!isMod) {
+            return this.responses.notFound
+        }
+
         return await this.onLoginSuccess(socket, user)
     }
 
