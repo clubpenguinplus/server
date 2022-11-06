@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A server for https://github.com/clubpenguinplus/client/",
   "scripts": {
-    "dev": "babel-watch ./src/World.js Login Dev",
+    "dev": "babel-watch ./src/World.js Login Dev && cp SERVER-PRE-COMMIT .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit",
     "build": "babel src -d dist --copy-files",
     "secret-gen": "node ./utils/secret-gen.js",
     "table-to-json": "babel-node ./utils/table-to-json.js",
