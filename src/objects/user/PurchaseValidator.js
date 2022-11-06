@@ -32,7 +32,7 @@ export default class PurchaseValidator {
         } else if (includes.includes(id)) {
             this.user.sendXt('e', 1)
             return false
-        } else if (this.user.data.rank > 3) {
+        } else if (this.user.data.rank >= 4) {
             // Admins bypass unavailable items
             return item
         } else if (item.patched) {

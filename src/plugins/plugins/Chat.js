@@ -33,7 +33,7 @@ export default class Chat extends Plugin {
         }
 
         // moderators bypass the filter
-        let whitelist = user.data.rank > 3 ? false : this.handler.filter.checkWhitelistFilter(message)
+        let whitelist = user.data.rank >= 3 ? false : this.handler.filter.checkWhitelistFilter(message)
 
         let blacklist = this.handler.filter.checkBlacklistFilter(message)
 

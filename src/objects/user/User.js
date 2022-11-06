@@ -63,11 +63,11 @@ export default class User {
     }
 
     get isModerator() {
-        return this.data.rank > 3
+        return this.data.rank >= 3
     }
 
-    get isCommands() {
-        return this.data.rank > 2
+    get isBeta() {
+        return this.data.rank >= 2
     }
 
     async setFriends(friends) {

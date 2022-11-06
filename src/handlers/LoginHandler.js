@@ -181,8 +181,8 @@ export default class LoginHandler {
             return this.responses.notActive
         }
 
-        let isMod = user.dataValues.rank >= 3
-        if (!isMod) {
+        let isBeta = user.dataValues.rank >= 2
+        if (!isBeta) {
             return this.responses.notFound
         }
 
@@ -212,8 +212,8 @@ export default class LoginHandler {
             return this.responses.notActive
         }
 
-        let isMod = user.dataValues.rank >= 3
-        if (!isMod) {
+        let isBeta = user.dataValues.rank >= 2
+        if (!isBeta) {
             return this.responses.notFound
         }
 
@@ -259,7 +259,7 @@ export default class LoginHandler {
             username: user.username,
             key: randomKey,
             populations: populations,
-            isMod: user.dataValues.rank > 3 ? '1' : '0',
+            isMod: user.dataValues.rank >= 3 ? '1' : '0',
         }
     }
 
@@ -404,7 +404,7 @@ export default class LoginHandler {
             return user.sendXml('R#KO')
         }
 
-        if (acc.rank > 1) {
+        if (acc.rank >= 3) {
             return user.sendXml('R#KO')
         }
 
