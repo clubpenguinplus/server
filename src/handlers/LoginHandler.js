@@ -104,6 +104,8 @@ export default class LoginHandler {
                     break
                 case 'activate':
                     this.activate(xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
+                case 'register':
+                    this.register(xml.getElementsByTagName('username')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
             }
         } catch (error) {
             this.log.error(`[LoginHandler] Error: ${error}`)
@@ -393,6 +395,27 @@ export default class LoginHandler {
 
         this.db.users.update({emailActivated: true}, {where: {id: acc.id}}).then(() => {
             user.sendXml('A#OK')
+        })
+    }
+
+    async register(username, betaKey, user) {
+        let acc = await this.db.getUserByUsername(username)
+        if (!acc) {
+            return user.sendXml('R#KO')
+        }
+
+        if (acc.rank > 1) {
+            return user.sendXml('R#KO')
+        }
+
+        let bk = await this.db.findOne('betaKeys', {where: {key: betaKey}})
+        if (!bk) {
+            return user.sendXml('R#KO')
+        }
+
+        this.db.users.update({rank: 2}, {where: {id: acc.id}}).then(() => {
+            this.db.betaKeys.destroy({where: {key: betaKey}})
+            user.sendXml('R#OK')
         })
     }
 }
