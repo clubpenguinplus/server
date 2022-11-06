@@ -6,4 +6,3 @@ logs
 dist
 .DS_Store
 .env
-cpplus.sql
