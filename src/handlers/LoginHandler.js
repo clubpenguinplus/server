@@ -179,7 +179,7 @@ export default class LoginHandler {
             return this.responses.notActive
         }
 
-        let isMod = user.dataValues.rank > 3
+        let isMod = user.dataValues.rank >= 3
         if (!isMod) {
             return this.responses.notFound
         }
@@ -210,7 +210,7 @@ export default class LoginHandler {
             return this.responses.notActive
         }
 
-        let isMod = user.dataValues.rank > 3
+        let isMod = user.dataValues.rank >= 3
         if (!isMod) {
             return this.responses.notFound
         }
