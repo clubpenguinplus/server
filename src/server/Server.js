@@ -81,8 +81,11 @@ export default class Server {
         let headers = socket.handshake.headers
 
         if (headers['x-forwarded-for']) {
+            console.log('x-forwarded-for', headers['x-forwarded-for'])
             return headers['x-forwarded-for'].split(',')[0]
         }
+
+        console.log('address', socket.handshake.address)
 
         return socket.handshake.address
     }

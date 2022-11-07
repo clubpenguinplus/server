@@ -311,37 +311,82 @@ export default class LoginHandler {
 
     // Account creation
 
+    async validUsername(username) {
+        if (username.length < 3) {
+            return false
+        } else if (username.length > 15) {
+            return false
+        } else if (!username.match(/^[a-zA-Z0-9]+$/)) {
+            return false
+        }
+
+        let user = await this.db.getUserByUsername(username)
+        if (user) {
+            return false
+        }
+        return true
+    }
+
+    async validEmail(email) {
+        if (!email.includes('@')) {
+            return false
+        } else if (!email.includes('.')) {
+            return false
+        } else if (email.length > 50) {
+            return false
+        } else if (email.includes('+')) {
+            return false
+        }
+
+        let user = await this.db.getUserByEmail(email)
+        if (user) {
+            return false
+        }
+
+        return true
+    }
+
+    async validPassword(password, username) {
+        if (password.length < 6) {
+            return false
+        } else if (password.length > 50) {
+            return false
+        } else if (password.includes(username)) {
+            return false
+        }
+        return true
+    }
+
     async checkUsername(username, user) {
-        this.db.getUserByUsername(username).then((u) => {
-            if (u) {
-                user.sendXml('U#KO')
-            } else {
-                user.sendXml('U#OK')
-            }
-        })
+        if (!(await validUsername(username))) {
+            return user.sendXml('U#KO')
+        }
+        user.sendXml('U#OK')
     }
 
     async checkEmail(email, user) {
-        this.db.getUserByEmail(email).then((u) => {
-            if (u) {
-                user.sendXml('E#KO')
-            } else {
-                user.sendXml('E#OK')
-            }
-        })
+        if (!(await validEmail(email))) {
+            return user.sendXml('E#KO')
+        }
+        user.sendXml('E#OK')
     }
 
     async register(username, password, email, over13, color, lang, user) {
-        let userTaken = await this.db.getUserByUsername(username)
-        if (userTaken) {
+        let userValid = await this.validUsername(username)
+        if (!userValid) {
             return user.sendXt('U#KO')
         }
-        let emailTaken = await this.db.getUserByEmail(email)
-        if (emailTaken) {
+        let emailValid = await this.validEmail(email)
+        if (!emailValid) {
             return user.sendXt('E#KO')
         }
 
         let activationKey = crypto.randomBytes(16).toString('hex')
+
+        let passwordValid = await this.validPassword(password, username)
+        if (!passwordValid) {
+            return user.sendXt('U#KO')
+        }
 
         password = await bcrypt.hash(password, parseInt(process.env.cryptoRounds))
 
