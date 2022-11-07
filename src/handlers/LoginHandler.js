@@ -316,7 +316,7 @@ export default class LoginHandler {
             return false
         } else if (username.length > 15) {
             return false
-        } else if (!username.match(/^[a-zA-Z0-9]+$/)) {
+        } else if (!username.match(/^[a-zA-Z0-9 ]+$/)) {
             return false
         }
 
