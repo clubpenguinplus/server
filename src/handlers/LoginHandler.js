@@ -104,7 +104,7 @@ export default class LoginHandler {
                     this.checkEmail(xml.getElementsByTagName('email')[0].getAttribute('e'), user)
                     break
                 case 'signup':
-                    this.register(xml.getElementsByTagName('nick')[0].childNodes[0].nodeValue, xml.getElementsByTagName('pword')[0].childNodes[0].nodeValue, xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('over13')[0].childNodes[0].nodeValue, xml.getElementsByTagName('color')[0].childNodes[0].nodeValue, xml.getElementsByTagName('lang')[0].childNodes[0].nodeValue, user)
+                    this.signup(xml.getElementsByTagName('nick')[0].childNodes[0].nodeValue, xml.getElementsByTagName('pword')[0].childNodes[0].nodeValue, xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('over13')[0].childNodes[0].nodeValue, xml.getElementsByTagName('color')[0].childNodes[0].nodeValue, xml.getElementsByTagName('lang')[0].childNodes[0].nodeValue, user)
                     break
                 case 'activate':
                     this.activate(xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
@@ -371,7 +371,7 @@ export default class LoginHandler {
         user.sendXml('E#OK')
     }
 
-    async register(username, password, email, over13, color, lang, user) {
+    async signup(username, password, email, over13, color, lang, user) {
         let userValid = await this.validUsername(username)
         if (!userValid) {
             return user.sendXt('U#KO')
