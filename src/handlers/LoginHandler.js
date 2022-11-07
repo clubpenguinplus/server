@@ -39,6 +39,10 @@ export default class LoginHandler {
                 success: false,
                 message: 31,
             },
+            noBeta: {
+                success: false,
+                message: 43,
+            },
         }
 
         this.log.info(`[LoginHandler] Created LoginHandler for server: ${this.id}`)
@@ -183,7 +187,7 @@ export default class LoginHandler {
 
         let isBeta = user.dataValues.rank >= 2
         if (!isBeta) {
-            return this.responses.notFound
+            return this.responses.noBeta
         }
 
         return await this.onLoginSuccess(socket, user)
@@ -214,7 +218,7 @@ export default class LoginHandler {
 
         let isBeta = user.dataValues.rank >= 2
         if (!isBeta) {
-            return this.responses.notFound
+            return this.responses.noBeta
         }
 
         return await this.onLoginSuccess(socket, user)
