@@ -88,6 +88,7 @@ export default class Server {
     }
 
     messageReceived(message, user) {
+        if (message.length > 1000 || message.length >= 1) return
         this.rateLimiter
             .consume(user.address)
             .then(() => {
