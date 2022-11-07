@@ -81,20 +81,15 @@ export default class Server {
         let headers = socket.handshake.headers
 
         if (headers['x-forwarded-for']) {
-            console.log('x-forwarded-for', headers['x-forwarded-for'])
             return headers['x-forwarded-for'].split(',')[0]
         }
-
-        console.log('address', socket.handshake.address)
 
         return socket.handshake.address
     }
 
     messageReceived(message, user) {
-        let id = this.getUserId(user)
-
         this.rateLimiter
-            .consume(id)
+            .consume(user.address)
             .then(() => {
                 let payload = AES.decrypt(message, `Client${new Date().getUTCHours()}Key`)
                 this.handler.handle(payload.toString(enc), user)
@@ -109,7 +104,7 @@ export default class Server {
     }
 
     connectionLost(user) {
-        this.handler.log.info(`[Server] Disconnect from: ${user.socket.id}`)
+        this.handler.log.info(`[Server] Disconnect from: ${user.socket.id} ${user.address}`)
         this.handler.close(user)
     }
 }
