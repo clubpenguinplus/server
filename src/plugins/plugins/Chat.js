@@ -5,7 +5,7 @@ export default class Chat extends Plugin {
         super(users, rooms)
         this.events = {
             'm#sm': this.sendMessage,
-            'u#sf': this.sendSafe,
+            'u#ss': this.sendSafe,
             'u#se': this.sendEmote,
         }
 
