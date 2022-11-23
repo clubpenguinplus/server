@@ -617,6 +617,23 @@ export default class Database {
         return user
     }
 
+    async validIp(ip) {
+        let user = await this.users.findOne({
+            where: {
+                ip: ip,
+            },
+            attributes: ['joinTime'],
+        })
+
+        for (let x in user) {
+            // check if there is a user with the same ip created inside the last 48 hours
+            if (new Date(user[x].joinTime).getTime > new Date().getTime() - 1000 * 60 * 60 * 48) {
+                return false
+            }
+        }
+        return true
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {

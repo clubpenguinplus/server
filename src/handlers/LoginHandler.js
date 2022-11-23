@@ -380,14 +380,16 @@ export default class LoginHandler {
         if (!emailValid) {
             return user.sendXt('E#KO')
         }
-
-        let activationKey = crypto.randomBytes(16).toString('hex')
-
         let passwordValid = await this.validPassword(password, username)
         if (!passwordValid) {
             return user.sendXt('U#KO')
         }
+        let ipValid = await this.validIp(user.address)
+        if (!ipValid) {
+            return user.sendXt('I#KO')
+        }
 
+        let activationKey = crypto.randomBytes(16).toString('hex')
         password = await bcrypt.hash(password, parseInt(process.env.cryptoRounds))
 
         let acc = await this.db.createAccount(username, password, email, over13, color, user.address, activationKey)
