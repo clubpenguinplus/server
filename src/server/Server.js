@@ -67,7 +67,6 @@ export default class Server {
 
     connectionMade(socket) {
         let user = new User(socket, this.handler)
-        user.address = this.getSocketAddress(socket)
 
         this.users[socket.id] = user
 
@@ -75,16 +74,6 @@ export default class Server {
 
         socket.on('message', (message) => this.messageReceived(message, user))
         socket.on('disconnect', () => this.connectionLost(user))
-    }
-
-    getSocketAddress(socket) {
-        let headers = socket.handshake.headers
-
-        if (headers['x-forwarded-for']) {
-            return headers['x-forwarded-for'].split(',')[0]
-        }
-
-        return socket.handshake.address
     }
 
     messageReceived(message, user) {

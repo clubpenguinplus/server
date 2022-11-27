@@ -70,6 +70,16 @@ export default class User {
         return this.data.rank >= 2
     }
 
+    get address() {
+        let headers = this.socket.handshake.headers
+
+        if (headers['x-forwarded-for']) {
+            return headers['x-forwarded-for'].split(',')[0]
+        }
+
+        return this.socket.handshake.address
+    }
+
     async setFriends(friends) {
         this.friend = new Friend(this)
         await this.friend.init(friends)

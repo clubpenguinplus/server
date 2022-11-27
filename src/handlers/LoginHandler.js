@@ -43,6 +43,10 @@ export default class LoginHandler {
                 success: false,
                 message: 43,
             },
+            twoFA: {
+                success: false,
+                message: 49,
+            },
         }
 
         this.log.info(`[LoginHandler] Created LoginHandler for server: ${this.id}`)
@@ -108,8 +112,13 @@ export default class LoginHandler {
                     break
                 case 'activate':
                     this.activate(xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
+                    break
                 case 'register':
                     this.register(xml.getElementsByTagName('username')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
+                    break
+                case '2fa':
+                    this.allow2FA(xml.getElementsByTagName('code')[0].childNodes[0].nodeValue, xml.getElementsByTagName('id')[0].childNodes[0].nodeValue, user)
+                    break
             }
         } catch (error) {
             this.log.error(`[LoginHandler] Error: ${error}`)
@@ -140,7 +149,7 @@ export default class LoginHandler {
             user.sendXt('l', `f%${check[0].message}`)
         } else {
             // Comparing password and checking for user existence
-            let response = await this.comparePasswords(username, password, user.socket)
+            let response = await this.comparePasswords(username, password, user.socket, user)
             if (response.success) {
                 user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
             } else {
@@ -152,7 +161,7 @@ export default class LoginHandler {
     }
 
     async tokenLogin(username, token, user) {
-        let response = await this.compareTokens(username, token, user.socket)
+        let response = await this.compareTokens(username, token, user.socket, user)
         if (response.success) {
             user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
         } else {
@@ -164,7 +173,7 @@ export default class LoginHandler {
 
     // Functions
 
-    async comparePasswords(username, password, socket) {
+    async comparePasswords(username, password, socket, u) {
         let user = await this.db.getUserByUsername(username)
         if (!user) {
             return this.responses.notFound
@@ -190,10 +199,18 @@ export default class LoginHandler {
             return this.responses.noBeta
         }
 
+        let twoFA = user.dataValues.has2FA == 1
+        if (twoFA) {
+            let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
+            if (!validIP) {
+                return await this.generate2FAToken(user, u)
+            }
+        }
+
         return await this.onLoginSuccess(socket, user)
     }
 
-    async compareTokens(username, token, socket) {
+    async compareTokens(username, token, socket, u) {
         let user = await this.db.getUserByUsername(username)
         if (!user) {
             return this.responses.notFound
@@ -219,6 +236,14 @@ export default class LoginHandler {
         let isBeta = user.dataValues.rank >= 2
         if (!isBeta) {
             return this.responses.noBeta
+        }
+
+        let twoFA = user.dataValues.has2FA == 1
+        if (twoFA) {
+            let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
+            if (!validIP) {
+                return await this.generate2FAToken(user, u)
+            }
         }
 
         return await this.onLoginSuccess(socket, user)
@@ -395,6 +420,15 @@ export default class LoginHandler {
         let acc = await this.db.createAccount(username, password, email, over13, color, user.address, activationKey)
         if (!acc) return
 
+        let code = crypto.randomBytes(16).toString('hex')
+
+        await this.db.twoFA.create({
+            userId: acc.id,
+            ip: user.address,
+            code: code,
+            isAllowed: 1,
+        })
+
         let template = fs.readFileSync('templates/email/activate/en.html').toString()
 
         let templateReplacers = [
@@ -468,5 +502,91 @@ export default class LoginHandler {
             this.db.betaKeys.destroy({where: {key: betaKey}})
             user.sendXml('R#OK')
         })
+    }
+
+    // 2FA
+
+    async generate2FAToken(user, u) {
+        let code
+
+        let exist = await this.db.twoFA.findOne({
+            where: {
+                userId: user.dataValues.id,
+                ip: u.address,
+            },
+            attributes: ['code'],
+        })
+        if (!exist) {
+            code = crypto.randomBytes(16).toString('hex')
+
+            this.db.twoFA.create({
+                userId: user.dataValues.id,
+                code: code,
+                ip: u.address,
+            })
+        } else {
+            code = exist.code
+        }
+
+        let template = fs.readFileSync('templates/email/2fa/en.html').toString()
+
+        let templateReplacers = [
+            ['2FA_LINK', `https://play.cpplus.pw/en/?twofa=${user.dataValues.id}&${code}`],
+            ['PENGUIN_NAME', user.dataValues.username],
+        ]
+
+        for (let replacer of templateReplacers) {
+            template = template.replaceAll(replacer[0], replacer[1])
+        }
+
+        let msg = {
+            to: user.dataValues.email,
+            from: {
+                email: 'no-reply@clubpenguin.plus',
+                name: 'Club Penguin Plus',
+            },
+            subject: 'Login from new device',
+            html: template,
+        }
+
+        sgMail.send(msg).catch((error) => {
+            console.error(error)
+        })
+
+        return this.responses.twoFA
+    }
+
+    async allow2FA(code, id, user) {
+        let acc = await this.db.getUserById(id)
+        if (!acc) {
+            return user.sendXml('A#KO')
+        }
+
+        let twoFA = await this.db.twoFA.findOne({
+            where: {
+                userId: acc.id,
+                code: code,
+            },
+        })
+
+        if (!twoFA) {
+            return user.sendXml('A#KO')
+        }
+
+        this.db.twoFA
+            .update(
+                {
+                    isAllowed: 1,
+                },
+                {
+                    where: {
+                        userId: acc.id,
+                        code: code,
+                    },
+                }
+            )
+            .then(() => {
+                user.sendXml('A#OK')
+            })
     }
 }

@@ -634,6 +634,21 @@ export default class Database {
         return true
     }
 
+    async checkAllowedIp(user, ip) {
+        let allowedIps = await this.findAll('twoFA', {
+            where: {
+                userId: user,
+            },
+            attributes: ['ip', 'isAllowed'],
+        })
+        for (let x in allowedIps) {
+            if (allowedIps[x].ip == ip) {
+                return allowedIps[x].isAllowed == 1
+            }
+        }
+        return false
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {

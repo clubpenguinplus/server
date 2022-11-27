@@ -30,6 +30,11 @@ export default class Users extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 1,
                 },
+                has2FA: {
+                    type: DataTypes.BOOLEAN,
+                    allowNull: false,
+                    defaultValue: false,
+                },
                 stealthMode: {
                     type: DataTypes.BOOLEAN,
                     allowNull: false,
