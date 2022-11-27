@@ -3,9 +3,9 @@ import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import {v4 as uuid} from 'uuid'
 
-import Plugin from '../Plugin'
+import Handler from '../Handler'
 
-export default class GameAuth extends Plugin {
+export default class GameAuth extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {

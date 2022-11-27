@@ -1,10 +1,11 @@
 import Room from '../objects/room/Room'
 import WaddleRoom from '../objects/room/WaddleRoom'
 import OpenIgloos from '../objects/room/OpenIgloos'
-import PluginManager from '../plugins/PluginManager'
 import Api from '../integration/Api'
 import Discord from '../integration/Discord'
 import Filter from '../integration/Filter'
+import fs from 'fs'
+import path from 'path'
 
 export default class DataHandler {
     constructor(id, users, db, log) {
@@ -26,6 +27,11 @@ export default class DataHandler {
 
         this.filter = new Filter(this)
 
+        this.events = {}
+        this.handlers = {}
+
+        this.dir = `${__dirname}/game`
+
         this.init()
     }
 
@@ -42,9 +48,8 @@ export default class DataHandler {
 
         await this.setWaddles()
 
-        this.plugins = new PluginManager(this)
-
         this.updateWorldPopulation()
+        this.loadHandlers()
 
         this.log.info(`[DataHandler] Created DataHandler for server: ${this.id}`)
     }
@@ -92,7 +97,7 @@ export default class DataHandler {
     }
 
     fireEvent(event, args, user) {
-        this.plugins.getEvent(event, args, user)
+        this.getEvent(event, args, user)
     }
 
     close(user) {
@@ -143,6 +148,31 @@ export default class DataHandler {
         for (let user of Object.values(this.users)) {
             // change this
             user.sendXt('e', message)
+        }
+    }
+
+    loadHandlers() {
+        fs.readdirSync(this.dir).forEach((handler) => {
+            let handlerImport = require(path.join(this.dir, handler)).default
+            let handlerObject = new handlerImport(this)
+
+            this.handlers[handler.replace('.js', '').toLowerCase()] = handlerObject
+
+            this.loadEvents(handlerObject)
+        })
+    }
+
+    loadEvents(handler) {
+        for (let event in handler.events) {
+            this.events[event] = handler.events[event].bind(handler)
+        }
+    }
+
+    getEvent(event, args, user) {
+        try {
+            this.events[event](args, user)
+        } catch (error) {
+            this.log.error(`[DataHandler] Event (${event}) not handled: ${error}`)
         }
     }
 }

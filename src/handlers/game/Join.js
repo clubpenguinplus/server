@@ -1,7 +1,7 @@
-import Plugin from '../Plugin'
+import Handler from '../Handler'
 import Igloo from '../../objects/room/Igloo'
 
-export default class Join extends Plugin {
+export default class Join extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {

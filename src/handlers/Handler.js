@@ -1,4 +1,4 @@
-export default class Plugin {
+export default class Handler {
     constructor(handler) {
         this.handler = handler
 
@@ -9,9 +9,5 @@ export default class Plugin {
         this.rooms = handler.rooms
         this.openIgloos = handler.openIgloos
         this.discord = handler.discord
-    }
-
-    get plugins() {
-        return this.handler.plugins.plugins
     }
 }

@@ -1,6 +1,6 @@
-import Plugin from '../Plugin'
+import Handler from '../Handler'
 
-export default class Postcard extends Plugin {
+export default class Postcard extends Handler {
     constructor(network) {
         super(network)
         this.events = {

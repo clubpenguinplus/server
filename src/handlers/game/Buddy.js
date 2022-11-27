@@ -1,9 +1,9 @@
-import Plugin from '../Plugin'
+import Handler from '../Handler'
 import Sequelize from 'sequelize'
 
 const Op = Sequelize.Op
 
-export default class Friend extends Plugin {
+export default class Friend extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {

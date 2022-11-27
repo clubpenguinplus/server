@@ -1,6 +1,6 @@
-import Plugin from '../Plugin'
+import Handler from '../Handler'
 
-export default class Puffles extends Plugin {
+export default class Puffles extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {
