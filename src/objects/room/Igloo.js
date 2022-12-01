@@ -5,6 +5,7 @@ export default class Igloo extends Room {
         super(data)
 
         this.db = db
+        this.likeslist = []
     }
 
     get string() {
@@ -52,7 +53,19 @@ export default class Igloo extends Room {
         this.furniture = []
     }
 
-    async getLikes(user) {
-        await this.db.getIglooLikes(this.userId)
+    async getLikes() {
+        let likes = this.db.getIglooLikes(this.userId)
+        this.likeslist.push({
+            likedBy: likes.likedById,
+        })
+    }
+
+    addLike(id) {
+        if (this.likeslist.includes(id)) return
+        this.db.getIglooLikes.update({likedById: id}, {where: {userId: this.userId}})
+    }
+
+    removeLIke(id) {
+        this.db.getIglooLikes.destroy({where: {userId: this.userId, likedById: id}})
     }
 }
