@@ -51,4 +51,8 @@ export default class Igloo extends Room {
         await this.db.userFurnitures.destroy({where: {userId: this.userId}})
         this.furniture = []
     }
+
+    async getLikes(user) {
+        await this.db.getIglooLikes(this.userId)
+    }
 }

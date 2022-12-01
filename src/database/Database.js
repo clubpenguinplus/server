@@ -649,6 +649,16 @@ export default class Database {
         return false
     }
 
+    async getIglooLikes(user) {
+        let likes = await this.findAll('iglooLikes', {
+            where: {
+                userId: user,
+            },
+            attributes: ['userId', 'likedById'],
+        })
+        return likes
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {
