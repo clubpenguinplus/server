@@ -9,6 +9,7 @@ export default class Get extends Handler {
         this.events = {
             'u#gp': this.getPlayer,
             'u#gb': this.getBuddy,
+            'u#gbs': this.getBuddies,
             'i#gp': this.getPin,
             's#gb': this.getStampbook,
             'ma#g': this.getMascots,
@@ -50,6 +51,12 @@ export default class Get extends Handler {
 
         if (userData) {
             user.sendXt('gb', this.getString(userData))
+        }
+    }
+
+    async getBuddies(args, user) {
+        for (let buddy of args) {
+            this.getBuddy([buddy], user)
         }
     }
 
