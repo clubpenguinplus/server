@@ -63,9 +63,9 @@ export default class Get extends Handler {
     }
 
     async getStampbook(args, user) {
-        let stamps = await this.db.getStamps(args.user)
-        let target = await this.db.getUserById(args.user)
-        let inventory = await this.db.getInventory(args.user)
+        let stamps = await this.db.getStamps(args[0])
+        let target = await this.db.getUserById(args[0])
+        let inventory = await this.db.getInventory(args[0])
         let username = ''
         if (target.dataValues.username_approved == 1) {
             username = target.dataValues.username
