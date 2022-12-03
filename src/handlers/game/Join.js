@@ -17,7 +17,7 @@ export default class Join extends Handler {
     async loadPlayer(args, user) {
         user.room = this.getRandomSpawn()
 
-        let friends = user.friend.list.map((friend) => `${friend.id}|${friend.username}|${friend.online ? 1 : 0}`)
+        let friends = user.friend.list.map((friend) => `${friend.id}|${friend.username}|${friend.online ? 1 : 0}|${friend.isBff ? 1 : 0}`)
 
         user.sendXt('lp', `${user.string}%${user.room.id}%${user.data.joinTime}%${user.data.stampbookClasp}%${user.data.stampbookColor}%${user.data.stampbookPattern}%${user.data.cannon_data}%${friends}%${user.ignore.flat}%${user.inventory.flat}%${user.iglooInventory.flat}%${user.furnitureInventory.flat}%${user.stamps.flat}%${user.postcards}%${await this.db.getPendingFriends(user.data.id)}`)
     }

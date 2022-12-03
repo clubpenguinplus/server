@@ -14,6 +14,7 @@ export default class Friend extends Handler {
             'b#bf': this.friendFind,
             'b#sh': this.friendSearch,
             'b#gfo': this.friendGetOnline,
+            'b#bff': this.setBFF,
         }
     }
 
@@ -27,7 +28,7 @@ export default class Friend extends Handler {
             return user.sendXt('e', 6)
         }
         let friends = await this.db.getFriends(args[0])
-        if (friends.includes(user.data.id)) {
+        if (this.userFriended(user.data.id, friends)) {
             return user.sendXt('e', 7)
         }
         let pending = await this.db.getPendingFriends(args[0])
@@ -43,6 +44,15 @@ export default class Friend extends Handler {
         if (recipient) {
             recipient.sendXt('rq', `${user.data.id}%${user.data.username}`)
         }
+    }
+
+    userFriended(userId, friends) {
+        for (let f of friends) {
+            if (f[0] == userId) {
+                return true
+            }
+        }
+        return false
     }
 
     async friendAccept(args, user) {
@@ -151,6 +161,16 @@ export default class Friend extends Handler {
     async friendGetOnline(args, user) {
         if (this.handler.usersById[args[0]]) {
             user.sendXt('fo', this.handler.usersById.args[0].string)
+        }
+    }
+
+    async setBFF(args, user) {
+        for (let f of user.friend.list) {
+            if (f.id == args[0]) {
+                f.isBff = true
+                await this.db.buddies.update({isBff: parseInt(args[1])}, {where: {userId: user.data.id, buddyId: args[0]}})
+                return
+            }
         }
     }
 }

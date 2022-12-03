@@ -140,11 +140,11 @@ export default class Database {
                 where: {
                     userId: userId,
                 },
-                attributes: ['buddyId'],
+                attributes: ['buddyId', 'isBff'],
             },
             [],
             (result) => {
-                return result.map((result) => result.buddyId)
+                return result.map((result) => [result.buddyId, result.isBff])
             }
         )
     }

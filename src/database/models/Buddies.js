@@ -14,6 +14,11 @@ export default class Buddies extends Sequelize.Model {
                     allowNull: false,
                     primaryKey: true,
                 },
+                isBff: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    defaultValue: 0,
+                },
             },
             {sequelize, timestamps: false, tableName: 'buddies'}
         )
