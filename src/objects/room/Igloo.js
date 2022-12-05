@@ -29,7 +29,8 @@ export default class Igloo extends Room {
     }
 
     add(user) {
-        this.users[user.socket.id] = user
+        if (this.users[user.data.id]) this.remove(user)
+        this.users[user.data.id] = user
 
         user.sendXt('ji', this.string)
         this.sendXt(user, 'ap', user.string)

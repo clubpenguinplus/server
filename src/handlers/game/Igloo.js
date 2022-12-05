@@ -164,22 +164,22 @@ export default class Igloo extends Handler {
 
     async likeIgloo(args, user) {
         let igloo = this.getIgloo(args[0]) // get the igloo of the user whose igloo is being liked
-    
+
         // check if the user liking the igloo has already liked the igloo
         let isLiked = this.igloos.likesList.includes(user.data.id)
         if (isLiked) {
             return
         }
-    
+
         // add the like to the database
         let like = await this.db.getIglooLikes.create({userId: args[0], likedById: user.data.id})
-    
+
         // add the like to the igloo's likesList - need to figure out importing igloo object into handler
         this.rooms.igloo.addLike(user.data.id)
-    
+
         // send a response to the user liking the igloo
         user.sendXt('li', `${args[0]}%${user.data.id}`)
-    
+
         // send a notification to the user whose igloo was liked
         igloo.user.sendXt('nli', `${args[0]}%${user.data.username}`)
     }
