@@ -5,7 +5,7 @@ export default class Igloo extends Room {
         super(data)
 
         this.db = db
-        this.likeslist = []
+        this.likesList = []
     }
 
     get string() {

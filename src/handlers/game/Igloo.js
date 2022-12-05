@@ -14,6 +14,7 @@ export default class Igloo extends Handler {
             'g#cr': this.closeIgloo,
             'g#gr': this.getIgloos,
             'g#io': this.getIglooOpen,
+            'g#li': this.likeIgloo, // add the event for liking an igloo
         }
     }
 
@@ -159,5 +160,30 @@ export default class Igloo extends Handler {
         if (internalId in this.rooms) {
             return this.rooms[internalId]
         }
+    }
+
+    async likeIgloo(args, user) {
+        let igloo = this.getIgloo(user.data.id) // get the igloo of the user whose igloo is being liked
+        if (!igloo || igloo != user.room || !args[0]) { // validate the igloo and the user liking the igloo
+            return
+        }
+    
+        // check if the user liking the igloo has already liked the igloo
+        let isLiked = this.igloos.likesList.includes(args[0])
+        if (isLiked) {
+            return
+        }
+    
+        // add the like to the database
+        let like = await this.db.getIglooLikes.create({userId: user.data.id, likedById: args[0]})
+    
+        // add the like to the igloo's likesList
+        this.igloos.likesList.push(args[0])
+    
+        // send a response to the user liking the igloo
+        user.sendXt('li', `${user.data.id}%${args[0]}`)
+    
+        // send a notification to the user whose igloo was liked
+        igloo.user.sendXt('nli', `${user.data.id}%${user.data.username}`)
     }
 }
