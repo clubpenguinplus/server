@@ -84,6 +84,8 @@ export default class Friend extends Handler {
     }
 
     friendRemove(args, user) {
+        args[0] = parseInt(args[0])
+
         if (!user.friend.includes(args[0])) return
 
         user.friend.removeFriend(args[0])

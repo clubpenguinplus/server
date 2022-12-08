@@ -179,6 +179,8 @@ export default class Panel extends Handler {
     }
 
     async banUser(args, user) {
+        args[0] = parseInt(args[0])
+        args[1] = parseInt(args[1])
         if (user.data.rank < 3) {
             user.sendXt('e', 15)
             return
@@ -188,21 +190,21 @@ export default class Panel extends Handler {
 
         if (recipientRank < user.data.rank) {
             let date = new Date()
-            let expiry = date.getTime() + args[1]
-            await this.db.ban(args[0], expiry, user.data.id)
+            let expiry = date.getTime() + args[1] * 60 * 60 * 1000
+            await this.db.ban(args[0], expiry, user.data.id, args[3])
 
             let userName = (await this.db.getUserById(args[0])).username
             let expiryDate = new Date(expiry)
 
             if (recipient) {
-                recipient.sendXt('b', 'o')
+                recipient.sendXt('b', `${args[2]}%${args[1]}`)
                 recipient.close()
             }
 
-            user.sendXt('e', [18, expiryDate.toUTCString()])
+            user.sendXt('e', [18, expiryDate.toUTCString().replaceAll(',', '')])
 
-            handler.api('/logBan', {moderator: user.data.username, user: args[0], reason: args[3], duration: `${args[2]}`})
-            this.discord.banLogs(user.data.username, userName, args[2], expiryDate.toUTCString())
+            this.handler.api.apiFunction('/logBan', {moderator: user.data.username, user: args[0], reason: args[3], duration: `${args[1]}`})
+            this.discord.banLogs(user.data.username, userName, args[3], expiryDate.toUTCString())
         } else {
             user.sendXt('e', 15)
         }

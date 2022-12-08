@@ -10,6 +10,7 @@ export default class Get extends Handler {
             'u#gp': this.getPlayer,
             'u#gb': this.getBuddy,
             'u#gbs': this.getBuddies,
+            'u#go': this.getOnline,
             'i#gp': this.getPin,
             's#gb': this.getStampbook,
             'ma#g': this.getMascots,
@@ -97,5 +98,11 @@ export default class Get extends Handler {
             marray.push(`${mascots[i].id}|${mascots[i].name}|${mascots[i].giveaway}|${mascots[i].stamp}`)
         }
         user.sendXt('gm', marray.join())
+    }
+
+    async getOnline(args, user) {
+        if (this.usersById[parseInt(args[0])]) {
+            user.sendXt('on', args[0])
+        }
     }
 }
