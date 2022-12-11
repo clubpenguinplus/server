@@ -7,7 +7,11 @@ export default class FurnitureInventory {
     }
 
     get flat() {
-        return this.list
+        let flat = []
+        for (let item in this.list) {
+            flat.push(`${item}:${this.list[item]}`)
+        }
+        return flat
     }
 
     includes(item) {
