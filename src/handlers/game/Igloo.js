@@ -95,7 +95,7 @@ export default class Igloo extends Handler {
             }
 
             igloo.furniture.push(item)
-            this.db.userFurnitures.create({id: item[0], x: item[1], y: item[2], rotation: item[3], frame: item[4], userId: user.data.id})
+            this.db.userFurnitures.create({furnitureId: item[0], x: item[1], y: item[2], rotation: item[3], frame: item[4], userId: user.data.id})
         }
     }
 
