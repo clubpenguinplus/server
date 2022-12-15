@@ -202,6 +202,11 @@ export default class Users extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
                 },
+                current_igloo: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    defaultValue: 0,
+                },
             },
             {sequelize, timestamps: false, tableName: 'users'}
         )

@@ -247,30 +247,37 @@ export default class Database {
         })
     }
 
-    async getIgloo(userId) {
+    async getIgloo(userId, iglooId) {
+        if (!iglooId) {
+            let user = await this.getUserById(userId)
+            iglooId = user.dataValues.current_igloo
+        }
+
         return await this.findOne(
             'userIgloos',
             {
                 where: {
                     userId: userId,
+                    iglooId: iglooId,
                 },
                 raw: true,
             },
             null,
             async (result) => {
                 // Add furniture to igloo object
-                result.furniture = await this.getUserFurnitures(userId)
+                result.furniture = await this.getUserFurnitures(userId, iglooId)
                 return result
             }
         )
     }
 
-    async getUserFurnitures(userId) {
+    async getUserFurnitures(userId, iglooId) {
         return await this.findAll(
             'userFurnitures',
             {
                 where: {
                     userId: userId,
+                    iglooId: iglooId,
                 },
                 raw: true,
             },

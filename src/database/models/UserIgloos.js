@@ -9,6 +9,11 @@ export default class UserIgloos extends Sequelize.Model {
                     allowNull: false,
                     primaryKey: true,
                 },
+                iglooId: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    primaryKey: true,
+                },
                 type: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,

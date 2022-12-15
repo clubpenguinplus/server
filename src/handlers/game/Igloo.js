@@ -13,6 +13,7 @@ export default class Igloo extends Handler {
             'g#or': this.openIgloo,
             'g#cr': this.closeIgloo,
             'g#gr': this.getIgloos,
+            'g#gi': this.getIglooData,
             'g#io': this.getIglooOpen,
             'g#li': this.likeIgloo, // add the event for liking an igloo
         }
@@ -81,7 +82,8 @@ export default class Igloo extends Handler {
 
         for (let item of furniture) {
             item = item.split('|')
-            let id = item[0]
+            item = {furnitureId: item[0], x: item[1], y: item[2], rotation: item[3], frame: item[4]}
+            let id = item.furnitureId
             if (!item || !user.furnitureInventory.includes(id)) {
                 continue
             }
@@ -95,7 +97,7 @@ export default class Igloo extends Handler {
             }
 
             igloo.furniture.push(item)
-            this.db.userFurnitures.create({furnitureId: item[0], x: item[1], y: item[2], rotation: item[3], frame: item[4], userId: user.data.id})
+            item = await this.db.userFurnitures.create({furnitureId: item.furnitureId, iglooId: user.data.current_igloo, x: item.x, y: item.y, rotation: item.rotation, frame: item.frame, userId: user.data.id})
         }
     }
 
@@ -150,6 +152,20 @@ export default class Igloo extends Handler {
     getIglooOpen(args, user) {
         let open = this.openIgloos.includes(args[0])
         user.sendXt('gio', open)
+    }
+
+    async getIglooData(args, user) {
+        let igloo = (await this.db.getIgloo(user.data.id, args[0])) || {
+            iglooId: args[0],
+            type: 1,
+            flooring: 0,
+            music: 0,
+            location: 1,
+            furniture: [],
+        }
+        let furniture = igloo.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(',')
+
+        user.sendXt('gid', `${igloo.iglooId}%%${igloo.type}%${igloo.flooring}%${igloo.music}%${igloo.location}%${furniture}`)
     }
 
     // Functions

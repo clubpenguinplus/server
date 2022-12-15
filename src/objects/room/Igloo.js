@@ -9,19 +9,10 @@ export default class Igloo extends Room {
     }
 
     get string() {
-        // return {
-        //     igloo: this.userId,
-        //     users: this.strings,
-        //     type: this.type,
-        //     flooring: this.flooring,
-        //     music: this.music,
-        //     location: this.location,
-        //     furniture: this.furniture,
-        // }
-
         let users = this.strings.join()
+        let furniture = this.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(',')
 
-        return `${this.userId}%${users}%${this.type}%${this.flooring}%${this.music}%${this.location}%${this.furniture.join()}`
+        return `${this.userId}%${users}%${this.type}%${this.flooring}%${this.music}%${this.location}%${furniture}`
     }
 
     get id() {
@@ -45,12 +36,16 @@ export default class Igloo extends Room {
         this.sendXt(user, 'ji', this.string, [])
     }
 
-    update(query) {
-        this.db.userIgloos.update(query, {where: {userId: this.userId}})
+    async update(query) {
+        let user = await this.db.getUserById(this.userId)
+
+        this.db.userIgloos.update(query, {where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
     }
 
     async clearFurniture() {
-        await this.db.userFurnitures.destroy({where: {userId: this.userId}})
+        let user = await this.db.getUserById(this.userId)
+
+        await this.db.userFurnitures.destroy({where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
         this.furniture = []
     }
 
