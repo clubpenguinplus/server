@@ -54,6 +54,14 @@ export default class Join extends Handler {
 
         if (!(internalId in this.rooms)) {
             let igloo = await this.db.getIgloo(id)
+            igloo = igloo || {
+                userId: id,
+                type: 1,
+                flooring: 0,
+                music: 0,
+                location: 1,
+                furniture: [],
+            }
             if (!igloo) return null
 
             this.rooms[internalId] = new Igloo(igloo, this.db, process.env.iglooIdOffset)

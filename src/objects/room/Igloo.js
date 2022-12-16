@@ -39,6 +39,19 @@ export default class Igloo extends Room {
     async update(query) {
         let user = await this.db.getUserById(this.userId)
 
+        let igloo = await this.db.userIgloos.findOne({where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
+
+        if (!igloo) {
+            igloo = await this.db.userIgloos.create({
+                userId: this.userId,
+                iglooId: user.dataValues.current_igloo,
+                type: 1,
+                flooring: 0,
+                music: 0,
+                location: 1,
+            })
+        }
+
         this.db.userIgloos.update(query, {where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
     }
 
@@ -47,6 +60,26 @@ export default class Igloo extends Room {
 
         await this.db.userFurnitures.destroy({where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
         this.furniture = []
+    }
+
+    async changeIgloo(iglooId) {
+        let igloo = await this.db.getIgloo(this.userId, iglooId)
+        if (!igloo) {
+            igloo = await this.db.userIgloos.create({
+                userId: this.userId,
+                iglooId: iglooId,
+                type: 1,
+                flooring: 0,
+                music: 0,
+                location: 1,
+                locked: 1,
+            })
+            igloo.furniture = []
+        }
+        for (let i in igloo) {
+            this[i] = igloo[i]
+        }
+        this.refresh()
     }
 
     async getLikes() {

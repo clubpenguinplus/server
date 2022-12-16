@@ -15,7 +15,8 @@ export default class Igloo extends Handler {
             'g#gr': this.getIgloos,
             'g#gi': this.getIglooData,
             'g#io': this.getIglooOpen,
-            'g#li': this.likeIgloo, // add the event for liking an igloo
+            'g#li': this.likeIgloo,
+            'g#ci': this.changeIgloo,
         }
     }
 
@@ -155,7 +156,8 @@ export default class Igloo extends Handler {
     }
 
     async getIglooData(args, user) {
-        let igloo = (await this.db.getIgloo(user.data.id, args[0])) || {
+        let igloo = await this.db.getIgloo(user.data.id, args[0])
+        igloo = igloo || {
             iglooId: args[0],
             type: 1,
             flooring: 0,
@@ -166,6 +168,15 @@ export default class Igloo extends Handler {
         let furniture = igloo.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(',')
 
         user.sendXt('gid', `${igloo.iglooId}%%${igloo.type}%${igloo.flooring}%${igloo.music}%${igloo.location}%${furniture}`)
+    }
+
+    async changeIgloo(args, user) {
+        user.data.current_igloo = parseInt(args[0])
+        user.update({current_igloo: user.data.current_igloo})
+        let igloo = this.getIgloo(user.data.id)
+        if (igloo) {
+            await igloo.changeIgloo(user.data.current_igloo)
+        }
     }
 
     // Functions

@@ -248,7 +248,7 @@ export default class Database {
     }
 
     async getIgloo(userId, iglooId) {
-        if (!iglooId) {
+        if (iglooId == null) {
             let user = await this.getUserById(userId)
             iglooId = user.dataValues.current_igloo
         }
