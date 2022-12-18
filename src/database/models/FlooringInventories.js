@@ -9,7 +9,7 @@ export default class FlooringInventories extends Sequelize.Model {
                     allowNull: false,
                     primaryKey: true,
                 },
-                flooringId: {
+                floorId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
