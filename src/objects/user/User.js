@@ -1,6 +1,8 @@
 import Friend from './Friend'
 import FurnitureInventory from './FurnitureInventory'
 import IglooInventory from './IglooInventory'
+import FlooringInventory from './FlooringInventory'
+import LocationInventory from './LocationInventory'
 import Ignore from './Ignore'
 import Inventory from './Inventory'
 import Stamps from './Stamps'
@@ -100,6 +102,14 @@ export default class User {
 
     setFurnitureInventory(inventory) {
         this.furnitureInventory = new FurnitureInventory(this, inventory)
+    }
+
+    setFlooringInventory(inventory) {
+        this.flooringInventory = new FlooringInventory(this, inventory)
+    }
+
+    setLocationInventory(inventory) {
+        this.locationInventory = new LocationInventory(this, inventory)
     }
 
     setStamps(stamps) {

@@ -62,6 +62,10 @@ export default class Database {
         return await this.getCrumb('floorings')
     }
 
+    async getLocations() {
+        return await this.getCrumb('locations')
+    }
+
     async getRooms() {
         return await this.findAll('rooms', {
             raw: true,
@@ -209,6 +213,38 @@ export default class Database {
             [],
             (result) => {
                 return result.map((result) => result.iglooId)
+            }
+        )
+    }
+
+    async getFlooringInventory(userId) {
+        return await this.findAll(
+            'flooringInventories',
+            {
+                where: {
+                    userId: userId,
+                },
+                attributes: ['floorId'],
+            },
+            [],
+            (result) => {
+                return result.map((result) => result.floorId)
+            }
+        )
+    }
+
+    async getLocationInventory(userId) {
+        return await this.findAll(
+            'locationInventories',
+            {
+                where: {
+                    userId: userId,
+                },
+                attributes: ['locationId'],
+            },
+            [],
+            (result) => {
+                return result.map((result) => result.locationId)
             }
         )
     }

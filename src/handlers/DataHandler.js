@@ -41,6 +41,7 @@ export default class DataHandler {
             igloos: await this.db.getIgloos(),
             furnitures: await this.db.getFurnitures(),
             floorings: await this.db.getFloorings(),
+            locations: await this.db.getLocations(),
             stamps: await this.db.getCStamps(),
         }
 

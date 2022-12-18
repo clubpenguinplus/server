@@ -7,6 +7,7 @@ export default class Igloo extends Handler {
             'g#ai': this.addIgloo,
             'g#af': this.addFurniture,
             'g#au': this.updateIgloo,
+            'g#al': this.updateLocation,
             'g#ur': this.updateFurniture,
             'g#ag': this.updateFlooring,
             'g#um': this.updateMusic,
@@ -49,7 +50,7 @@ export default class Igloo extends Handler {
 
     async updateIgloo(args, user) {
         let igloo = this.getIgloo(user.data.id)
-        if (!args[0] || !igloo || igloo != user.room || !user.iglooInventory.includes(args[0]) || igloo.type == args[0]) {
+        if (!args[0] || !igloo || igloo != user.room || !user.iglooInventory.includes(parseInt(args[0])) || igloo.type == args[0]) {
             return
         }
 
@@ -67,6 +68,18 @@ export default class Igloo extends Handler {
         igloo.flooring = 0
 
         // Refresh igloo
+        igloo.refresh(user)
+    }
+
+    async updateLocation(args, user) {
+        let igloo = this.getIgloo(user.data.id)
+        if (!args[0] || !igloo || igloo != user.room || !user.locationInventory.includes(parseInt(args[0])) || igloo.location == args[0]) {
+            return
+        }
+
+        igloo.update({location: args[0]})
+        igloo.location = args[0]
+
         igloo.refresh(user)
     }
 
