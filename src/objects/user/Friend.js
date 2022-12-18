@@ -17,6 +17,7 @@ export default class Friend {
     async init(friends) {
         for (let friend of friends) {
             let user = await this.db.getUserById(friend[0])
+            if (!user) continue
             let online = this.isOnline(user.id)
 
             // Online status here is only used on initial load or adding of a new friend,
