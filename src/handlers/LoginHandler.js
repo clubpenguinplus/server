@@ -139,7 +139,6 @@ export default class LoginHandler {
     }
 
     async login(username, password, user) {
-        this.log.info(`[LoginHandler] Login attempt for ${username}`)
         let check = this.check({
             username: username,
             password: password,
@@ -162,7 +161,6 @@ export default class LoginHandler {
     }
 
     async tokenLogin(username, token, user) {
-        this.log.info(`[LoginHandler] Token login for ${username}`)
         let response = await this.compareTokens(username, token, user.socket, user)
         if (response.success) {
             user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
