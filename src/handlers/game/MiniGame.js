@@ -1,4 +1,5 @@
 import Handler from '../Handler'
+import crypto from 'crypto'
 
 export default class MiniGame extends Handler {
     constructor(users, rooms) {
@@ -10,6 +11,7 @@ export default class MiniGame extends Handler {
             'mi#eg': this.endMinigame,
             'a#pc': this.placeCounter,
             'mi#spl': this.setCannonData,
+            'j#as3': this.joinAS3,
         }
 
         this.defaultScoreGames = [904, 905, 906, 912, 916, 917, 918, 919, 950, 952]
@@ -99,7 +101,7 @@ export default class MiniGame extends Handler {
         }
         if (args[0] < 15000) {
             if (categoryStamps.length > 1 && ownedCategoryStamps.length === categoryStamps.length) {
-                args[0] = Math.round(args[0] * 1.5)
+                args[0] = Math.round(args[0] * 2)
             }
             user.lastPayout = new Date().getTime()
             user.updateCoins(args[0])
@@ -146,5 +148,10 @@ export default class MiniGame extends Handler {
 
     setCannonData(args, user) {
         user.update({cannon_data: args[0]})
+    }
+
+    async joinAS3(args, user) {
+        user.waffleauth = crypto.randomBytes(16).toString('hex')
+        user.sendXt('as3', `${args[0]}%${user.waffleauth}`)
     }
 }

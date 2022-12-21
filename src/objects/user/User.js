@@ -298,4 +298,60 @@ export default class User {
             last_login: this.data.last_login,
         })
     }
+
+    endAS3Game(auth, game, score, endroom) {
+        if (auth != this.waffleauth) return
+        delete this.waffleauth
+
+        let coins = score / 10
+
+        if (!coins || coins < 0) {
+            return
+        }
+
+        let categoryStamps = []
+        let ownedCategoryStamps = []
+
+        let category
+
+        switch (game.toLowerCase()) {
+            case 'smoothie':
+                category = 58
+                break
+        }
+
+        for (var stamp in this.crumbs.stamps) {
+            if (this.crumbs.stamps[stamp].groupid == category) {
+                categoryStamps.push(stamp)
+                if (this.stamps.includes(parseInt(stamp))) ownedCategoryStamps.push(stamp)
+            }
+        }
+
+        let payoutFrequency = coins * 50
+        let unixTime = new Date().getTime()
+        if (this.lastPayout > unixTime - payoutFrequency) {
+            return this.sendXt('e', 11)
+        }
+        if (coins < 15000) {
+            if (categoryStamps.length > 1 && ownedCategoryStamps.length === categoryStamps.length) {
+                coins = Math.round(coins * 2)
+            }
+            this.lastPayout = new Date().getTime()
+            this.updateCoins(coins)
+            this.sendXt('endas3', endroom)
+            this.sendXt('eg', `${this.data.coins}%${game}%${coins}`)
+
+            this.handler.api.apiFunction('/logTransaction', {amount: coins, this: this.data.id, reason: game, total: this.data.coins})
+        } else {
+            this.sendXt('e', 12)
+        }
+    }
+
+    stampEarnedAS3(auth, stamp) {
+        if (auth != this.waffleauth) return
+        if (this.stamps.includes(stamp)) return
+
+        this.stamps.add(stamp)
+        this.sendXt('sse', stamp)
+    }
 }

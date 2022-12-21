@@ -2,6 +2,10 @@ import RateLimiterFlexible from 'rate-limiter-flexible'
 import AES from 'crypto-js/aes'
 import enc from 'crypto-js/enc-utf8'
 
+import express from 'express'
+import bodyParser from 'body-parser'
+import http from 'http'
+
 import User from '../objects/user/User'
 
 export default class Server {
@@ -10,26 +14,39 @@ export default class Server {
         this.db = db
         this.handler = handler
 
-        let io = this.createIo(
-            {
-                https: process.env.socketHTTPS == true ? true : false,
-                ssl:
-                    process.env.socketHTTPS == 'true'
-                        ? {
-                              cert: '/path/to/cert.crt',
-                              ca: '/path/to/ca.ca-bundle',
-                              key: '/path/to/key.key',
-                          }
-                        : {},
-            },
-            {
-                cors: {
-                    origin: process.env.corsOrigin || '*',
-                    methods: ['GET', 'POST'],
-                },
-                path: '/',
+        this.app = express()
+        http.createServer(this.app)
+        const bodyParser = require('body-parser')
+
+        this.httpServer = this.app.listen(parseInt(process.env.startingPort) + iteration, () => {
+            this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
+        })
+
+        this.app.use(bodyParser.urlencoded({extended: true}))
+
+        this.app.post('/endgame', (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
+            if (req.body.user && this.handler.usersById[req.body.user]) {
+                this.handler.usersById[req.body.user].endAS3Game(req.body.auth, req.body.game, req.body.score, req.body.endroom)
             }
-        )
+            res.send('OK')
+        })
+
+        this.app.post('/stampearned', (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
+            if (req.body.user && this.handler.usersById[req.body.user]) {
+                this.handler.usersById[req.body.user].stampEarnedAS3(req.body.auth, req.body.stamp)
+            }
+            res.send('OK')
+        })
+
+        let io = this.createIo({
+            cors: {
+                origin: process.env.corsOrigin || '*',
+                methods: ['GET', 'POST'],
+            },
+            path: '/socket/',
+        })
 
         this.rateLimiter = new RateLimiterFlexible.RateLimiterMemory({
             // 20 events allowed per second
@@ -37,32 +54,11 @@ export default class Server {
             duration: 1,
         })
 
-        this.server = io.listen(parseInt(process.env.startingPort) + iteration)
-        this.server.on('connection', this.connectionMade.bind(this))
-
-        this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
+        io.on('connection', this.connectionMade.bind(this))
     }
 
-    createIo(cnfg, options) {
-        let server = cnfg.https ? this.httpsServer(cnfg.ssl) : this.httpServer()
-
-        return require('socket.io')(server, options)
-    }
-
-    httpServer() {
-        return require('http').createServer()
-    }
-
-    httpsServer(ssl) {
-        let fs = require('fs')
-        let loaded = {}
-
-        // Loads ssl files
-        for (let key in ssl) {
-            loaded[key] = fs.readFileSync(ssl[key]).toString()
-        }
-
-        return require('https').createServer(loaded)
+    createIo(options) {
+        return require('socket.io')(this.httpServer, options)
     }
 
     connectionMade(socket) {
