@@ -203,6 +203,10 @@ export default class Igloo extends Handler {
 
         let likes = await this.db.getIglooLikes(args[0], args[1])
 
+        if (!likes || likes.length == 0) {
+            user.sendXt('gl', `${args[0]}%${args[1]}`)
+        }
+
         let likeList = []
         likes.forEach(async (like) => {
             let u = await this.db.getUserById(like)
