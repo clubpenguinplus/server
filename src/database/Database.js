@@ -692,14 +692,18 @@ export default class Database {
         return false
     }
 
-    async getIglooLikes(user) {
-        let likes = await this.findAll('iglooLikes', {
-            where: {
-                userId: user,
-            },
-            attributes: ['userId', 'likedById'],
+    async getIglooLikes(user, igloo) {
+        return (
+            await this.findAll('iglooLikes', {
+                where: {
+                    userId: user,
+                    iglooId: igloo,
+                },
+                attributes: ['likerId'],
+            })
+        ).map((like) => {
+            return like.dataValues.likerId
         })
-        return likes
     }
 
     /*========== Helper functions ==========*/

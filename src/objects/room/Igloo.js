@@ -82,19 +82,23 @@ export default class Igloo extends Room {
         this.refresh()
     }
 
-    async getLikes() {
-        let likes = this.db.getIglooLikes(this.userId)
-        this.likeslist.push({
-            likedBy: likes.likedById,
+    async updateLikes() {
+        let u = await this.db.getUserById(this.userId)
+        if (!u) return
+
+        let ci = u.dataValues.current_igloo
+
+        let likes = await this.db.getIglooLikes(this.userId, ci)
+
+        let likeList = []
+        likes.forEach(async (like) => {
+            let u = await this.db.getUserById(like)
+            if (u) {
+                likeList.push(`${u.dataValues.id}|${u.dataValues.username_approved ? u.dataValues.username : `P${u.dataValues.id}`}|${u.dataValues.head}|${u.dataValues.face}|${u.dataValues.neck}|${u.dataValues.body}|${u.dataValues.hand}|${u.dataValues.feet}|${u.dataValues.color}`)
+            }
+            if (likeList.length == likes.length) {
+                this.sendXt(null, 'gl', `${this.userId}%${ci}%${likeList.join(',')}`, [])
+            }
         })
-    }
-
-    addLike(id) {
-        if (this.likeslist.includes(id)) return
-        this.db.getIglooLikes.update({likedById: id}, {where: {userId: this.userId}})
-    }
-
-    removeLIke(id) {
-        this.db.getIglooLikes.destroy({where: {userId: this.userId, likedById: id}})
     }
 }

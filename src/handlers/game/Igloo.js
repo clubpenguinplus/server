@@ -18,6 +18,7 @@ export default class Igloo extends Handler {
             'g#io': this.getIglooOpen,
             'g#li': this.likeIgloo,
             'g#ci': this.changeIgloo,
+            'g#il': this.getIglooLikes,
         }
     }
 
@@ -192,35 +193,45 @@ export default class Igloo extends Handler {
         }
     }
 
+    async getIglooLikes(args, user) {
+        let u = await this.db.getUserById(args[0])
+        if (!u) return
+
+        if (!args[1]) {
+            args[1] = u.dataValues.current_igloo
+        }
+
+        let likes = await this.db.getIglooLikes(args[0], args[1])
+
+        let likeList = []
+        likes.forEach(async (like) => {
+            let u = await this.db.getUserById(like)
+            if (u) {
+                likeList.push(`${u.dataValues.id}|${u.dataValues.username_approved ? u.dataValues.username : `P${u.dataValues.id}`}|${u.dataValues.head}|${u.dataValues.face}|${u.dataValues.neck}|${u.dataValues.body}|${u.dataValues.hand}|${u.dataValues.feet}|${u.dataValues.color}`)
+            }
+            if (likeList.length == likes.length) {
+                user.sendXt('gl', `${args[0]}%${args[1]}%${likeList.join(',')}`)
+            }
+        })
+    }
+
+    async likeIgloo(args, user) {
+        let i = args[0]
+        let u = await this.db.getUserById(i)
+        if (!u) return
+        let likes = await this.db.getIglooLikes(i, u.dataValues.current_igloo)
+        if (likes.includes(user.data.id)) return
+        await this.db.iglooLikes.create({userId: i, iglooId: u.dataValues.current_igloo, likerId: user.data.id})
+        this.getIgloo(i).updateLikes()
+    }
+
     // Functions
 
     getIgloo(id) {
-        let internalId = id + process.env.iglooIdOffset
+        let internalId = parseInt(id) + process.env.iglooIdOffset
 
         if (internalId in this.rooms) {
             return this.rooms[internalId]
         }
-    }
-
-    async likeIgloo(args, user) {
-        let igloo = this.getIgloo(args[0]) // get the igloo of the user whose igloo is being liked
-
-        // check if the user liking the igloo has already liked the igloo
-        let isLiked = this.igloos.likesList.includes(user.data.id)
-        if (isLiked) {
-            return
-        }
-
-        // add the like to the database
-        let like = await this.db.getIglooLikes.create({userId: args[0], likedById: user.data.id})
-
-        // add the like to the igloo's likesList - need to figure out importing igloo object into handler
-        this.rooms.igloo.addLike(user.data.id)
-
-        // send a response to the user liking the igloo
-        user.sendXt('li', `${args[0]}%${user.data.id}`)
-
-        // send a notification to the user whose igloo was liked
-        igloo.user.sendXt('nli', `${args[0]}%${user.data.username}`)
     }
 }

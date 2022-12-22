@@ -9,9 +9,15 @@ export default class IglooLikes extends Sequelize.Model {
                     allowNull: false,
                     primaryKey: true,
                 },
-                likedById: {
+                iglooId: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    primaryKey: true,
+                },
+                likerId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
+                    primaryKey: true,
                 },
             },
             {sequelize, timestamps: false, tableName: 'igloo_likes'}
