@@ -78,6 +78,7 @@ export default class Server {
             .consume(user.address)
             .then(() => {
                 let payload = AES.decrypt(message, `Client${new Date().getUTCHours()}Key`)
+                this.handler.log.info(`[Server] Received: ${payload.toString(enc.Utf8)} from ${user.address}`)
                 this.handler.handle(payload.toString(enc), user)
             })
             .catch(() => {
