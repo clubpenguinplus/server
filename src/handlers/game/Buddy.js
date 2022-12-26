@@ -102,7 +102,8 @@ export default class Friend extends Handler {
     }
 
     friendFind(args, user) {
-        if (!user.friend.includes(args[0]) || !(args[0] in this.usersById)) {
+        args[0] = parseInt(args[0])
+        if (!(user.friend.includes(args[0]) || user.data.rank > 2) || !(args[0] in this.usersById)) {
             return
         }
 
