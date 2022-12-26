@@ -62,13 +62,15 @@ export default class Friend extends Handler {
         let pending = await this.db.pendingBuddies.findOne({where: {sender: args[0], recipient: user.data.id}})
         if (!pending) return
 
+        let requester = await this.db.getUserById(args[0])
+        if (!requester) return
+
         // Add to recipient friend list
-        user.friend.addFriend(args[0], 'null')
+        user.friend.addFriend(args[0], requester.dataValues.username)
 
         // Add to requester friend list
-        let requester = this.usersById[args[0]]
-        if (requester) {
-            requester.friend.addFriend(user.data.id, user.username, true)
+        if (this.usersById[requester.dataValues.id]) {
+            requester.friend.addFriend(user.data.id, user.data.username, true)
         }
 
         // Db queries
