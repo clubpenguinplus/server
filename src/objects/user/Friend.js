@@ -75,7 +75,10 @@ export default class Friend {
     /*========== Online status ==========*/
 
     isOnline(id) {
-        return id in this.usersById
+        if (this.usersById[id]) {
+            return true
+        }
+        return false
     }
 
     sendOnline(id) {
