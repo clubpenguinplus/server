@@ -19,6 +19,7 @@ export default class Friend extends Handler {
     }
 
     async friendRequest(args, user) {
+        args[0] = parseInt(args[0])
         let recipient = this.usersById[args[0]]
 
         // Send request to recipient if they are online
@@ -56,6 +57,7 @@ export default class Friend extends Handler {
     }
 
     async friendAccept(args, user) {
+        args[0] = parseInt(args[0])
         if (user.friend.includes(args[0])) return
         if (user.ignore.includes(args[0])) return
 
@@ -70,7 +72,7 @@ export default class Friend extends Handler {
 
         // Add to requester friend list
         if (this.usersById[requester.dataValues.id]) {
-            requester.friend.addFriend(user.data.id, user.data.username, true)
+            this.usersById[requester.dataValues.id].friend.addFriend(user.data.id, user.data.username, true)
         }
 
         // Db queries
@@ -163,8 +165,9 @@ export default class Friend extends Handler {
     }
 
     async friendGetOnline(args, user) {
+        args[0] = parseInt(args[0])
         if (this.handler.usersById[args[0]]) {
-            user.sendXt('fo', this.handler.usersById.args[0].string)
+            user.sendXt('fo', this.handler.usersById[args[0]].string)
         }
     }
 
