@@ -128,11 +128,12 @@ export default class LoginHandler {
     // Events
 
     async checkVersion(userVers, user) {
-        if (process.env.disableVerCheck) return user.sendXml('OK')
+        userVers = userVers.split('-')
+        if (userVers[1] == 'beta') return user.sendXml('OK')
         let verfile = await fetch(`https://clubpenguinplus.nyc3.digitaloceanspaces.com/client/current.version?v=${Date.now().toString()}`)
         let version = await verfile.text()
 
-        if (userVers !== version) {
+        if (userVers[0] !== version) {
             return user.sendXml('KO')
         }
         user.sendXml('OK')
