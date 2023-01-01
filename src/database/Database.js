@@ -283,6 +283,36 @@ export default class Database {
         })
     }
 
+    async getActiveCodes() {
+        return await this.findAll('codes', {
+            where: {
+                active: 1,
+            },
+            attributes: ['id', 'code', 'coins'],
+            raw: true
+        })
+    }
+
+    async getCodeItems(code) {
+        return await this.findAll('code_items', {
+            where: {
+                id: code,
+            },
+            attributes: ['itemId'],
+            raw: true
+        })
+    }
+
+    async getUsedCodes(user) {
+        return await this.findAll('used_codes', {
+            where: {
+                userId: user,
+            },
+            attributes: [codeId],
+            raw: true
+        })
+    }
+
     async getIgloo(userId, iglooId) {
         if (iglooId == null) {
             let user = await this.getUserById(userId)

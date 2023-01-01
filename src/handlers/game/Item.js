@@ -6,6 +6,7 @@ export default class Item extends Handler {
         this.events = {
             's#up': this.updatePlayer,
             'i#ai': this.addItem,
+            'i#aci': this.addCodeItem,
             's#upr': this.removeItem,
         }
 
@@ -36,6 +37,21 @@ export default class Item extends Handler {
         user.updateCoins(-item.cost)
         user.sendXt('ai', `${args[0]}%${item.name}%${slot}%${user.data.coins}`)
         this.handler.api.apiFunction('/logTransaction', {amount: -item.cost, user: user.data.id, reason: `purchase of item ${args[0]} : ${item.name}`, total: user.data.coins})
+    }
+
+    async addCodeItem(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.item(args[0])
+        if (!item) {
+            return
+        }
+
+        let slot = this.items.slots[item.type - 1]
+        user.inventory.add(args[0])
+
+        user.sendXt('aci', `${args[0]}%${item.name}%${slot}%`)
+        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args[0]} : ${item.name}`, total: 0})
     }
 
     removeItem(args, user) {
