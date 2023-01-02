@@ -289,7 +289,7 @@ export default class Database {
                 active: 1,
             },
             attributes: ['id', 'code', 'coins'],
-            raw: true
+            raw: true,
         })
     }
 
@@ -299,7 +299,7 @@ export default class Database {
                 id: code,
             },
             attributes: ['itemId'],
-            raw: true
+            raw: true,
         })
     }
 
@@ -309,7 +309,7 @@ export default class Database {
                 userId: user,
             },
             attributes: [codeId],
-            raw: true
+            raw: true,
         })
     }
 

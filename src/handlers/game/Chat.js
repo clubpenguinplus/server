@@ -12,6 +12,7 @@ export default class Chat extends Handler {
         this.commands = {
             users: this.userPopulation,
             broadcast: this.broadcast,
+            ai: this.addItem,
         }
 
         this.bindCommands()
@@ -108,17 +109,7 @@ export default class Chat extends Handler {
         let command = args.shift()
 
         if (command in this.commands) {
-            user.room.send(
-                user,
-                'filtered_message',
-                {
-                    id: user.data.id,
-                    message: message,
-                    filter: 'manual',
-                },
-                [user],
-                true
-            )
+            user.room.sendXt(user, 'fm', `${user.data.id}%${message}`, [], true)
             return this.commands[command](args, user)
         }
         this.processMessage(message, user)
@@ -132,5 +123,19 @@ export default class Chat extends Handler {
     broadcast(args, user) {
         if (user.data.rank < 5) return
         this.handler.broadcast(args.join(' '))
+    }
+
+    async addItem(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.item(args[0])
+        if (!item) {
+            return
+        }
+
+        let slot = this.crumbs.items.slots[item.type - 1]
+        user.inventory.add(args[0])
+
+        user.sendXt('ai', `${args[0]}%${item.name}%${slot}%${user.data.coins}`)
     }
 }
