@@ -178,10 +178,11 @@ export default class Igloo extends Handler {
             music: 0,
             location: 1,
             furniture: [],
+            likes: 0,
         }
         let furniture = igloo.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(',')
 
-        user.sendXt('gid', `${igloo.iglooId}%%${igloo.type}%${igloo.flooring}%${igloo.music}%${igloo.location}%${furniture}`)
+        user.sendXt('gid', `${igloo.iglooId}%%${igloo.type}%${igloo.flooring}%${igloo.music}%${igloo.location}%${furniture}%${igloo.likes}`)
     }
 
     async changeIgloo(args, user) {

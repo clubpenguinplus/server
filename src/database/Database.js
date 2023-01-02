@@ -332,6 +332,7 @@ export default class Database {
             async (result) => {
                 // Add furniture to igloo object
                 result.furniture = await this.getUserFurnitures(userId, iglooId)
+                result.likes = (await this.getIglooLikes(userId, iglooId)).length
                 return result
             }
         )
