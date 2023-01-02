@@ -114,6 +114,8 @@ export default class Igloo extends Handler {
             igloo.furniture.push(item)
             item = await this.db.userFurnitures.create({furnitureId: item.furnitureId, iglooId: user.data.current_igloo, x: item.x, y: item.y, rotation: item.rotation, frame: item.frame, userId: user.data.id})
         }
+
+        igloo.sendRefreshFurniture(user)
     }
 
     updateFlooring(args, user) {

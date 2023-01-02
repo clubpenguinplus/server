@@ -27,6 +27,10 @@ export default class Igloo extends Room {
         this.sendXt(user, 'ap', user.string)
     }
 
+    sendRefreshFurniture(user) {
+        this.sendXt(user, 'uif', this.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(','))
+    }
+
     refresh(user) {
         for (let u of this.userValues) {
             u.x = 0
