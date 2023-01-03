@@ -9,13 +9,20 @@ export default class Codes extends Handler {
         this.events = {
             'i#aci': this.addCodeItem,
             'c#gca': this.getCodeAttrs,
+            'c#gci': this.getCodeItems,
             'c#rc': this.reedemCode,
         }
     }
 
     async getCodeAttrs(args) {
         let code = await this.db.getActiveCode(args)
+        console.log(code)
         user.sendXt('gca', code)
+    }
+
+    async getCodeItems(args) {
+        let items = await this.db.getCodeItems(args)
+        user.sendXt('gci', items)
     }
 
     async checkCode(args) {
