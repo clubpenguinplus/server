@@ -14,18 +14,18 @@ export default class Codes extends Handler {
         }
     }
 
-    async getCodeAttrs(args) {
+    async getCodeAttrs(args, user) {
         let code = await this.db.getActiveCode(args)
         console.log(code)
         user.sendXt('gca', code)
     }
 
-    async getCodeItems(args) {
+    async getCodeItems(args, user) {
         let items = await this.db.getCodeItems(args)
         user.sendXt('gci', items)
     }
 
-    async checkCode(args) {
+    async checkCode(args, user) {
         let activeCodes = await this.db.getActiveCode(args)
         if (activeCodes.code === args) {
             return true
