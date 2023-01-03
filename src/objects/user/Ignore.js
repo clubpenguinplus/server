@@ -7,9 +7,9 @@ export default class Ignore {
         this.list = []
     }
 
-    get flat() {
-        return this.list.map((friend) => friend.id)
-    }
+    get users() {
+        return this.list.map((user) => `${user.id}|${user.username}`)
+      }
 
     async init(ignores) {
         for (let ignore of ignores) {
