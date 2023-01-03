@@ -43,13 +43,13 @@ export default class Codes extends Handler {
     }
 
     async reedemCode(args, user) {
-        if (!await this.checkCode(args)) {
+        if (!(await this.checkCode(args))) {
             user.sendXt('e', `This is not a valid code.`)
         }
         if (await this.checkCodeUsage(args, user)) {
             user.sendXt('e', `You have already redeemed this code.`)
         }
-        if (await this.checkCode(args) && !await this.checkCodeUsage(args, user)) {
+        if ((await this.checkCode(args)) && !(await this.checkCodeUsage(args, user))) {
             // add code coins
             let coins = await this.db.getActiveCode(args).coins
             await user.updateCoins(coins)
@@ -59,7 +59,8 @@ export default class Codes extends Handler {
                 this.addCodeItem(items[i], user)
             }
             user.sendXt('rc', `${args}%`)
-        } return
+        }
+        return
     }
 
     async addCodeItem(args, user) {
