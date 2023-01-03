@@ -23,7 +23,7 @@ export default class Codes extends Handler {
 
     async getCodeItems(args, user) {
         let codeId = await this.db.getActiveCode(args)
-        let items = await this.db.getCodeItems(codeId.id)
+        let items = await this.db.getCodeItems(codeId?.id)
         let itemsList = []
         for (let i = 0; i < items.length; i++) {
             let item = items[i]
@@ -37,16 +37,19 @@ export default class Codes extends Handler {
 
     async checkCode(args, user) {
         let activeCodes = await this.db.getActiveCode(args)
-        if (activeCodes.code === args) {
+        console.log("Active Codes", activeCodes)
+        console.log("Boolean Check", activeCodes?.code, args)
+        if (activeCodes?.code === args) {
             return true
         }
         return false
     }
 
     async checkCodeUsage(args, user) {
-        let codeId = await this.db.getActiveCode(args).id
-        let usedCodes = await this.db.getUsedCodes(codeId, user)
-        if (usedCodes.codeId === codeId) {
+        let codeId = await this.db.getActiveCode(args)
+        let usedCodes = await this.db.getUsedCodes(codeId?.id, user)
+        console.log("Used Codes", usedCodes)
+        if (usedCodes?.codeId === codeId) {
             return true
         }
         return false
@@ -61,7 +64,8 @@ export default class Codes extends Handler {
         }
         if ((await this.checkCode(args)) && !(await this.checkCodeUsage(args, user))) {
             // add code coins
-            let coins = await this.db.getActiveCode(args).coins
+            let codeAttrs = await this.db.getActiveCode(args)
+            let coins = codeAttrs.coins
             await user.updateCoins(coins)
             // add code items
             let items = await this.db.getCodeItems(args)
