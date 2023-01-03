@@ -283,9 +283,10 @@ export default class Database {
         })
     }
 
-    async getActiveCodes() {
-        return await this.findAll('codes', {
+    async getActiveCode(code) {
+        return await this.findOne('codes', {
             where: {
+                code: code,
                 active: 1,
             },
             attributes: ['id', 'code', 'coins'],
@@ -296,16 +297,17 @@ export default class Database {
     async getCodeItems(code) {
         return await this.findAll('code_items', {
             where: {
-                id: code,
+                codeId: code,
             },
             attributes: ['itemId'],
             raw: true,
         })
     }
 
-    async getUsedCodes(user) {
-        return await this.findAll('used_codes', {
+    async getUsedCodes(code, user) {
+        return await this.findOne('used_codes', {
             where: {
+                codeId: code,
                 userId: user,
             },
             attributes: [codeId],
