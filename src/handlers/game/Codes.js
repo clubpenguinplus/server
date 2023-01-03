@@ -38,8 +38,8 @@ export default class Codes extends Handler {
     async checkCode(args, user) {
         let activeCodes = await this.db.getActiveCode(args)
         console.log("Active Codes", activeCodes)
-        console.log("Boolean Check", activeCodes?.code, args)
-        if (activeCodes?.code === args) {
+        console.log("Boolean Check", activeCodes?.code, args[0])
+        if (activeCodes?.code === args[0]) {
             return true
         }
         return false
@@ -49,7 +49,7 @@ export default class Codes extends Handler {
         let codeId = await this.db.getActiveCode(args)
         let usedCodes = await this.db.getUsedCodes(codeId?.id, user)
         console.log("Used Codes", usedCodes)
-        if (usedCodes?.codeId === codeId) {
+        if (usedCodes?.codeId === codeId.id) {
             return true
         }
         return false
