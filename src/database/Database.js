@@ -295,7 +295,7 @@ export default class Database {
     }
 
     async getCodeItems(code) {
-        return await this.findAll('code_items', {
+        return await this.findAll('codeItems', {
             where: {
                 codeId: code,
             },
@@ -305,12 +305,12 @@ export default class Database {
     }
 
     async getUsedCodes(code, user) {
-        return await this.findOne('used_codes', {
+        return await this.findOne('usedCodes', {
             where: {
                 codeId: code,
                 userId: user,
             },
-            attributes: [codeId],
+            attributes: ['codeId'],
             raw: true,
         })
     }

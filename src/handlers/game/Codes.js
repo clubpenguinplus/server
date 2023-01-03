@@ -17,12 +17,22 @@ export default class Codes extends Handler {
     async getCodeAttrs(args, user) {
         let code = await this.db.getActiveCode(args)
         console.log(code)
-        user.sendXt('gca', code)
+        console.log("Server ID", code.id)
+        user.sendXt('gca', `${code.id}%${code.code}%${code.coins}`)
     }
 
     async getCodeItems(args, user) {
-        let items = await this.db.getCodeItems(args)
-        user.sendXt('gci', items)
+        let codeId = await this.db.getActiveCode(args)
+        let items = await this.db.getCodeItems(codeId.id)
+        let itemsList = []
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i]
+            itemsList.push(`${item.itemId}`)
+        }
+
+        if (items) {
+            user.sendXt('gci', itemsList.join())
+        }
     }
 
     async checkCode(args, user) {
