@@ -56,6 +56,7 @@ export default class Codes extends Handler {
     }
 
     async reedemCode(args, user) {
+        console.log("Redeem args", args)
         if (!(await this.checkCode(args))) {
             user.sendXt('e', `This is not a valid code.`)
         }
@@ -72,7 +73,7 @@ export default class Codes extends Handler {
             for (let i = 0; i < items.length; i++) {
                 this.addCodeItem(items[i], user)
             }
-            user.sendXt('rc', `${args}%`)
+            this.db.usedCodes.create({codeId: codeAttrs.id, userId: user.data.id})
         }
         return
     }
