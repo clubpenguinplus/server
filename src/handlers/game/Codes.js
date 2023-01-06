@@ -30,8 +30,11 @@ export default class Codes extends Handler {
             itemsList.push(`${item.itemId}`)
         }
 
+        console.log("Items List", itemsList)
+
         if (items) {
             user.sendXt('gci', itemsList.join())
+            return itemsList
         }
     }
 
@@ -69,9 +72,10 @@ export default class Codes extends Handler {
             let coins = codeAttrs.coins
             await user.updateCoins(coins)
             // add code items
-            let items = await this.db.getCodeItems(args)
+            let items = await this.getCodeItems(args, user)
+            console.log("Redeem Items", items)
             for (let i = 0; i < items.length; i++) {
-                this.addCodeItem(items[i], user)
+                await this.addCodeItem(items[i], user)
             }
             this.db.usedCodes.create({codeId: codeAttrs.id, userId: user.data.id})
         }
@@ -79,7 +83,7 @@ export default class Codes extends Handler {
     }
 
     async addCodeItem(args, user) {
-        args[0] = parseInt(args[0])
+        args = parseInt(args[0])
 
         let item = await user.validatePurchase.item(args[0])
         if (!item) {
