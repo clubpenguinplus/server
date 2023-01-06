@@ -54,10 +54,10 @@ export default class Codes extends Handler {
 
     async reedemCode(args, user) {
         if (!(await this.checkCode(args))) {
-            user.sendXt('e', `This is not a valid code.`)
+            user.sendXt('e', 50)
         }
         if (await this.checkCodeUsage(args, user)) {
-            user.sendXt('e', `You have already redeemed this code.`)
+            user.sendXt('e', 51)
         }
         if ((await this.checkCode(args)) && !(await this.checkCodeUsage(args, user))) {
             // add code coins
