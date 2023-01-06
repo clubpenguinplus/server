@@ -17,8 +17,6 @@ export default class Codes extends Handler {
 
     async getCodeAttrs(args, user) {
         let code = await this.db.getActiveCode(args)
-        console.log(code)
-        console.log("Server ID", code.id)
         user.sendXt('gca', `${code.id}%${code.code}%${code.coins}`)
     }
 
@@ -31,8 +29,6 @@ export default class Codes extends Handler {
             itemsList.push(`${item.itemId}`)
         }
 
-        console.log("Items List", itemsList)
-
         if (items) {
             user.sendXt('gci', itemsList.join())
             return itemsList
@@ -41,8 +37,6 @@ export default class Codes extends Handler {
 
     async checkCode(args, user) {
         let activeCodes = await this.db.getActiveCode(args)
-        console.log("Active Codes", activeCodes)
-        console.log("Boolean Check", activeCodes?.code, args[0])
         if (activeCodes?.code === args[0]) {
             return true
         }
@@ -51,8 +45,7 @@ export default class Codes extends Handler {
 
     async checkCodeUsage(args, user) {
         let codeId = await this.db.getActiveCode(args)
-        let usedCodes = await this.db.getUsedCodes(codeId?.id, user)
-        console.log("Used Codes", usedCodes)
+        let usedCodes = await this.db.getUsedCodes(codeId?.id, user.data.id)
         if (usedCodes?.codeId === codeId.id) {
             return true
         }
@@ -60,7 +53,6 @@ export default class Codes extends Handler {
     }
 
     async reedemCode(args, user) {
-        console.log("Redeem args", args)
         if (!(await this.checkCode(args))) {
             user.sendXt('e', `This is not a valid code.`)
         }
@@ -74,11 +66,10 @@ export default class Codes extends Handler {
             await user.updateCoins(coins)
             // add code items
             let items = await this.getCodeItems(args, user)
-            console.log("Redeem Items", items)
             for (let i = 0; i < items.length; i++) {
                 await this.addCodeItem(items[i], user)
             }
-            this.db.usedCodes.create({codeId: codeAttrs.id, userId: user.data.id})
+            await this.db.usedCodes.create({codeId: codeAttrs.id, userId: user.data.id})
         }
         return
     }
@@ -87,13 +78,11 @@ export default class Codes extends Handler {
         args = parseInt(args)
 
         let item = await user.validatePurchase.item(args)
-        console.log("ACI Item", item)
         if (!item) {
             return
         }
 
         let slot = this.items.slots[item.type - 1]
-        console.log(Object.keys(user))
         try {
             this.db.inventories.create({userId: user.data.id, itemId: args})
         } catch (error) {
