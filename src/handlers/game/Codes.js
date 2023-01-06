@@ -12,6 +12,7 @@ export default class Codes extends Handler {
             'c#gci': this.getCodeItems,
             'c#rc': this.reedemCode,
         }
+        this.items = this.crumbs.items
     }
 
     async getCodeAttrs(args, user) {
@@ -83,17 +84,18 @@ export default class Codes extends Handler {
     }
 
     async addCodeItem(args, user) {
-        args = parseInt(args[0])
+        args = parseInt(args)
 
-        let item = await user.validatePurchase.item(args[0])
+        let item = await user.validatePurchase.item(args)
+        console.log("ACI Item", item)
         if (!item) {
             return
         }
 
         let slot = this.items.slots[item.type - 1]
-        user.inventory.add(args[0])
+        user.inventory.add(args)
 
-        user.sendXt('aci', `${args[0]}%${item.name}%${slot}%`)
-        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args[0]} : ${item.name}`, total: 0})
+        user.sendXt('aci', `${args}%${item.name}%${slot}%`)
+        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args} : ${item.name}`, total: 0})
     }
 }
