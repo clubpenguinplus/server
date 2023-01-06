@@ -93,9 +93,14 @@ export default class Codes extends Handler {
         }
 
         let slot = this.items.slots[item.type - 1]
-        user.inventory.add(args)
+        console.log(Object.keys(user))
+        try {
+            this.db.inventories.create({userId: user.data.id, itemId: args})
+        } catch (error) {
+            this.handler.log.error(error)
+        }
 
-        user.sendXt('aci', `${args}%${item.name}%${slot}%`)
+        // user.sendXt('aci', `${args}%${item.name}%${slot}%`)
         this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args} : ${item.name}`, total: 0})
     }
 }
