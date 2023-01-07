@@ -37,19 +37,19 @@ export default class Codes extends Handler {
 
     async checkCode(args, user) {
         try {
-          let activeCodes = await this.db.getActiveCode(args)
-          if (activeCodes?.code === args[0]) {
-            return true
-          }
+            let activeCodes = await this.db.getActiveCode(args)
+            if (activeCodes?.code === args[0]) {
+                return true
+            }
         } catch (error) {
-          if (error.message.startsWith('WHERE parameter')) {
-            return false
-          } else {
-            this.handler.log.error(error)
-          }
+            if (error.message.startsWith('WHERE parameter')) {
+                return false
+            } else {
+                this.handler.log.error(error)
+            }
         }
         return false
-      }
+    }
 
     async checkCodeUsage(args, user) {
         let codeId = await this.db.getActiveCode(args)
@@ -61,7 +61,7 @@ export default class Codes extends Handler {
     }
 
     async reedemCode(args, user) {
-        console.log("Reedem Args", args)
+        console.log('Reedem Args', args)
         if (!(await this.checkCode(args))) {
             user.sendXt('e', 50)
         }

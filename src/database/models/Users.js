@@ -207,6 +207,11 @@ export default class Users extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 0,
                 },
+                epfStatus: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    defaultValue: 0,
+                },
             },
             {sequelize, timestamps: false, tableName: 'users'}
         )

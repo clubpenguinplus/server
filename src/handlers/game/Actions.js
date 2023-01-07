@@ -9,6 +9,7 @@ export default class Actions extends Handler {
             'u#sb': this.snowball,
             'st#sse': this.stampEarned,
             'st#sv': this.saveStampbook,
+            'epf#j': this.epfJoin,
         }
     }
 
@@ -56,5 +57,12 @@ export default class Actions extends Handler {
             stampbookClasp: user.data.stampbookClasp,
             stampbookPattern: user.data.stampbookPattern,
         })
+    }
+
+    epfJoin(args, user) {
+        if (user.data.epfStatus == 0) {
+            user.data.epfStatus = 1
+            user.update({epfStatus: 1})
+        }
     }
 }
