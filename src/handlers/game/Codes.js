@@ -36,17 +36,14 @@ export default class Codes extends Handler {
     }
 
     async checkCode(args, user) {
-        try {
-            let activeCodes = await this.db.getActiveCode(args)
+        let activeCodes = await this.db.getActiveCode(args[0])
+        console.log(activeCodes)
+        if (activeCodes) {
             if (activeCodes?.code === args[0]) {
                 return true
             }
-        } catch (error) {
-            if (error.message.startsWith('WHERE parameter')) {
-                return false
-            } else {
-                this.handler.log.error(error)
-            }
+        } else {
+            return false
         }
         return false
     }

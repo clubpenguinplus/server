@@ -284,7 +284,7 @@ export default class Database {
     }
 
     async getActiveCode(code) {
-        return await this.findOne('codes', {
+        let c = await this.findOne('codes', {
             where: {
                 code: code,
                 active: 1,
@@ -292,6 +292,11 @@ export default class Database {
             attributes: ['id', 'code', 'coins'],
             raw: true,
         })
+        if (c) {
+            return c
+        } else {
+            return false
+        }
     }
 
     async getCodeItems(code) {
