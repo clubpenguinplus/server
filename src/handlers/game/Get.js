@@ -18,7 +18,7 @@ export default class Get extends Handler {
     }
 
     getString(user) {
-        return `${user.dataValues.id}|${user.dataValues.username}|${user.dataValues.color}|${user.dataValues.head}|${user.dataValues.face}|${user.dataValues.neck}|${user.dataValues.body}|${user.dataValues.hand}|${user.dataValues.feet}|${user.dataValues.flag}|${user.dataValues.photo}|${user.dataValues.coins}||||${user.dataValues.rank}|${user.dataValues.stealthMode ? 1 : 0}|${user.dataValues.username_approved ? 1 : 0}|${user.dataValues.walking}|${user.dataValues.epfStatus}`
+        return `${user.dataValues.id}|${user.dataValues.username}|${user.dataValues.color}|${user.dataValues.head}|${user.dataValues.face}|${user.dataValues.neck}|${user.dataValues.body}|${user.dataValues.hand}|${user.dataValues.feet}|${user.dataValues.flag}|${user.dataValues.photo}|${user.dataValues.coins}||||${user.dataValues.rank}|${user.dataValues.stealthMode ? 1 : 0}|${user.dataValues.username_approved ? 1 : 0}|${user.dataValues.username_rejected ? 1 : 0}|${user.dataValues.walking}|${user.dataValues.epfStatus}|${new Date(user.dataValues.joinTime).getTime()}`
     }
 
     async getPlayer(args, user) {

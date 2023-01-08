@@ -101,7 +101,7 @@ export default class GameAuth extends Handler {
             return user.sendXt('cwe', {error: 39})
         }
 
-        user.sendXt('ma')
+        user.sendXt('ma', `${user.data.id}%${user.data.rank}`)
         if (success.token) {
             user.sendXt('at', success.token)
         }

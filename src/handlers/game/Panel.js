@@ -108,16 +108,12 @@ export default class Panel extends Handler {
 
         if (!request) return
 
-        request.ip = null
-        request.loginKey = null
-        request.password = null
-
         let bans = await this.db.getBanCount(args[0])
-        let activeban = await this.db.getActiveBan(args[0])
+        let activeban = request.permaBan ? -1 : await this.db.getActiveBan(args[0])
 
-        if (request) {
-            user.sendXt('edp', `${JSON.stringify(request)}|${bans}|${activeban}`)
-        }
+        request = `${request.id}|${request.username}|${request.color}|${request.head}|${request.face}|${request.neck}|${request.body}|${request.hand}|${request.feet}|${request.flag}|${request.photo}|${request.coins}|${this.x}|${this.y}|${this.frame}|${request.rank}|${request.stealthMode ? 1 : 0}|${request.username_approved ? 1 : 0}|${request.username_rejected ? 1 : 0}|${request.walking}|${request.epfStatus}|${new Date(request.joinTime).getTime()}`
+
+        user.sendXt('edp', `${request}%${bans}%${activeban}`)
     }
 
     async addUserCoins(args, user) {

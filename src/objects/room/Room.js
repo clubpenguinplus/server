@@ -62,13 +62,13 @@ export default class Room {
             u.sendXt(action, args)
         }
 
-        if (action == 'send_message') {
+        if (action == 'sm') {
             for (let w of this.wiretapMods) {
-                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owt', `${user.data.id}%${args}%${this.id}%${user.data.username}`)
+                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owt', `${user.data.id}%${args.split('%')[1]}%${this.id}%${user.data.username}`)
             }
-        } else if (action == 'filtered_message') {
+        } else if (action == 'fm') {
             for (let w of this.wiretapMods) {
-                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owf', `${user.data.id}%${args}%${this.id}%${user.data.username}`)
+                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owf', `${user.data.id}%${args.split('%')[1]}%${this.id}%${user.data.username}`)
             }
         }
     }

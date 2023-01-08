@@ -126,7 +126,7 @@ export default class Database {
                 longestBan = bans[x]
             }
         }
-        return longestBan
+        return longestBan ? longestBan.expires : 0
     }
 
     async getBanCount(userId) {
