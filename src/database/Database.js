@@ -284,6 +284,7 @@ export default class Database {
     }
 
     async getActiveCode(code) {
+        if (!code) return false
         let c = await this.findOne('codes', {
             where: {
                 code: code,
@@ -300,6 +301,7 @@ export default class Database {
     }
 
     async getCodeItems(code) {
+        if (!code) return []
         return await this.findAll('codeItems', {
             where: {
                 codeId: code,
@@ -310,6 +312,7 @@ export default class Database {
     }
 
     async getUsedCodes(code, user) {
+        if (!code || !user) return false
         return await this.findOne('usedCodes', {
             where: {
                 codeId: code,

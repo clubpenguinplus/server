@@ -16,12 +16,12 @@ export default class Codes extends Handler {
     }
 
     async getCodeAttrs(args, user) {
-        let code = await this.db.getActiveCode(args)
+        let code = await this.db.getActiveCode(args[0])
         user.sendXt('gca', `${code.id}%${code.code}%${code.coins}`)
     }
 
     async getCodeItems(args, user) {
-        let codeId = await this.db.getActiveCode(args)
+        let codeId = await this.db.getActiveCode(args[0])
         let items = await this.db.getCodeItems(codeId?.id)
         let itemsList = []
         for (let i = 0; i < items.length; i++) {
@@ -49,7 +49,7 @@ export default class Codes extends Handler {
     }
 
     async checkCodeUsage(args, user) {
-        let codeId = await this.db.getActiveCode(args)
+        let codeId = await this.db.getActiveCode(args[0])
         let usedCodes = await this.db.getUsedCodes(codeId?.id, user.data.id)
         if (usedCodes?.codeId === codeId.id) {
             return true
@@ -59,19 +59,19 @@ export default class Codes extends Handler {
 
     async reedemCode(args, user) {
         console.log('Reedem Args', args)
-        if (!(await this.checkCode(args))) {
-            user.sendXt('e', 50)
+        if (!(await this.checkCode(args[0]))) {
+            return user.sendXt('e', 50)
         }
-        if (await this.checkCodeUsage(args, user)) {
-            user.sendXt('e', 51)
+        if (await this.checkCodeUsage(args[0], user)) {
+            return user.sendXt('e', 51)
         }
-        if ((await this.checkCode(args)) && !(await this.checkCodeUsage(args, user))) {
+        if ((await this.checkCode(args[0])) && !(await this.checkCodeUsage(args[0], user))) {
             // add code coins
-            let codeAttrs = await this.db.getActiveCode(args)
+            let codeAttrs = await this.db.getActiveCode(args[0])
             let coins = codeAttrs.coins
             await user.updateCoins(coins)
             // add code items
-            let items = await this.getCodeItems(args, user)
+            let items = await this.getCodeItems(args[0], user)
             for (let i = 0; i < items.length; i++) {
                 await this.addCodeItem(items[i], user)
             }
@@ -81,21 +81,21 @@ export default class Codes extends Handler {
     }
 
     async addCodeItem(args, user) {
-        args = parseInt(args)
+        args[0] = parseInt(args[0])
 
-        let item = await user.validatePurchase.item(args)
+        let item = await user.validatePurchase.item(args[0])
         if (!item) {
             return
         }
 
         let slot = this.items.slots[item.type - 1]
         try {
-            this.db.inventories.create({userId: user.data.id, itemId: args})
+            this.db.inventories.create({userId: user.data.id, itemId: args[0]})
         } catch (error) {
             this.handler.log.error(error)
         }
 
-        // user.sendXt('aci', `${args}%${item.name}%${slot}%`)
-        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args} : ${item.name}`, total: 0})
+        // user.sendXt('aci', `${args[0]}%${item.name}%${slot}%`)
+        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args[0]} : ${item.name}`, total: 0})
     }
 }
