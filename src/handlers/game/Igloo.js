@@ -163,11 +163,12 @@ export default class Igloo extends Handler {
     }
 
     getIgloos(args, user) {
-        user.sendXt('gi', this.openIgloos.flat)
+        let igloos = this.openIgloos.list.map((i) => `${i.id}|${i.username}`)
+        user.sendXt('gi', igloos.join('%'))
     }
 
     getIglooOpen(args, user) {
-        let open = this.openIgloos.includes(args[0])
+        let open = this.openIgloos.includes(parseInt(args[0]))
         user.sendXt('gio', open)
     }
 
