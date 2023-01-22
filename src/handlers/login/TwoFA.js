@@ -1,6 +1,6 @@
 import Handler from '../Handler'
 
-export default class Login extends Handler {
+export default class TwoFA extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {
