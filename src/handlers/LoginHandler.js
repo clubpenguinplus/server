@@ -1,12 +1,9 @@
-import bcrypt from 'bcrypt'
-import crypto from 'crypto'
-import jwt from 'jsonwebtoken'
-import Validator from 'fastest-validator'
-import fetch from 'node-fetch'
 import Api from '../integration/Api'
-const fs = require('fs')
+import Email from '../integration/Email'
+
+import fs from 'fs'
+import path from 'path'
 const jsdom = require('jsdom')
-const sgMail = require('@sendgrid/mail')
 
 /**
  * Dedicated login server handler that validates user credentials.
@@ -19,575 +16,51 @@ export default class LoginHandler {
         this.log = log
 
         this.api = new Api(this)
+        this.email = new Email(this)
 
-        this.check = this.createValidator()
+        this.events = {}
+        this.handlers = {}
+        this.dir = `${__dirname}/login`
 
-        this.responses = {
-            notFound: {
-                success: false,
-                message: 28,
-            },
-            wrongPassword: {
-                success: false,
-                message: 29,
-            },
-            permaBan: {
-                success: false,
-                message: 30,
-            },
-            notActive: {
-                success: false,
-                message: 31,
-            },
-            noBeta: {
-                success: false,
-                message: 43,
-            },
-            twoFA: {
-                success: false,
-                message: 49,
-            },
-        }
+        this.loadHandlers()
 
         this.log.info(`[LoginHandler] Created LoginHandler for server: ${this.id}`)
-
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     }
 
-    createValidator() {
-        let validator = new Validator()
+    loadHandlers() {
+        fs.readdirSync(this.dir).forEach((handler) => {
+            let handlerImport = require(path.join(this.dir, handler)).default
+            let handlerObject = new handlerImport(this)
 
-        let schema = {
-            username: {
-                empty: false,
-                trim: true,
-                type: 'string',
-                min: 3,
-                max: 12,
-                messages: {
-                    stringEmpty: 32,
-                    stringMin: 34,
-                    stringMax: 35,
-                },
-            },
-            password: {
-                empty: false,
-                trim: true,
-                type: 'string',
-                min: 3,
-                max: 128,
-                messages: {
-                    stringEmpty: 33,
-                    stringMin: 36,
-                    stringMax: 37,
-                },
-            },
+            this.handlers[handler.replace('.js', '').toLowerCase()] = handlerObject
+
+            this.loadEvents(handlerObject)
+        })
+    }
+
+    loadEvents(handler) {
+        for (let event in handler.events) {
+            this.events[event] = handler.events[event].bind(handler)
         }
-
-        return validator.compile(schema)
     }
 
     handle(message, user) {
         let xml = new jsdom.JSDOM(message)
         xml = xml.window.document
-        try {
-            switch (xml.getElementsByTagName('body')[0].getAttribute('action')) {
-                case 'verChk':
-                    this.checkVersion(xml.getElementsByTagName('ver')[0].getAttribute('v'), user)
-                    break
-                case 'login':
-                    this.login(xml.getElementsByTagName('nick')[0].childNodes[0].nodeValue, xml.getElementsByTagName('pword')[0].childNodes[0].nodeValue, user)
-                    break
-                case 'token_login':
-                    this.tokenLogin(xml.getElementsByTagName('nick')[0].childNodes[0].nodeValue, xml.getElementsByTagName('token')[0].childNodes[0].nodeValue, user)
-                    break
-                case 'check_username':
-                    this.checkUsername(xml.getElementsByTagName('user')[0].getAttribute('n'), user)
-                    break
-                case 'check_email':
-                    this.checkEmail(xml.getElementsByTagName('email')[0].getAttribute('e'), user)
-                    break
-                case 'signup':
-                    this.signup(xml.getElementsByTagName('nick')[0].childNodes[0].nodeValue, xml.getElementsByTagName('pword')[0].childNodes[0].nodeValue, xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('over13')[0].childNodes[0].nodeValue, xml.getElementsByTagName('color')[0].childNodes[0].nodeValue, xml.getElementsByTagName('lang')[0].childNodes[0].nodeValue, user)
-                    break
-                case 'activate':
-                    this.activate(xml.getElementsByTagName('email')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
-                    break
-                case 'register':
-                    this.register(xml.getElementsByTagName('username')[0].childNodes[0].nodeValue, xml.getElementsByTagName('key')[0].childNodes[0].nodeValue, user)
-                    break
-                case '2fa':
-                    this.allow2FA(xml.getElementsByTagName('code')[0].childNodes[0].nodeValue, xml.getElementsByTagName('id')[0].childNodes[0].nodeValue, user)
-                    break
-            }
-        } catch (error) {
-            this.log.error(`[LoginHandler] Error: ${error}`)
-        }
+        this.getEvent(xml.getElementsByTagName('body')[0].getAttribute('action'), xml, user)
     }
 
     // Events
 
-    async checkVersion(userVers, user) {
-        userVers = userVers.split('-')
-        if (userVers[1] == 'beta') return user.sendXml('OK')
-        let verfile = await fetch(`https://clubpenguinplus.nyc3.digitaloceanspaces.com/client/current.version?v=${Date.now().toString()}`)
-        let version = await verfile.text()
-
-        if (userVers[0] !== version) {
-            return user.sendXml('KO')
+    getEvent(event, xmlData, user) {
+        try {
+            this.events[event](xmlData, user)
+        } catch (error) {
+            this.log.error(`[LoginHandler] Event (${event}) not handled: ${error}`)
         }
-        user.sendXml('OK')
-    }
-
-    async login(username, password, user) {
-        let check = this.check({
-            username: username,
-            password: password,
-        })
-
-        if (check != true) {
-            // Invalid data input
-            user.sendXt('l', `f%${check[0].message}`)
-        } else {
-            // Comparing password and checking for user existence
-            let response = await this.comparePasswords(username, password, user.socket, user)
-            if (response.success) {
-                user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
-            } else {
-                user.sendXt('l', `f%${response.message}`)
-            }
-        }
-
-        user.close()
-    }
-
-    async tokenLogin(username, token, user) {
-        let response = await this.compareTokens(username, token, user.socket, user)
-        if (response.success) {
-            user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
-        } else {
-            user.sendXt('l', `f%${response.message}`)
-        }
-
-        user.close()
-    }
-
-    // Functions
-
-    async comparePasswords(username, password, socket, u) {
-        let user = await this.db.getUserByUsername(username)
-        if (!user) {
-            return this.responses.notFound
-        }
-
-        let match = await bcrypt.compare(password, user.password)
-        if (!match) {
-            return this.responses.wrongPassword
-        }
-
-        let banned = await this.checkBanned(user)
-        if (banned) {
-            return banned
-        }
-
-        let active = this.checkActive(user)
-        if (!active) {
-            return this.responses.notActive
-        }
-
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
-        }
-
-        let twoFA = user.dataValues.has2FA == 1
-        if (twoFA) {
-            let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
-            if (!validIP) {
-                return await this.generate2FAToken(user, u)
-            }
-        }
-
-        return await this.onLoginSuccess(socket, user)
-    }
-
-    async compareTokens(username, token, socket, u) {
-        let user = await this.db.getUserByUsername(username)
-        if (!user) {
-            return this.responses.notFound
-        }
-
-        let split = token.split(':')
-
-        let match = split[1] == user.password
-        if (!match) {
-            return this.responses.wrongPassword
-        }
-
-        let banned = await this.checkBanned(user)
-        if (banned) {
-            return banned
-        }
-
-        let active = this.checkActive(user)
-        if (!active) {
-            return this.responses.notActive
-        }
-
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
-        }
-
-        let twoFA = user.dataValues.has2FA == 1
-        if (twoFA) {
-            let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
-            if (!validIP) {
-                return await this.generate2FAToken(user, u)
-            }
-        }
-
-        return await this.onLoginSuccess(socket, user)
-    }
-
-    async checkBanned(user) {
-        if (user.permaBan) {
-            return this.responses.permaBan
-        }
-
-        let activeBan = await this.db.getActiveBan(user.id)
-        if (!activeBan) {
-            return
-        }
-
-        let hours = Math.round((activeBan.expires - Date.now()) / 60 / 60 / 1000)
-        return {
-            success: false,
-            message: [38, hours],
-        }
-    }
-
-    checkActive(user) {
-        if (user.emailActivated) {
-            return true
-        }
-        return false
-    }
-
-    async onLoginSuccess(socket, user) {
-        // Generate random key, used by client for authentication
-        let randomKey = crypto.randomBytes(32).toString('hex')
-        // Generate new login key, used to validate user on game server
-        user.loginKey = await this.genLoginKey(socket, user, randomKey)
-
-        let populations = await this.getWorldPopulations(user.rank > 3)
-
-        // All validation passed
-        await user.save()
-        return {
-            success: true,
-            username: user.username,
-            key: randomKey,
-            populations: populations,
-            isMod: user.dataValues.rank >= 3 ? '1' : '0',
-        }
-    }
-
-    async genLoginKey(socket, user, randomKey) {
-        let address = socket.handshake.address
-        let userAgent = socket.request.headers['user-agent']
-
-        // Create hash of login key and user data
-        let hash = await bcrypt.hash(`${user.username}${randomKey}${address}${userAgent}`, parseInt(process.env.cryptoRounds))
-
-        // JWT to be stored on database
-        return jwt.sign(
-            {
-                hash: hash,
-            },
-            process.env.cryptoSecret,
-            {expiresIn: parseInt(process.env.loginKeyExpiry)}
-        )
-    }
-
-    async getWorldPopulations(isModerator) {
-        let populations = []
-
-        for (let world of ['Blizzard']) {
-            let maxUsers = process.env.maxUsers || 300
-            let population = parseInt(await this.api.apiFunction('/getPopulation', {world: world}))
-
-            if (population >= maxUsers) {
-                populations.push(`${world}:${isModerator ? 5 : 6}`)
-                continue
-            }
-
-            let barSize = Math.round(maxUsers / 5)
-            let bars = Math.max(Math.ceil(population / barSize), 1) || 1
-
-            populations.push(`${world}:${bars}`)
-        }
-
-        return populations
     }
 
     close(user) {
         delete this.users[user.socket.id]
-    }
-
-    // Account creation
-
-    async validUsername(username) {
-        if (username.length < 3) {
-            return false
-        } else if (username.length > 15) {
-            return false
-        } else if (!username.match(/^[a-zA-Z0-9 ]+$/)) {
-            return false
-        }
-
-        let user = await this.db.getUserByUsername(username)
-        if (user) {
-            return false
-        }
-        return true
-    }
-
-    async validEmail(email) {
-        if (!email.includes('@')) {
-            return false
-        } else if (!email.includes('.')) {
-            return false
-        } else if (email.length > 50) {
-            return false
-        } else if (email.includes('+')) {
-            return false
-        }
-
-        let user = await this.db.getUserByEmail(email)
-        if (user) {
-            return false
-        }
-
-        return true
-    }
-
-    async validPassword(password, username) {
-        if (password.length < 6) {
-            return false
-        } else if (password.length > 50) {
-            return false
-        } else if (password.includes(username)) {
-            return false
-        }
-        return true
-    }
-
-    async checkUsername(username, user) {
-        if (!(await validUsername(username))) {
-            return user.sendXml('U#KO')
-        }
-        user.sendXml('U#OK')
-    }
-
-    async checkEmail(email, user) {
-        if (!(await validEmail(email))) {
-            return user.sendXml('E#KO')
-        }
-        user.sendXml('E#OK')
-    }
-
-    async signup(username, password, email, over13, color, lang, user) {
-        let userValid = await this.validUsername(username)
-        if (!userValid) {
-            return user.sendXt('U#KO')
-        }
-        let emailValid = await this.validEmail(email)
-        if (!emailValid) {
-            return user.sendXt('E#KO')
-        }
-        let passwordValid = await this.validPassword(password, username)
-        if (!passwordValid) {
-            return user.sendXt('U#KO')
-        }
-        let ipValid = await this.validIp(user.address)
-        if (!ipValid) {
-            return user.sendXt('I#KO')
-        }
-
-        let activationKey = crypto.randomBytes(16).toString('hex')
-        password = await bcrypt.hash(password, parseInt(process.env.cryptoRounds))
-
-        let acc = await this.db.createAccount(username, password, email, over13, color, user.address, activationKey)
-        if (!acc) return
-
-        let code = crypto.randomBytes(16).toString('hex')
-
-        await this.db.twoFA.create({
-            userId: acc.id,
-            ip: user.address,
-            code: code,
-            isAllowed: 1,
-        })
-
-        let template = fs.readFileSync('templates/email/activate/en.html').toString()
-
-        let templateReplacers = [
-            ['ACTIVATE_LINK', 'https://play.cpplus.pw/en/?activate='],
-            ['ACTIVATE_CODE', activationKey],
-            ['PENGUIN_NAME', username],
-            ['PENGUIN_EMAIL', email],
-        ]
-
-        for (let replacer of templateReplacers) {
-            template = template.replaceAll(replacer[0], replacer[1])
-        }
-
-        const msg = {
-            to: email,
-            from: {
-                email: 'no-reply@clubpenguin.plus',
-                name: 'Club Penguin Plus',
-            },
-            subject: 'Verify your email',
-            html: template,
-        }
-        sgMail
-            .send(msg)
-            .then(() => {
-                user.sendXml('R#OK')
-                this.api.apiFunction('/userCreated', {user: acc.dataValues.id, username: username, ip: user.address, email: email, color: color})
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
-
-    // Account activation
-
-    async activate(email, activationKey, user) {
-        let acc = await this.db.getUserByEmail(email)
-        if (!acc) {
-            return user.sendXml('A#KO')
-        }
-
-        if (acc.emailActivated) {
-            return user.sendXml('A#OK')
-        }
-
-        if (acc.activationKey != activationKey) {
-            return user.sendXml('A#KO')
-        }
-
-        this.db.users.update({emailActivated: true}, {where: {id: acc.id}}).then(() => {
-            user.sendXml('A#OK')
-        })
-    }
-
-    async register(username, betaKey, user) {
-        let acc = await this.db.getUserByUsername(username)
-        if (!acc) {
-            return user.sendXml('R#KO')
-        }
-
-        if (acc.rank >= 3) {
-            return user.sendXml('R#KO')
-        }
-
-        let bk = await this.db.findOne('betaKeys', {where: {key: betaKey}})
-        if (!bk) {
-            return user.sendXml('R#KO')
-        }
-
-        this.db.users.update({rank: 2}, {where: {id: acc.id}}).then(() => {
-            this.db.betaKeys.destroy({where: {key: betaKey}})
-            user.sendXml('R#OK')
-        })
-    }
-
-    // 2FA
-
-    async generate2FAToken(user, u) {
-        let code
-
-        let exist = await this.db.twoFA.findOne({
-            where: {
-                userId: user.dataValues.id,
-                ip: u.address,
-            },
-            attributes: ['code'],
-        })
-        if (!exist) {
-            code = crypto.randomBytes(16).toString('hex')
-
-            this.db.twoFA.create({
-                userId: user.dataValues.id,
-                code: code,
-                ip: u.address,
-            })
-        } else {
-            code = exist.code
-        }
-
-        let template = fs.readFileSync('templates/email/2fa/en.html').toString()
-
-        let templateReplacers = [
-            ['2FA_LINK', `https://play.cpplus.pw/en/?twofa=${user.dataValues.id}&${code}`],
-            ['PENGUIN_NAME', user.dataValues.username],
-        ]
-
-        for (let replacer of templateReplacers) {
-            template = template.replaceAll(replacer[0], replacer[1])
-        }
-
-        let msg = {
-            to: user.dataValues.email,
-            from: {
-                email: 'no-reply@clubpenguin.plus',
-                name: 'Club Penguin Plus',
-            },
-            subject: 'Login from new device',
-            html: template,
-        }
-
-        sgMail.send(msg).catch((error) => {
-            console.error(error)
-        })
-
-        return this.responses.twoFA
-    }
-
-    async allow2FA(code, id, user) {
-        let acc = await this.db.getUserById(id)
-        if (!acc) {
-            return user.sendXml('A#KO')
-        }
-
-        let twoFA = await this.db.twoFA.findOne({
-            where: {
-                userId: acc.id,
-                code: code,
-            },
-        })
-
-        if (!twoFA) {
-            return user.sendXml('A#KO')
-        }
-
-        this.db.twoFA
-            .update(
-                {
-                    isAllowed: 1,
-                },
-                {
-                    where: {
-                        userId: acc.id,
-                        code: code,
-                    },
-                }
-            )
-            .then(() => {
-                user.sendXml('A#OK')
-            })
     }
 }
