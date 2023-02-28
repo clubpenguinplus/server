@@ -12,7 +12,7 @@ export default class Discord {
         })
         this.dcbot = dcbot
         this.dcbot.once('ready', () => {
-            this.handler.log.info('Discord Bot initialised')
+            this.handler.log.info('Discord Bot with token', process.env.discordBotToken, 'initialised')
             this.ready = true
         })
 
