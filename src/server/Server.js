@@ -7,12 +7,14 @@ import bodyParser from 'body-parser'
 import http from 'http'
 
 import User from '../objects/user/User'
+import Jira from '../integration/Jira'
 
 export default class Server {
     constructor(id, users, db, handler, iteration) {
         this.users = users
         this.db = db
         this.handler = handler
+        this.jira = new Jira(this)
 
         this.app = express()
         http.createServer(this.app)
@@ -37,6 +39,20 @@ export default class Server {
             if (req.body.user && this.handler.usersById[req.body.user]) {
                 this.handler.usersById[req.body.user].stampEarnedAS3(req.body.auth, req.body.stamp)
             }
+            res.send('OK')
+        })
+
+        // Issue tracker
+
+        this.app.post('/getissues', async (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
+            // TODO: For player reports, we need to ensure the user can only see their own reports
+            let issues = await this.jira.getIssues(req.body.type, req.body.reporter, req.body.limit, req.body.from)
+            res.send(issues)
+        })
+
+        this.app.post('/createissue', (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
             res.send('OK')
         })
 
