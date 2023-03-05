@@ -67,8 +67,6 @@ export default class Server {
         this.app.post('/getissue', async (req, res) => {
             req.body = JSON.parse(Object.keys(req.body)[0])
 
-            // Checks user based on unique session id. Should prevent most abuse
-            // If we need to interface with the API outside of the game, we could make a separate API key
             let userId = this.handler.usersBySessionId[req.body.sessionId]
             if (!userId) {
                 res.send({error: 'Invalid session id'})
@@ -81,13 +79,27 @@ export default class Server {
 
         this.app.post('/getissuecomments', async (req, res) => {
             req.body = JSON.parse(Object.keys(req.body)[0])
+
+            let userId = this.handler.usersBySessionId[req.body.sessionId]
+            if (!userId) {
+                res.send({error: 'Invalid session id'})
+                return
+            }
+
             let comments = await this.jira.getIssueComments(req.body.id)
             res.send(comments)
         })
 
         this.app.post('/createissue', (req, res) => {
             req.body = JSON.parse(Object.keys(req.body)[0])
-            res.send('OK')
+
+            let userId = this.handler.usersBySessionId[req.body.sessionId]
+            if (!userId) {
+                res.send({error: 'Invalid session id'})
+                return
+            }
+
+            this.jira.createIssue(req.body.type, req.body.title, req.body.body, req.body.version, userId)
         })
 
         let io = this.createIo({

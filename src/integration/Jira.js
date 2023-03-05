@@ -136,5 +136,47 @@ export default class Jira {
         return []
     }
 
-    async createIssue() {}
+    async createIssue(type, summary, description, version, reporter) {
+        // Checks the user is not trying to create an issue in a project they shouldn't have access to
+        if (!['BUG', 'SGN', 'RPT'].includes(type)) return
+
+        const issueTypes = {
+            BUG: 'Bug',
+            SGN: 'New Feature',
+            RPT: 'Task',
+        }
+
+        try {
+            let fields = {
+                project: {
+                    key: type,
+                },
+                summary: summary,
+                description: description + `\n\nReporter = ${reporter}`,
+                issuetype: {
+                    name: issueTypes[type],
+                },
+            }
+
+            if (type == 'BUG') {
+                const versions = await this.jira.getVersions(type)
+                if (!versions.some((v) => v.name == version)) {
+                    await this.jira.addVersion({
+                        project: type,
+                        name: version,
+                        description: 'Automatically created by a player-submitted issue',
+                        released: true,
+                        releaseDate: new Date().toISOString().split('T')[0],
+                    })
+                }
+                fields.versions = [{name: version}]
+            }
+            const issue = await this.jira.addNewIssue({
+                fields: fields,
+            })
+            return issue.key
+        } catch (error) {
+            this.handler.log.error(`[Jira]: ${error}`)
+        }
+    }
 }
