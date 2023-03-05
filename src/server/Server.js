@@ -46,9 +46,43 @@ export default class Server {
 
         this.app.post('/getissues', async (req, res) => {
             req.body = JSON.parse(Object.keys(req.body)[0])
-            // TODO: For player reports, we need to ensure the user can only see their own reports
+
+            // Checks user based on unique session id. Should prevent most abuse
+            // If we need to interface with the API outside of the game, we could make a separate API key
+            let userId = this.handler.usersBySessionId[req.body.sessionId]
+            if (!userId) {
+                res.send({error: 'Invalid session id'})
+                return
+            }
+
+            // Ensures users can only see their own player reports
+            if (req.body.type == 'RPT') {
+                req.body.reporter = this.handler.usersById[userId].data.id
+            }
+
             let issues = await this.jira.getIssues(req.body.type, req.body.reporter, req.body.limit, req.body.from)
             res.send(issues)
+        })
+
+        this.app.post('/getissue', async (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
+
+            // Checks user based on unique session id. Should prevent most abuse
+            // If we need to interface with the API outside of the game, we could make a separate API key
+            let userId = this.handler.usersBySessionId[req.body.sessionId]
+            if (!userId) {
+                res.send({error: 'Invalid session id'})
+                return
+            }
+
+            let issue = await this.jira.getIssue(req.body.key, userId)
+            res.send(issue)
+        })
+
+        this.app.post('/getissuecomments', async (req, res) => {
+            req.body = JSON.parse(Object.keys(req.body)[0])
+            let comments = await this.jira.getIssueComments(req.body.id)
+            res.send(comments)
         })
 
         this.app.post('/createissue', (req, res) => {

@@ -47,6 +47,8 @@ export default class GameAuth extends Handler {
         }
 
         // Success
+        user.sessionId = uuid()
+        this.usersBySessionId[user.sessionId] = user.data.id
         this.usersById[user.data.id] = user
         user.crumbs = this.crumbs
         await this.discord.logLogin(user.data.username)

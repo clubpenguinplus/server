@@ -20,6 +20,7 @@ export default class DataHandler {
         this.partyData = {}
 
         this.usersById = {}
+        this.usersBySessionId = {}
         this.modsOnPanel = {}
         this.maxUsers = process.env.maxUsers || 300
 
@@ -121,6 +122,10 @@ export default class DataHandler {
 
             if (user.waddle) {
                 user.waddle.remove(user)
+            }
+
+            if (user.sessionId && user.sessionId in this.usersBySessionId) {
+                delete this.usersBySessionId[user.sessionId]
             }
 
             if (user.data && user.data.id && user.data.id in this.usersById) {
