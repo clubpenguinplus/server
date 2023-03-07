@@ -11,7 +11,10 @@ export default class IglooInventory {
     }
 
     includes(item) {
-        return this.list.includes(item)
+        for (let i = 0; i < this.list.length; i++) {
+            if (this.list[i] == item) return true
+        }
+        return false
     }
 
     add(igloo) {

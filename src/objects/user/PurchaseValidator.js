@@ -5,28 +5,28 @@ export default class PurchaseValidator {
         this.api = user.handler.api
     }
 
-    item(id) {
-        return this.validate(id, 'items', this.user.inventory)
+    item(id, isFree = false) {
+        return this.validate(id, 'items', this.user.inventory, isFree)
     }
 
-    igloo(id) {
-        return this.validate(id, 'igloos', this.user.iglooInventory)
+    igloo(id, isFree = false) {
+        return this.validate(id, 'igloos', this.user.iglooInventory, isFree)
     }
 
-    furniture(id) {
-        return this.validate(id, 'furnitures')
+    furniture(id, isFree = false) {
+        return this.validate(id, 'furnitures', [], isFree)
     }
 
-    flooring(id) {
-        return this.validate(id, 'floorings', [this.user.room.flooring])
+    flooring(id, isFree = false) {
+        return this.validate(id, 'floorings', this.user.flooringInventory, isFree)
     }
 
-    async validate(id, type, includes = []) {
+    async validate(id, type, includes = [], isFree = false) {
         let item = this.crumbs[type][id]
 
         if (!item) {
             return false
-        } else if (item.cost > this.user.data.coins) {
+        } else if (item.cost > this.user.data.coins && !isFree) {
             this.user.sendXt('e', 0)
             return false
         } else if (includes.includes(id)) {

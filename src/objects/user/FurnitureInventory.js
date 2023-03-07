@@ -15,7 +15,10 @@ export default class FurnitureInventory {
     }
 
     includes(item) {
-        return item in this.list
+        for (let i in Object.keys(this.list)) {
+            if (i == item) return true
+        }
+        return false
     }
 
     add(item) {

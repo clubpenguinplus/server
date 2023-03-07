@@ -13,6 +13,12 @@ export default class Chat extends Handler {
             users: this.userPopulation,
             broadcast: this.broadcast,
             ai: this.addItem,
+            af: this.addFurniture,
+            ac: this.addCoins,
+            aig: this.addIgloo,
+            afl: this.addFlooring,
+            al: this.addLocation,
+            addall: this.addAll,
         }
 
         this.bindCommands()
@@ -125,10 +131,59 @@ export default class Chat extends Handler {
         this.handler.broadcast(args.join(' '))
     }
 
+    async addAll(args, user) {
+        if (user.data.rank < 3) return
+
+        for (let i of Object.keys(this.crumbs.items)) {
+            let item = await user.validatePurchase.item(i, true)
+            if (!item) {
+                continue
+            }
+
+            let slot = this.crumbs.items.slots[item.type - 1]
+            user.inventory.add(i)
+
+            user.sendXt('ai', `${i}%${item.name}%${slot}%${user.data.coins}`)
+        }
+
+        for (let i of Object.keys(this.crumbs.furnitures)) {
+            let item = await user.validatePurchase.furniture(i, true)
+            if (!item) {
+                continue
+            }
+
+            if (user.furnitureInventory.add(i)) {
+                user.sendXt('af', `${i}%${user.data.coins}`)
+            }
+        }
+
+        for (let i of Object.keys(this.crumbs.igloos)) {
+            let item = await user.validatePurchase.igloo(i, true)
+            if (!item) {
+                continue
+            }
+
+            if (user.iglooInventory.add(i)) {
+                user.sendXt('aig', `${i}%${item.name}%${user.data.coins}`)
+            }
+        }
+
+        for (let i of Object.keys(this.crumbs.floorings)) {
+            let item = await user.validatePurchase.flooring(i, true)
+            if (!item) {
+                continue
+            }
+
+            if (user.flooringInventory.add(i)) {
+                user.sendXt('afl', `${i}%${user.data.coins}`)
+            }
+        }
+    }
+
     async addItem(args, user) {
         args[0] = parseInt(args[0])
 
-        let item = await user.validatePurchase.item(args[0])
+        let item = await user.validatePurchase.item(args[0], true)
         if (!item) {
             return
         }
@@ -137,5 +192,67 @@ export default class Chat extends Handler {
         user.inventory.add(args[0])
 
         user.sendXt('ai', `${args[0]}%${item.name}%${slot}%${user.data.coins}`)
+    }
+
+    async addFurniture(args, user) {
+        args[0] = parseInt(args[0])
+        args[1] = parseInt(args[1])
+
+        for (let i = 0; i < args[1]; i++) {
+            let item = await user.validatePurchase.furniture(args[0], true)
+            if (!item) {
+                return
+            }
+
+            if (user.furnitureInventory.add(args[0])) {
+                user.sendXt('af', `${args[0]}%${user.data.coins}`)
+            }
+        }
+    }
+
+    async addLocation(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.location(args[0], true)
+        if (!item) {
+            return
+        }
+
+        if (user.locationInventory.add(args[0])) {
+            user.sendXt('al', `${args[0]}%${user.data.coins}`)
+        }
+    }
+
+    async addIgloo(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.igloo(args[0], true)
+        if (!item) {
+            return
+        }
+
+        if (user.iglooInventory.add(args[0])) {
+            user.sendXt('aig', `${args[0]}%${user.data.coins}`)
+        }
+    }
+
+    async addFlooring(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.floorinf(args[0], true)
+        if (!item) {
+            return
+        }
+
+        if (user.flooringInventory.add(args[0])) {
+            user.sendXt('afl', `${args[0]}%${user.data.coins}`)
+        }
+    }
+
+    async addCoins(args, user) {
+        args[0] = parseInt(args[0])
+
+        user.updateCoins(args[0])
+        user.sendXt('ac', user.data.coins)
     }
 }

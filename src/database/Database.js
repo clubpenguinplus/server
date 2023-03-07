@@ -37,6 +37,51 @@ export default class Database {
             let name = model.charAt(0).toLowerCase() + model.slice(1, -3)
 
             this[name] = modelObject
+
+            const update = this[name].update
+            this[name].update = async function (values, options) {
+                try {
+                    return await update.call(this, values, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            const destroy = this[name].destroy
+            this[name].destroy = async function (options) {
+                try {
+                    return await destroy.call(this, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            const create = this[name].create
+            this[name].create = async function (values, options) {
+                try {
+                    return await create.call(this, values, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            const findAll = this[name].findAll
+            this[name].findAll = async function (options) {
+                try {
+                    return await findAll.call(this, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            const findOne = this[name].findOne
+            this[name].findOne = async function (options) {
+                try {
+                    return await findOne.call(this, options)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         })
     }
 
