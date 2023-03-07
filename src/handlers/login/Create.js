@@ -88,19 +88,19 @@ export default class Create extends Handler {
 
         let userValid = await this.validUsername(username)
         if (!userValid) {
-            return user.sendXt('U#KO')
+            return user.sendXml('U#KO')
         }
         let emailValid = await this.validEmail(email)
         if (!emailValid) {
-            return user.sendXt('E#KO')
+            return user.sendXml('E#KO')
         }
         let passwordValid = await this.validPassword(password, username)
         if (!passwordValid) {
-            return user.sendXt('U#KO')
+            return user.sendXml('U#KO')
         }
         let ipValid = await this.db.validIp(user.address)
         if (!ipValid) {
-            return user.sendXt('I#KO')
+            return user.sendXml('I#KO')
         }
 
         let activationKey = crypto.randomBytes(16).toString('hex')
@@ -127,11 +127,9 @@ export default class Create extends Handler {
             ['PENGUIN_EMAIL', email],
         ]
 
-        if (await this.handler.email.send(email, 'Verify your email', template, templateReplacers)) {
-            user.sendXml('R#OK')
-            this.handler.api.apiFunction('/userCreated', {user: acc.dataValues.id, username: username, ip: user.address, email: email, color: color})
-        } else {
-            user.sendXml('R#KO')
-        }
+        await this.handler.email.send(email, 'Verify your email', template, templateReplacers)
+
+        user.sendXml('R#OK')
+        this.handler.api.apiFunction('/userCreated', {user: acc.dataValues.id, username: username, ip: user.address, email: email, color: color})
     }
 }
