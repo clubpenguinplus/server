@@ -48,9 +48,9 @@ export default class Actions extends Handler {
     }
 
     saveStampbook(args, user) {
-        user.data.stampbookColor = args.color
-        user.data.stampbookClasp = args.clasp
-        user.data.stampbookPattern = args.pattern
+        user.data.stampbookColor = args[0]
+        user.data.stampbookClasp = args[1]
+        user.data.stampbookPattern = args[2]
 
         user.update({
             stampbookColor: user.data.stampbookColor,

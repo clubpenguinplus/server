@@ -4,14 +4,17 @@ import JiraApi from 'jira-client'
 export default class Jira {
     constructor(server) {
         this.handler = server.handler
-        this.jira = new JiraApi({
-            protocol: 'https',
-            host: 'clubpenguinplus.atlassian.net',
-            username: process.env.jiraUsername,
-            password: process.env.jiraAPIToken,
-            apiVersion: '2',
-            strictSSL: true,
-        })
+
+        setInterval(() => {
+            this.jira = new JiraApi({
+                protocol: 'https',
+                host: 'clubpenguinplus.atlassian.net',
+                username: process.env.jiraUsername,
+                password: process.env.jiraAPIToken,
+                apiVersion: '2',
+                strictSSL: true,
+            })
+        }, 1000 * 60) // Refreshes the Jira API instance every minute
     }
 
     async issueToJSON(issue) {
