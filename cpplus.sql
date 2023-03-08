@@ -39,21 +39,30 @@ CREATE TABLE IF NOT EXISTS `bans` (
   KEY `moderatorId` (`moderatorId`),
   CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`moderatorId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='User ban records';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='User ban records';
 
 -- Dumping data for table cpplus-empty.bans: ~0 rows (approximately)
+
+-- Dumping structure for table cpplus-empty.beta_keys
+CREATE TABLE IF NOT EXISTS `beta_keys` (
+  `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`key`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table cpplus-empty.beta_keys: ~0 rows (approximately)
 
 -- Dumping structure for table cpplus-empty.buddies
 CREATE TABLE IF NOT EXISTS `buddies` (
   `userId` int NOT NULL,
   `buddyId` int NOT NULL,
+  `isBff` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userId`,`buddyId`) USING BTREE,
   KEY `buddyId` (`buddyId`),
   CONSTRAINT `buddies_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `buddies_ibfk_2` FOREIGN KEY (`buddyId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User buddies';
 
--- Dumping data for table cpplus-empty.buddies: ~0 rows (approximately)
+-- Dumping data for table cpplus-empty.buddies: ~2 rows (approximately)
 
 -- Dumping structure for table cpplus-empty.floorings
 CREATE TABLE IF NOT EXISTS `floorings` (
@@ -7063,63 +7072,158 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `maxUsers` int NOT NULL DEFAULT '80',
   `game` tinyint(1) NOT NULL DEFAULT '0',
   `spawn` tinyint(1) NOT NULL DEFAULT '0',
-  `find` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Room crumbs';
 
--- Dumping data for table cpplus-empty.rooms: ~52 rows (approximately)
-REPLACE INTO `rooms` (`id`, `name`, `member`, `maxUsers`, `game`, `spawn`, `find`) VALUES
-	(100, 'town', 0, 100, 0, 1, ''),
-	(110, 'coffee', 0, 80, 0, 0, ''),
-	(111, 'book', 0, 80, 0, 0, ''),
-	(120, 'dance', 0, 80, 0, 0, ''),
-	(121, 'lounge', 0, 80, 0, 0, ''),
-	(122, 'school', 0, 80, 0, 0, ''),
-	(130, 'shop', 0, 80, 0, 0, ''),
-	(200, 'village', 0, 80, 0, 1, ''),
-	(212, 'agentlobby', 0, 80, 0, 0, ''),
-	(220, 'lodge', 0, 80, 0, 0, ''),
-	(221, 'attic', 0, 80, 0, 0, ''),
-	(230, 'mtn', 0, 80, 0, 1, ''),
-	(300, 'plaza', 0, 80, 0, 1, ''),
-	(310, 'pet', 0, 80, 0, 0, ''),
-	(320, 'dojo', 0, 80, 0, 0, ''),
-	(321, 'dojoext', 0, 80, 0, 1, ''),
-	(330, 'pizza', 0, 80, 0, 0, ''),
-	(400, 'beach', 0, 80, 0, 1, ''),
-	(410, 'lighthouse', 0, 80, 0, 0, ''),
-	(411, 'beacon', 0, 80, 0, 0, ''),
-	(800, 'dock', 0, 80, 0, 1, ''),
-	(801, 'forts', 0, 80, 0, 1, ''),
-	(802, 'rink', 0, 80, 0, 1, ''),
-	(803, 'hq', 0, 80, 0, 0, ''),
-	(804, 'boiler', 0, 80, 0, 0, ''),
-	(805, 'berg', 0, 80, 0, 1, ''),
-	(806, 'cave', 0, 80, 0, 0, ''),
-	(807, 'shack', 0, 80, 0, 0, ''),
-	(808, 'mine', 0, 80, 0, 0, ''),
-	(809, 'forest', 0, 80, 0, 1, ''),
-	(810, 'cove', 0, 80, 0, 0, ''),
-	(900, 'astro', 0, 800, 0, 0, ''),
-	(901, 'beans', 0, 800, 0, 0, ''),
-	(902, 'roundup', 0, 800, 0, 0, ''),
-	(903, 'hydro', 0, 800, 0, 0, ''),
-	(904, 'fish', 0, 800, 0, 0, ''),
-	(905, 'cart', 0, 800, 0, 0, ''),
-	(908, 'beans', 0, 800, 0, 0, ''),
-	(909, 'thinice', 0, 800, 0, 0, ''),
-	(910, 'pizzatron', 0, 800, 0, 0, ''),
-	(912, 'waves', 0, 800, 0, 0, ''),
-	(916, 'sub', 0, 800, 0, 0, ''),
-	(924, 'hydro', 0, 800, 0, 0, ''),
-	(925, 'roundup', 0, 800, 0, 0, ''),
-	(926, 'jetpack', 0, 800, 0, 0, ''),
-	(927, 'rescue', 0, 800, 0, 0, ''),
-	(928, 'launch', 0, 800, 0, 0, ''),
-	(935, 'gamesrink', 0, 80, 0, 0, ''),
-	(940, 'soundstudio', 0, 800, 0, 0, ''),
-	(998, 'card', 0, 800, 0, 0, ''),
-	(999, 'sled', 0, 800, 1, 0, '');
+-- Dumping data for table cpplus-empty.rooms: ~51 rows (approximately)
+REPLACE INTO `rooms` (`id`, `name`, `member`, `maxUsers`, `game`, `spawn`) VALUES
+	(100, 'Town Center', 0, 100, 0, 1),
+	(110, 'Coffee Shop', 0, 80, 0, 0),
+	(111, 'Book Room', 0, 80, 0, 0),
+	(120, 'Night Club', 0, 80, 0, 0),
+	(121, 'Lounge', 0, 80, 0, 0),
+	(122, 'School', 0, 80, 0, 0),
+	(130, 'Clothes Shop', 0, 80, 0, 0),
+	(200, 'Ski Village', 0, 80, 0, 1),
+	(210, 'Sports Shop', 0, 80, 0, 0),
+	(211, 'Agent Lobby Solo', 0, 80, 0, 0),
+	(212, 'Agent Lobby Multi', 0, 80, 0, 0),
+	(213, 'Agent VR', 0, 80, 0, 0),
+	(220, 'Ski Lodge', 0, 80, 0, 0),
+	(221, 'Lodge Attic', 0, 80, 0, 0),
+	(230, 'Ski Hill', 0, 80, 0, 1),
+	(300, 'The Plaza', 0, 80, 0, 1),
+	(310, 'Pet Shop', 0, 80, 0, 0),
+	(320, 'The Dojo', 0, 80, 0, 0),
+	(321, 'Dojo Exterior', 0, 80, 0, 1),
+	(322, 'Dojo Hide', 0, 80, 0, 0),
+	(323, 'Agent Command', 0, 80, 0, 0),
+	(324, 'Dojo Exterior Solo', 0, 80, 0, 0),
+	(326, 'Dojo Snow', 0, 80, 0, 0),
+	(330, 'Pizza Parlor', 0, 80, 0, 0),
+	(340, 'The Mall', 0, 80, 0, 0),
+	(400, 'The Beach', 0, 80, 0, 0),
+	(410, 'Lighthouse', 0, 80, 0, 0),
+	(411, 'Beacon', 0, 80, 0, 0),
+	(420, 'Pirate Ship', 0, 80, 0, 0),
+	(421, 'Ship\'s Hold', 0, 80, 0, 0),
+	(422, 'Captain\'s Quarters', 0, 80, 0, 0),
+	(423, 'The Crows Nest', 0, 80, 0, 0),
+	(430, 'Puffle Hotel Lobby', 0, 80, 0, 0),
+	(431, 'Puffle Hotel Spa', 0, 80, 0, 0),
+	(432, 'Puffle Hotel Roof', 0, 80, 0, 0),
+	(433, 'Cloud Forest', 0, 80, 0, 0),
+	(434, 'Puffle Park', 0, 80, 0, 0),
+	(435, 'Skatepark', 0, 80, 0, 0),
+	(436, 'Puffle Wild', 0, 80, 0, 0),
+	(437, 'UFO', 0, 80, 0, 0),
+	(800, 'The Dock', 0, 80, 0, 1),
+	(801, 'Snow Forts', 0, 80, 0, 1),
+	(802, 'Ice Rink', 0, 80, 0, 1),
+	(803, 'HQ', 0, 80, 0, 0),
+	(804, 'Boiler Room', 0, 80, 0, 0),
+	(805, 'Ice Berg', 0, 80, 0, 1),
+	(806, 'Underground Pool', 0, 80, 0, 0),
+	(807, 'Mine Shack', 0, 80, 0, 0),
+	(808, 'The Mine', 0, 80, 0, 0),
+	(809, 'Forest', 0, 80, 0, 1),
+	(810, 'Cove', 0, 80, 0, 1),
+	(811, 'Box Dimension', 0, 80, 0, 0),
+	(812, 'Dojo Fire', 0, 80, 0, 0),
+	(813, 'Gold Mine', 0, 80, 0, 0),
+	(814, 'Lake', 0, 80, 0, 0),
+	(815, 'Underwater', 0, 80, 0, 0),
+	(816, 'Dojo Water', 0, 80, 0, 0),
+	(851, 'Party1', 0, 80, 0, 0),
+	(852, 'Party2', 0, 80, 0, 0),
+	(853, 'Party3', 0, 80, 0, 0),
+	(854, 'Party4', 0, 80, 0, 0),
+	(855, 'Party5', 0, 80, 0, 0),
+	(856, 'Party6', 0, 80, 0, 0),
+	(857, 'Party7', 0, 80, 0, 0),
+	(858, 'Party8', 0, 80, 0, 0),
+	(859, 'Party9', 0, 80, 0, 0),
+	(860, 'Party10', 0, 80, 0, 0),
+	(861, 'Party11', 0, 80, 0, 0),
+	(862, 'Party12', 0, 80, 0, 0),
+	(863, 'Party13', 0, 80, 0, 0),
+	(864, 'Party14', 0, 80, 0, 0),
+	(865, 'Party15', 0, 80, 0, 0),
+	(866, 'Party16', 0, 80, 0, 0),
+	(867, 'Party17', 0, 80, 0, 0),
+	(868, 'Party18', 0, 80, 0, 0),
+	(869, 'Party19', 0, 80, 0, 0),
+	(874, 'Party24', 0, 80, 0, 0),
+	(875, 'Party25', 0, 80, 0, 0),
+	(876, 'Party26', 0, 80, 0, 0),
+	(877, 'Party27', 0, 80, 0, 0),
+	(878, 'Party28', 0, 80, 0, 0),
+	(890, 'Party99', 0, 80, 0, 0),
+	(891, 'partysolo1', 0, 80, 0, 0),
+	(898, 'Sound Room', 0, 80, 0, 0),
+	(899, 'Party', 0, 80, 0, 0),
+	(900, 'Astro', 0, 80, 0, 0),
+	(901, 'Beans', 0, 80, 0, 0),
+	(902, 'Puffle', 0, 80, 0, 0),
+	(903, 'Biscuit', 0, 80, 0, 0),
+	(904, 'Fish', 0, 80, 0, 0),
+	(905, 'MineCar1', 0, 80, 0, 0),
+	(906, 'JetPack', 0, 80, 0, 0),
+	(907, 'Mission1', 0, 80, 0, 0),
+	(908, 'Mission2', 0, 80, 0, 0),
+	(909, 'ThinIce', 0, 80, 0, 0),
+	(910, 'PizzaTron', 0, 80, 0, 0),
+	(911, 'Mission3', 0, 80, 0, 0),
+	(912, 'Wave', 0, 80, 0, 0),
+	(913, 'Mission4', 0, 80, 0, 0),
+	(914, 'Mission5', 0, 80, 0, 0),
+	(915, 'Mission6', 0, 80, 0, 0),
+	(916, 'SubGame', 0, 80, 0, 0),
+	(917, 'BookGame1', 0, 80, 0, 0),
+	(918, 'BookGame2', 0, 80, 0, 0),
+	(919, 'BookGame3', 0, 80, 0, 0),
+	(920, 'Mission7', 0, 80, 0, 0),
+	(921, 'Mission8', 0, 80, 0, 0),
+	(922, 'Mission9', 0, 80, 0, 0),
+	(923, 'Mission10', 0, 80, 0, 0),
+	(924, 'Game24', 0, 80, 0, 0),
+	(925, 'Game25', 0, 80, 0, 0),
+	(926, 'MixMaster', 0, 80, 0, 0),
+	(927, 'Mission11', 0, 80, 0, 0),
+	(928, 'launch', 0, 800, 0, 0),
+	(935, 'gamesrink', 0, 80, 0, 0),
+	(940, 'soundstudio', 0, 800, 0, 0),
+	(941, 'Puffle Soaker', 0, 80, 0, 0),
+	(942, 'Balloon Pop', 0, 80, 0, 0),
+	(943, 'Ring the Bell', 0, 80, 0, 0),
+	(944, 'Feed a Puffle', 0, 80, 0, 0),
+	(945, 'Memory Card', 0, 80, 0, 0),
+	(946, 'Puffle paddle', 0, 80, 0, 0),
+	(947, 'Puffle Shuffle', 0, 80, 0, 0),
+	(948, 'Grab and Spin', 0, 80, 0, 0),
+	(949, 'Puffle Rescue', 0, 80, 0, 0),
+	(950, 'System Defender', 0, 80, 0, 0),
+	(951, 'Sensei', 0, 80, 0, 0),
+	(952, 'Dancing', 0, 80, 0, 0),
+	(953, 'Fire Sensei', 0, 80, 0, 0),
+	(954, 'Water Sensei', 0, 80, 0, 0),
+	(955, 'Puffle Launch', 0, 80, 0, 0),
+	(956, 'Bits and Bolts', 0, 80, 0, 0),
+	(957, 'Rollerscape', 0, 80, 0, 0),
+	(958, 'Scorn Battle', 0, 80, 0, 0),
+	(959, 'Smoothie', 0, 80, 0, 0),
+	(960, 'Ice Jam', 0, 80, 0, 0),
+	(961, 'Dino Treasure Hunt', 0, 80, 0, 0),
+	(962, 'Party Game', 0, 80, 0, 0),
+	(963, 'Spy Drills', 0, 80, 0, 0),
+	(994, 'igloo_card', 0, 80, 0, 0),
+	(995, 'Water', 0, 80, 0, 0),
+	(996, 'Snow', 0, 80, 0, 0),
+	(997, 'Fire', 0, 80, 0, 0),
+	(998, 'Card Jitsu', 0, 80, 0, 0),
+	(999, 'Sled Race', 0, 80, 0, 0),
+	(1100, 'My Penguin', 0, 80, 0, 0),
+	(1104, 'Gold Mine', 0, 80, 0, 0);
 
 -- Dumping structure for table cpplus-empty.stamps
 CREATE TABLE IF NOT EXISTS `stamps` (
@@ -7480,6 +7584,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(60) NOT NULL,
   `loginKey` text,
   `rank` tinyint(1) NOT NULL DEFAULT '1',
+  `has2FA` tinyint(1) NOT NULL DEFAULT '0',
   `stealthMode` tinyint(1) NOT NULL DEFAULT '0',
   `permaBan` tinyint(1) NOT NULL DEFAULT '0',
   `joinTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -7510,12 +7615,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `hasBeenPOTW` tinyint(1) NOT NULL DEFAULT '0',
   `stampbookColor` tinyint(1) NOT NULL DEFAULT '1',
   `stampbookClasp` tinyint(1) NOT NULL DEFAULT '1',
-  `stampbookPattern` tinyint(1) NOT NULL DEFAULT '1',
+  `stampbookPattern` tinyint(1) NOT NULL DEFAULT '0',
   `cannon_data` varchar(1000) DEFAULT '0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0',
   `walking` int NOT NULL DEFAULT '0',
   `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `current_igloo` tinyint NOT NULL DEFAULT '0',
+  `epfStatus` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1010 DEFAULT CHARSET=latin1 COMMENT='Users';
+) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=latin1 COMMENT='Users';
 
 -- Dumping data for table cpplus-empty.users: ~0 rows (approximately)
 
@@ -7523,6 +7630,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `user_furnitures` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
+  `iglooId` tinyint NOT NULL,
   `furnitureId` int NOT NULL,
   `x` smallint NOT NULL DEFAULT '0',
   `y` smallint NOT NULL DEFAULT '0',
@@ -7531,23 +7639,24 @@ CREATE TABLE IF NOT EXISTS `user_furnitures` (
   PRIMARY KEY (`id`),
   KEY `user_furnitures_ibfk_1` (`userId`),
   CONSTRAINT `user_furnitures_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=55918 DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
+) ENGINE=InnoDB AUTO_INCREMENT=392 DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
 
 -- Dumping data for table cpplus-empty.user_furnitures: ~0 rows (approximately)
 
 -- Dumping structure for table cpplus-empty.user_igloos
 CREATE TABLE IF NOT EXISTS `user_igloos` (
   `userId` int NOT NULL,
+  `iglooId` tinyint NOT NULL,
   `type` int NOT NULL DEFAULT '1',
   `flooring` int NOT NULL DEFAULT '0',
   `music` int NOT NULL DEFAULT '0',
   `location` int NOT NULL DEFAULT '1',
   `locked` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`userId`),
+  PRIMARY KEY (`userId`,`iglooId`) USING BTREE,
   CONSTRAINT `user_igloos_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User igloo settings';
 
--- Dumping data for table cpplus-empty.user_igloos: ~2 rows (approximately)
+-- Dumping data for table cpplus-empty.user_igloos: ~0 rows (approximately)
 
 -- Dumping structure for table cpplus-empty.user_postcards
 CREATE TABLE IF NOT EXISTS `user_postcards` (
@@ -7622,11 +7731,22 @@ REPLACE INTO `worlds` (`id`, `population`) VALUES
 	('Blizzard', 0);
 
 -- Dumping structure for trigger cpplus-empty.trigger_users_insert
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO';
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `trigger_users_insert` AFTER INSERT ON `users` FOR EACH ROW BEGIN
-    INSERT INTO user_igloos (userId) VALUES (NEW.id);
+    INSERT INTO user_igloos (userId, iglooId) VALUES (NEW.id, 0);
+    INSERT INTO igloo_inventories (userId, iglooId) VALUES (NEW.id, 0);
+    INSERT INTO igloo_inventories (userId, iglooId) VALUES (NEW.id, 1);
+    INSERT INTO location_inventories (userId, locationId) VALUES (NEW.id, 1);
+    INSERT INTO flooring_inventories (userId, floorId) VALUES (NEW.id, 0);
     INSERT INTO inventories (userId, itemId) VALUES (NEW.id, NEW.color);
+    INSERT INTO inventories (userId, itemId) VALUES (NEW.id, 1285);
+    INSERT INTO inventories (userId, itemId) VALUES (NEW.id, 9106);
+    INSERT INTO furniture_inventories (userId, itemId, quantity) VALUES (NEW.id, 788, 1);
+    INSERT INTO furniture_inventories (userId, itemId, quantity) VALUES (NEW.id, 793, 1);
+    INSERT INTO furniture_inventories (userId, itemId, quantity) VALUES (NEW.id, 792, 1);
+    INSERT INTO furniture_inventories (userId, itemId, quantity) VALUES (NEW.id, 790, 1);
+    INSERT INTO furniture_inventories (userId, itemId, quantity) VALUES (NEW.id, 787, 1);
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
