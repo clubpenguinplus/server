@@ -38,12 +38,14 @@ export default class DataHandler {
 
     async init() {
         this.crumbs = {
-            items: await this.db.getItems(),
-            igloos: await this.db.getIgloos(),
-            furnitures: await this.db.getFurnitures(),
-            floorings: await this.db.getFloorings(),
-            locations: await this.db.getLocations(),
-            stamps: await this.db.getCStamps(),
+            floorings: this.getCrumb('floorings'),
+            furnitures: this.getCrumb('furnitures'),
+            igloos: this.getCrumb('igloos'),
+            items: this.getCrumb('items'),
+            locations: this.getCrumb('locations'),
+            mascots: this.getCrumb('mascots'),
+            puffles: this.getCrumb('puffles'),
+            stamps: this.getCrumb('stamps'),
         }
 
         this.rooms = await this.setRooms()
@@ -56,16 +58,23 @@ export default class DataHandler {
         this.log.info(`[DataHandler] Created DataHandler for server: ${this.id}`)
     }
 
-    async setWaddles() {
-        let waddles = await this.db.getWaddles()
+    getCrumb(type) {
+        const data = fs.readFileSync(`./crumbs/${type}.json`)
+        return JSON.parse(data)
+    }
 
-        for (let waddle of waddles) {
+    async setWaddles() {
+        let waddles = this.getCrumb('waddles')
+
+        for (let w in waddles) {
+            let waddle = waddles[w]
             this.rooms[waddle.roomId].waddles[waddle.id] = new WaddleRoom(waddle)
         }
     }
 
     async setRooms() {
-        let roomsData = await this.db.getRooms()
+        let roomsData = this.getCrumb('rooms')
+        fs.writeFileSync('./crumbs/rooms.json', JSON.stringify(roomsData))
         let rooms = {}
 
         for (let data of roomsData) {

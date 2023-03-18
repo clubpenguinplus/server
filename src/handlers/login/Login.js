@@ -266,10 +266,20 @@ export default class Login extends Handler {
         )
     }
 
+    get worlds() {
+        let worlds = []
+        for (let world of Object.keys(this.crumbs.worlds)) {
+            if (this.crumbs.worlds[world].public) {
+                worlds.push(world)
+            }
+        }
+        return worlds
+    }
+
     async getWorldPopulations(isModerator) {
         let populations = []
 
-        for (let world of ['Blizzard']) {
+        for (let world of this.worlds) {
             let maxUsers = process.env.maxUsers || 300
             let population = parseInt(await this.handler.api.apiFunction('/getPopulation', {world: world}))
 

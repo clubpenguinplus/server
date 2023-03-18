@@ -22,9 +22,18 @@ export default class LoginHandler {
         this.handlers = {}
         this.dir = `${__dirname}/login`
 
+        this.crumbs = {
+            worlds: this.getCrumb('worlds'),
+        }
+
         this.loadHandlers()
 
         this.log.info(`[LoginHandler] Created LoginHandler for server: ${this.id}`)
+    }
+
+    getCrumb(type) {
+        const data = fs.readFileSync(`./crumbs/${type}.json`)
+        return JSON.parse(data)
     }
 
     loadHandlers() {

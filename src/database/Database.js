@@ -85,44 +85,6 @@ export default class Database {
         })
     }
 
-    async getItems() {
-        let items = await this.getCrumb('items')
-        items.slots = this.slots
-        return items
-    }
-
-    async getCStamps() {
-        return await this.getCrumb('stamps')
-    }
-
-    async getIgloos() {
-        return await this.getCrumb('igloos')
-    }
-
-    async getFurnitures() {
-        return await this.getCrumb('furnitures')
-    }
-
-    async getFloorings() {
-        return await this.getCrumb('floorings')
-    }
-
-    async getLocations() {
-        return await this.getCrumb('locations')
-    }
-
-    async getRooms() {
-        return await this.findAll('rooms', {
-            raw: true,
-        })
-    }
-
-    async getWaddles() {
-        return await this.findAll('waddles', {
-            raw: true,
-        })
-    }
-
     async getUserByUsername(username) {
         return await this.findOne('users', {
             where: {
@@ -311,23 +273,6 @@ export default class Database {
         )
     }
 
-    async getMascots() {
-        return await this.findAll('mascots', {
-            attributes: ['id', 'name', 'giveaway', 'stamp'],
-            raw: true,
-        })
-    }
-
-    async getGiveaway(mascot) {
-        return await this.findOne('mascots', {
-            where: {
-                id: mascot,
-            },
-            attributes: ['giveaway'],
-            raw: true,
-        })
-    }
-
     async getActiveCode(code) {
         if (!code) return false
         let c = await this.findOne('codes', {
@@ -409,10 +354,6 @@ export default class Database {
                 return result.map(({userId, ...furnitures}) => furnitures)
             }
         )
-    }
-
-    async getWorldPopulations() {
-        return await this.getCrumb('worlds')
     }
 
     async getUnverifedUsers(userId) {
@@ -812,19 +753,6 @@ export default class Database {
                 return emptyReturn
             }
         })
-    }
-
-    async getCrumb(table) {
-        return await this.findAll(
-            table,
-            {
-                raw: true,
-            },
-            {},
-            (result) => {
-                return this.arrayToObject(result, 'id')
-            }
-        )
     }
 
     arrayToObject(array, key, value = null) {

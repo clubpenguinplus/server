@@ -92,7 +92,7 @@ export default class Get extends Handler {
     }
 
     async getMascots(args, user) {
-        let mascots = await this.db.getMascots()
+        let mascots = this.crumbs.mascots
         let marray = []
         for (let i = 0; i < mascots.length; i++) {
             marray.push(`${mascots[i].id}|${mascots[i].name}|${mascots[i].giveaway}|${mascots[i].stamp}`)
