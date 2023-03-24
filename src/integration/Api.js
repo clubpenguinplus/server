@@ -28,7 +28,7 @@ export default class Api {
                 return response.data
             })
             .catch((error) => {
-                this.handler.log.error(`[API]: ${error.code}`)
+                this.handler.log.error(`[API]: ${error}`)
             })
     }
 }

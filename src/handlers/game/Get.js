@@ -14,6 +14,8 @@ export default class Get extends Handler {
             'i#gp': this.getPin,
             's#gb': this.getStampbook,
             'ma#g': this.getMascots,
+            'i#gi': this.getItemInfo,
+            'i#gc': this.getCost,
         }
     }
 
@@ -97,12 +99,53 @@ export default class Get extends Handler {
         for (let i = 0; i < mascots.length; i++) {
             marray.push(`${mascots[i].id}|${mascots[i].name}|${mascots[i].giveaway}|${mascots[i].stamp}`)
         }
-        user.sendXt('gm', marray.join())
+        user.sendXt('gm', marray.join('%'))
     }
 
     async getOnline(args, user) {
         if (this.usersById[parseInt(args[0])]) {
             user.sendXt('on', args[0])
+        }
+    }
+
+    async getItemInfo(args, user) {
+        let item = this.crumbs[args[0]] ? this.crumbs[args[0]][args[1]] : null
+        if (item) {
+            let avaliable
+            let releases = []
+            if (item.bait == 1) {
+                avaliable = false
+            } else if (args[0] != 'items') {
+                avaliable = true
+            } else {
+                avaliable = await this.handler.api.apiFunction('/getItemAvaliable', {item: args[1]})
+                releases = await this.handler.api.apiFunction('/getItemReleases', {item: args[1]})
+                releases = releases.map((j) => {
+                    return JSON.stringify(j)
+                })
+            }
+
+            user.sendXt('gii', `${args[0]}%${args[1]}%${item.name}%${item.cost}%${avaliable}%[${releases.join(',')}]`)
+        }
+    }
+
+    async getCost(args, user) {
+        let items = []
+
+        if (args[1] == 'all') {
+            for (let i in this.crumbs[args[0]]) {
+                let item = this.crumbs[args[0]][i]
+                items.push(`${i}:${item.cost}`)
+            }
+        } else {
+            for (let i of args[1].split('|')) {
+                let item = this.crumbs[args[0]][i]
+                items.push(`${i}:${item.cost}`)
+            }
+        }
+
+        if (items.length > 0) {
+            user.sendXt('gic', `${args[0]}%${items.join('|')}`)
         }
     }
 }

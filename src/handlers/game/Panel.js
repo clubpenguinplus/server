@@ -15,6 +15,7 @@ export default class Panel extends Handler {
             'o#cn': this.changeUsername,
             'o#wt': this.wireTap,
             'o#tw': this.unWireTap,
+            'i#sa': this.setItemAvailable,
         }
     }
 
@@ -263,5 +264,17 @@ export default class Panel extends Handler {
             if (!this.rooms[room]) return
             this.rooms[room].wiretapMods = this.rooms[room].wiretapMods.filter((mod) => mod != user.data.id)
         }
+    }
+
+    async setItemAvailable(args, user) {
+        if (user.data.rank < 3) {
+            user.sendXt('e', 15)
+            return
+        }
+
+        let item = this.crumbs.items[args[0]]
+        if (!item) return
+
+        this.handler.api.apiFunction('/setItemAvaliable', {item: args[0], available: args[1]})
     }
 }
