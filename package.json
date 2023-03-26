@@ -7,7 +7,8 @@
     "build": "babel src -d dist --copy-files",
     "secret-gen": "node ./utils/secret-gen.js",
     "table-to-json": "babel-node ./utils/table-to-json.js",
-    "format": "npx prettier --write ./src/"
+    "format": "npx prettier --write ./src/",
+    "check-version": "node ./utils/check-version.js"
   },
   "repository": {
     "type": "git",
