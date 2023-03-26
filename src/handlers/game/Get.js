@@ -90,7 +90,7 @@ export default class Get extends Handler {
             }
         }
 
-        user.sendXt('gsb', `${username}%${stamps.join()}%${target.dataValues.stampbookColor}%${target.dataValues.stampbookClasp}%${target.dataValues.stampbookPattern}%${pins.join()}`)
+        user.sendXt('gsb', `${username}%${stamps.join('|')}%${target.dataValues.stampbookColor}%${target.dataValues.stampbookClasp}%${target.dataValues.stampbookPattern}%${pins.join()}`)
     }
 
     async getMascots(args, user) {

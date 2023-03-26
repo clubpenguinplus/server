@@ -1,7 +1,7 @@
 {
   "name": "server",
-  "version": "0.1.0",
-  "description": "A server for https://github.com/clubpenguinplus/client/",
+  "version": "0.1.1",
+  "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Dev",
     "build": "babel src -d dist --copy-files",

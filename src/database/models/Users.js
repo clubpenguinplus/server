@@ -189,6 +189,11 @@ export default class Users extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 0,
                 },
+                customStamps: {
+                    type: DataTypes.STRING(50),
+                    allowNull: false,
+                    defaultValue: '',
+                },
                 cannon_data: {
                     type: DataTypes.STRING(1000),
                 },
