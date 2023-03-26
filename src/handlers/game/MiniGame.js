@@ -24,93 +24,12 @@ export default class MiniGame extends Handler {
     }
 
     async endMinigame(args, user) {
-        if (!args[0] || args[0] < 0) {
-            return
-        }
+        if (!args[0] || args[0] < 0 || args[0] == 'NaN' || args[0] == 'null' || args[0] == 'undefined') args[0] = 0
 
-        let categoryStamps = []
-        let ownedCategoryStamps = []
+        user.updateCoins(args[0])
+        user.sendXt('eg', `${user.data.coins}%${args[1]}%${args[0]}`)
 
-        let category
-
-        switch (args[1].toLowerCase()) {
-            case 'aquagrabber':
-                category = 13
-                break
-            case 'astrobarrier':
-                category = 14
-                break
-            case 'card':
-                category = 38
-                break
-            case 'cjfire':
-                category = 32
-                break
-            case 'cjsnow':
-                category = 60
-                break
-            case 'cjwater':
-                category = 34
-                break
-            case 'cartsurfer':
-                category = 28
-                break
-            case 'catchinwaves':
-                category = 15
-                break
-            case 'icefishing':
-                category = 52
-                break
-            case 'jetpackadventure':
-                category = 11
-                break
-            case 'pizzatron':
-                category = 54
-                break
-            case 'pufflelaunch':
-                category = 48
-                break
-            case 'pufflerescue':
-                category = 57
-                break
-            case 'smoothie':
-                category = 58
-                break
-            case 'sysdef':
-                category = 46
-                break
-            case 'thinice':
-                category = 16
-                break
-            case 'treasurehunt':
-                category = 56
-                break
-        }
-
-        for (var stamp in this.crumbs.stamps) {
-            if (this.crumbs.stamps[stamp].groupid == category) {
-                categoryStamps.push(stamp)
-                if (user.stamps.includes(parseInt(stamp))) ownedCategoryStamps.push(stamp)
-            }
-        }
-
-        let payoutFrequency = args[0] * 50
-        let unixTime = new Date().getTime()
-        if (user.lastPayout > unixTime - payoutFrequency) {
-            return user.sendXt('e', 11)
-        }
-        if (args[0] < 15000) {
-            if (categoryStamps.length > 1 && ownedCategoryStamps.length === categoryStamps.length) {
-                args[0] = Math.round(args[0] * 2)
-            }
-            user.lastPayout = new Date().getTime()
-            user.updateCoins(args[0])
-            user.sendXt('eg', `${user.data.coins}%${args[1]}%${args[0]}`)
-
-            this.handler.api.apiFunction('/logTransaction', {amount: args[0], user: user.data.id, reason: args[1], total: user.data.coins})
-        } else {
-            user.sendXt('e', 12)
-        }
+        this.handler.api.apiFunction('/logTransaction', {amount: args[0], user: user.data.id, reason: args[1], total: user.data.coins})
     }
 
     sendMove(args, user) {
