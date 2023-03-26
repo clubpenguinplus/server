@@ -51,11 +51,13 @@ export default class Actions extends Handler {
         user.data.stampbookColor = args[0]
         user.data.stampbookClasp = args[1]
         user.data.stampbookPattern = args[2]
+        user.data.customStamps = args[3]
 
         user.update({
             stampbookColor: user.data.stampbookColor,
             stampbookClasp: user.data.stampbookClasp,
             stampbookPattern: user.data.stampbookPattern,
+            customStamps: user.data.customStamps,
         })
     }
 

@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
@@ -14,7 +7,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
 CREATE TABLE IF NOT EXISTS `auth_tokens` (
   `userId` int NOT NULL,
   `selector` char(36) NOT NULL,
@@ -23,8 +15,6 @@ CREATE TABLE IF NOT EXISTS `auth_tokens` (
   PRIMARY KEY (`userId`,`selector`) USING BTREE,
   CONSTRAINT `auth_tokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Authentication tokens for saved logins';
-
-
 
 
 CREATE TABLE IF NOT EXISTS `bans` (
@@ -39,17 +29,13 @@ CREATE TABLE IF NOT EXISTS `bans` (
   KEY `moderatorId` (`moderatorId`),
   CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`moderatorId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='User ban records';
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User ban records';
 
 
 CREATE TABLE IF NOT EXISTS `beta_keys` (
   `key` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`key`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `buddies` (
@@ -63,8 +49,6 @@ CREATE TABLE IF NOT EXISTS `buddies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User buddies';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `codes` (
   `id` int NOT NULL,
   `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -72,8 +56,6 @@ CREATE TABLE IF NOT EXISTS `codes` (
   `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `code_items` (
@@ -85,16 +67,12 @@ CREATE TABLE IF NOT EXISTS `code_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
 
-
-
 CREATE TABLE IF NOT EXISTS `flooring_inventories` (
   `userId` int NOT NULL,
   `floorId` int NOT NULL,
   PRIMARY KEY (`userId`,`floorId`) USING BTREE,
   CONSTRAINT `flooring_inventories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User owned igloos';
-
-
 
 
 CREATE TABLE IF NOT EXISTS `furniture_inventories` (
@@ -106,16 +84,12 @@ CREATE TABLE IF NOT EXISTS `furniture_inventories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User owned furniture';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `igloo_inventories` (
   `userId` int NOT NULL,
   `iglooId` int NOT NULL,
   PRIMARY KEY (`userId`,`iglooId`) USING BTREE,
   CONSTRAINT `igloo_inventories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User owned igloos';
-
-
 
 
 CREATE TABLE IF NOT EXISTS `igloo_likes` (
@@ -128,8 +102,6 @@ CREATE TABLE IF NOT EXISTS `igloo_likes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-
-
 CREATE TABLE IF NOT EXISTS `ignores` (
   `userId` int NOT NULL,
   `ignoreId` int NOT NULL,
@@ -140,8 +112,6 @@ CREATE TABLE IF NOT EXISTS `ignores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User ignores';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `inventories` (
   `userId` int NOT NULL,
   `itemId` int NOT NULL,
@@ -150,16 +120,12 @@ CREATE TABLE IF NOT EXISTS `inventories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User owned clothing';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `location_inventories` (
   `userId` int NOT NULL,
   `locationId` int NOT NULL,
   PRIMARY KEY (`userId`,`locationId`) USING BTREE,
   CONSTRAINT `location_inventories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User owned igloos';
-
-
 
 
 CREATE TABLE IF NOT EXISTS `pending_buddies` (
@@ -172,17 +138,15 @@ CREATE TABLE IF NOT EXISTS `pending_buddies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='User pending buddies';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `twofa` (
   `userId` int NOT NULL,
   `ip` text NOT NULL,
   `isAllowed` tinyint(1) NOT NULL DEFAULT '0',
   `code` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  PRIMARY KEY (`code`(100))
+  PRIMARY KEY (`code`(100)),
+  KEY `FK_twofa_users` (`userId`),
+  CONSTRAINT `FK_twofa_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `used_codes` (
@@ -192,8 +156,6 @@ CREATE TABLE IF NOT EXISTS `used_codes` (
   KEY `FK_usedcodes_users` (`userId`) USING BTREE,
   CONSTRAINT `FK_usedcodes_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -235,15 +197,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `stampbookColor` tinyint(1) NOT NULL DEFAULT '1',
   `stampbookClasp` tinyint(1) NOT NULL DEFAULT '1',
   `stampbookPattern` tinyint(1) NOT NULL DEFAULT '0',
-  `cannon_data` varchar(1000) DEFAULT '0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0',
+  `customStamps` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `cannon_data` varchar(5000) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#A#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0',
   `walking` int NOT NULL DEFAULT '0',
   `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `current_igloo` tinyint NOT NULL DEFAULT '0',
   `epfStatus` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=latin1 COMMENT='Users';
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Users';
 
 
 CREATE TABLE IF NOT EXISTS `user_furnitures` (
@@ -258,9 +219,7 @@ CREATE TABLE IF NOT EXISTS `user_furnitures` (
   PRIMARY KEY (`id`),
   KEY `user_furnitures_ibfk_1` (`userId`),
   CONSTRAINT `user_furnitures_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=392 DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
 
 
 CREATE TABLE IF NOT EXISTS `user_igloos` (
@@ -276,8 +235,6 @@ CREATE TABLE IF NOT EXISTS `user_igloos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User igloo settings';
 
 
-
-
 CREATE TABLE IF NOT EXISTS `user_postcards` (
   `userId` int NOT NULL,
   `id` int NOT NULL,
@@ -287,8 +244,6 @@ CREATE TABLE IF NOT EXISTS `user_postcards` (
   PRIMARY KEY (`userId`) USING BTREE,
   CONSTRAINT `FK_user_postcards_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 
 CREATE TABLE IF NOT EXISTS `user_puffles` (
@@ -303,21 +258,15 @@ CREATE TABLE IF NOT EXISTS `user_puffles` (
   PRIMARY KEY (`id`),
   KEY `FK_user_puffles_users` (`userId`),
   CONSTRAINT `FK_user_puffles_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE IF NOT EXISTS `user_stamps` (
   `userId` int NOT NULL,
   `stampId` int NOT NULL,
   PRIMARY KEY (`userId`,`stampId`),
-  KEY `FK_user_stamps_stamps` (`stampId`),
-  CONSTRAINT `FK_user_stamps_stamps` FOREIGN KEY (`stampId`) REFERENCES `stamps` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_user_stamps_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
 
 
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
