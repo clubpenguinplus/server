@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `bans` (
   KEY `moderatorId` (`moderatorId`),
   CONSTRAINT `bans_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `bans_ibfk_2` FOREIGN KEY (`moderatorId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 COMMENT='User ban records';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User ban records';
 
 
 CREATE TABLE IF NOT EXISTS `beta_keys` (
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `current_igloo` tinyint NOT NULL DEFAULT '0',
   `epfStatus` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1025 DEFAULT CHARSET=latin1 COMMENT='Users';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Users';
 
 
 CREATE TABLE IF NOT EXISTS `user_furnitures` (
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `user_furnitures` (
   PRIMARY KEY (`id`),
   KEY `user_furnitures_ibfk_1` (`userId`),
   CONSTRAINT `user_furnitures_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=392 DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Furniture placed inside igloos';
 
 
 CREATE TABLE IF NOT EXISTS `user_igloos` (
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `user_puffles` (
   PRIMARY KEY (`id`),
   KEY `FK_user_puffles_users` (`userId`),
   CONSTRAINT `FK_user_puffles_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE IF NOT EXISTS `user_stamps` (
