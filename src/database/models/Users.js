@@ -190,7 +190,7 @@ export default class Users extends Sequelize.Model {
                     defaultValue: 0,
                 },
                 customStamps: {
-                    type: DataTypes.STRING(50),
+                    type: DataTypes.TEXT,
                     allowNull: false,
                     defaultValue: '',
                 },

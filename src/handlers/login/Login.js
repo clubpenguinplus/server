@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import fetch from 'node-fetch'
 import Validator from 'fastest-validator'
 import Handler from '../Handler'
+const fs = require('fs')
 
 export default class Login extends Handler {
     constructor(users, rooms) {
