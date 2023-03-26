@@ -85,7 +85,7 @@ export default class Get extends Handler {
 
         let pins = []
         for (let i = 0; i < inventory.length; i++) {
-            if (this.crumbs.items[inventory[i]] && this.crumbs.items[inventory[i]].type == 7) {
+            if (this.crumbs.items[inventory[i]] && this.crumbs.items[inventory[i]].type == 8) {
                 pins.push(inventory[i])
             }
         }
