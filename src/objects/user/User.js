@@ -11,11 +11,15 @@ import fs from 'fs'
 import AES from 'crypto-js/aes'
 
 export default class User {
-    constructor(socket, handler) {
+    constructor(socket, handler, encryptionKey, decryptionKey) {
         this.socket = socket
         this.handler = handler
         this.db = handler.db
         this.crumbs = handler.crumbs
+        this.encryptionKey = encryptionKey
+        this.decryptionKey = decryptionKey
+
+        console.log(this.encryptionKey, this.decryptionKey)
 
         this.address
 
@@ -173,12 +177,12 @@ export default class User {
     }
 
     sendXml(xml) {
-        let payload = AES.encrypt(xml, `Server${new Date().getUTCHours()}Key`).toString()
+        let payload = AES.encrypt(xml, this.encryptionKey).toString()
         this.socket.emit('message', payload)
     }
 
     sendXt(action, args = '') {
-        let payload = AES.encrypt(`%xt%${action}%${args}%`, `Server${new Date().getUTCHours()}Key`).toString()
+        let payload = AES.encrypt(`%xt%${action}%${args}%`, this.encryptionKey).toString()
         this.socket.emit('message', payload)
     }
 

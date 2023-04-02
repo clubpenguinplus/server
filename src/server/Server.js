@@ -123,8 +123,47 @@ export default class Server {
         return require('socket.io')(this.httpServer, options)
     }
 
+    caesarCipherEncryptHex(text, key) {
+        let result = ''
+        for (let i = 0; i < text.length; i++) {
+            let char = text[i]
+            if (char.match(/[0-9a-f]/i)) {
+                let code = parseInt(char, 16)
+                code = (code + key) % 16
+                char = code.toString(16)
+            }
+            result += char
+        }
+        return result
+    }
+
+    generatePrimaryKey(caeserOffset) {
+        const now = new Date()
+
+        const hours = now.getUTCHours()
+        const date = now.getUTCDate()
+        const day = now.getUTCDay()
+
+        const keyNum = hours * date * day
+        const keyHex = keyNum.toString(16)
+
+        const key = this.caesarCipherEncryptHex(keyHex, caeserOffset)
+
+        return key
+    }
+
+    generatePrimaryServerKey() {
+        const key = this.generatePrimaryKey(3) + this.generatePrimaryKey(7) + '9yXruyv2L7PQzmAWHYQmcmNS'
+        return key
+    }
+
+    generatePrimaryClientKey() {
+        const key = this.generatePrimaryKey(5) + this.generatePrimaryKey(11) + 'KSd7zZ9bCKgxBvPcPJXUBgHV'
+        return key
+    }
+
     connectionMade(socket) {
-        let user = new User(socket, this.handler)
+        let user = new User(socket, this.handler, this.generatePrimaryServerKey(), this.generatePrimaryClientKey())
 
         this.users[socket.id] = user
 
@@ -139,7 +178,7 @@ export default class Server {
         this.rateLimiter
             .consume(user.address)
             .then(() => {
-                let payload = AES.decrypt(message, `Client${new Date().getUTCHours()}Key`)
+                let payload = AES.decrypt(message, user.decryptionKey)
                 this.handler.log.info(`[Server] Received: ${payload.toString(enc)} from ${user.address}`)
                 this.handler.handle(payload.toString(enc), user)
             })
