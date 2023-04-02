@@ -64,10 +64,14 @@ export default class GameAuth extends Handler {
         user.setPostcards(await user.db.getPostcards(user.data.id))
 
         // Send response
-        user.sendXt('ga')
-        if (success.token) {
-            user.sendXt('at', success.token)
-        }
+        let serverKey = crypto.randomBytes(32).toString('hex')
+        let clientKey = crypto.randomBytes(32).toString('hex')
+
+        let packet = success.token ? `${serverKey}%${clientKey}%${success.token}` : `${serverKey}%${clientKey}`
+        user.sendXt('ga', packet)
+
+        user.encryptionKey = serverKey
+        user.decryptionKey = clientKey
 
         this.handler.api.apiFunction('/logLogin', {user: user.data.id, ip: user.address})
 
