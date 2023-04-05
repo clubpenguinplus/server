@@ -5,6 +5,7 @@ export default class FindFourInstance extends WaddleInstance {
         super(waddle)
         this.waddle = waddle
         this.game = 'four'
+        this.spectators = []
     }
 
     // Functions
@@ -153,6 +154,29 @@ export default class FindFourInstance extends WaddleInstance {
             this.users[x].sendXt('eg', `${this.users[x].data.coins}%four%0`)
             this.waddle.remove(this.users[x])
         }
+
+        for (let x in this.spectators) {
+            this.removeSpectator(this.spectators[x])
+        }
+        this.spectators = []
+
         this.waddle.reset()
+    }
+
+    addSpectator(user) {
+        this.spectators.push(user)
+        user.send('spectate_game', {
+            game: 'four',
+            p1: [this.users[0].data.id, this.users[0].data.username],
+            p2: [this.users[1].data.id, this.users[1].data.username],
+            map: this.map,
+        })
+        user.spectating = this
+    }
+
+    removeSpectator(user) {
+        this.spectators.splice(this.spectators.indexOf(user), 1)
+        user.spectating = null
+        user.send('stop_spectating', {game: 'four'})
     }
 }

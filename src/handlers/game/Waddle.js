@@ -11,15 +11,15 @@ export default class Waddle extends Handler {
     }
 
     getWaddles(args, user) {
-        let waddles = Object.values(user.room.waddles)
-            .map((waddle) => {
-                let users = waddle.users.map((user) => (user ? user.data.username : null))
+        let waddleArray = []
 
-                return `${waddle.id}|${users.join(',')}`
-            })
-            .join('%')
+        for (let waddle in user.room.waddles) {
+            let users = user.room.waddles[waddle].users.map((user) => (user ? user.data.username : null))
 
-        user.sendXt('gt', waddles)
+            waddleArray.push(`${waddle}|${users.join(',')}`)
+        }
+
+        user.sendXt('gt', waddleArray.join('%'))
     }
 
     joinWaddle(args, user) {

@@ -2,8 +2,9 @@ import SledInstance from '../instance/SledInstance'
 import FindFourInstance from '../instance/FindFourInstance'
 
 export default class WaddleRoom {
-    constructor(data) {
+    constructor(data, id) {
         Object.assign(this, data)
+        this.id = id
 
         this.users = new Array(data.seats).fill(null)
     }
@@ -19,8 +20,8 @@ export default class WaddleRoom {
             return this.start()
         }
 
-        user.sendXt('jw', `${this.id}%${seat}%${this.game}`)
-        user.room.sendXt(user, 'uw', `${this.id}%${seat}%${user.data.username}%${this.game}`)
+        user.sendXt('jt', `${this.id}%${seat}%${this.game}`)
+        user.room.sendXt(user, 'ut', `${this.id}%${seat}%${user.data.username}%${this.game}`)
 
         if (!this.users.includes(null)) {
             this.start()
@@ -33,7 +34,7 @@ export default class WaddleRoom {
 
         user.waddle = null
 
-        user.room.send(user, 'uw', `${this.id}%${seat}`)
+        user.room.sendXt(user, 'ut', `${this.id}%${seat}`)
     }
 
     start() {
@@ -49,7 +50,7 @@ export default class WaddleRoom {
         for (let [seat, user] of this.users.entries()) {
             if (user) {
                 this.users[seat] = null
-                user.room.send(user, 'uw', `${this.id}%${seat}`)
+                user.room.sendXt(user, 'ut', `${this.id}%${seat}`)
             }
         }
     }

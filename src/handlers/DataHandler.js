@@ -68,7 +68,7 @@ export default class DataHandler {
 
         for (let w in waddles) {
             let waddle = waddles[w]
-            this.rooms[waddle.roomId].waddles[waddle.id] = new WaddleRoom(waddle)
+            this.rooms[waddle.roomId].waddles[w] = new WaddleRoom(waddle, w)
         }
     }
 
