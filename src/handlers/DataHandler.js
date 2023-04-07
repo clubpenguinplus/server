@@ -187,7 +187,7 @@ export default class DataHandler {
         try {
             this.events[event](args, user)
         } catch (error) {
-            this.log.error(`[DataHandler] Event (${event}) not handled: ${error}`)
+            this.log.error(`[DataHandler] Event (${event}) not handled: ${error.stack}`)
         }
     }
 }

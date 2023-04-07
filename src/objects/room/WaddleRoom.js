@@ -21,7 +21,7 @@ export default class WaddleRoom {
         }
 
         user.sendXt('jt', `${this.id}%${seat}%${this.game}`)
-        user.room.sendXt(user, 'ut', `${this.id}%${seat}%${user.data.username}%${this.game}`)
+        user.room.sendXt(user, 'ut', `${this.id}%${seat}%${user.data.username}%${this.game}`, [])
 
         if (!this.users.includes(null)) {
             this.start()
@@ -34,7 +34,7 @@ export default class WaddleRoom {
 
         user.waddle = null
 
-        user.room.sendXt(user, 'ut', `${this.id}%${seat}`)
+        user.room.sendXt(user, 'ut', `${this.id}%${seat}`, [])
     }
 
     start() {
@@ -50,7 +50,7 @@ export default class WaddleRoom {
         for (let [seat, user] of this.users.entries()) {
             if (user) {
                 this.users[seat] = null
-                user.room.sendXt(user, 'ut', `${this.id}%${seat}`)
+                user.room.sendXt(user, 'ut', `${this.id}%${seat}`, [])
             }
         }
     }

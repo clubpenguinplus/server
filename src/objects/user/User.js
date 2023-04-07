@@ -19,8 +19,6 @@ export default class User {
         this.encryptionKey = encryptionKey
         this.decryptionKey = decryptionKey
 
-        console.log(this.encryptionKey, this.decryptionKey)
-
         this.address
 
         this.validatePurchase = new PurchaseValidator(this)

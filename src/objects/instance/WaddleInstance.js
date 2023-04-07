@@ -68,11 +68,11 @@ export default class WaddleInstance {
         }
     }
 
-    send(action, args = {}, user = null, filter = [user]) {
-        let users = this.users.filter((u) => !filter.includes(u)).filter(Boolean)
+    sendXt(action, args = {}, filter = []) {
+        let users = this.users.filter((u) => !filter.includes(u))
 
         for (let u of users) {
-            u.send(action, args)
+            u.sendXt(action, args)
         }
     }
 }

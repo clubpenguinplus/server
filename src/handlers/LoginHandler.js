@@ -65,7 +65,7 @@ export default class LoginHandler {
         try {
             this.events[event](xmlData, user)
         } catch (error) {
-            this.log.error(`[LoginHandler] Event (${event}) not handled: ${error}`)
+            this.log.error(`[LoginHandler] Event (${event}) not handled: ${error.stack}`)
         }
     }
 
