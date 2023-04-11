@@ -7,7 +7,7 @@ export default class Puffles extends Handler {
             'p#pn': this.adoptPuffle,
             'p#pg': this.getPuffles,
             'p#phg': this.getWellbeing,
-            'p#pgc': this.getPuffleColor,
+            'p#pgs': this.getPuffleSpecies,
             'p#pw': this.walkPuffle,
             'p#pgc': this.getPuffleCount,
         }
@@ -78,31 +78,28 @@ export default class Puffles extends Handler {
         if (user.data.walking !== 0) {
             user.data.walking = 0
             user.update({walking: user.data.walking})
-            user.room.send(user, 'stop_walking', {user: user.data.id}, [])
+            user.room.sendXt(user, 'psw', user.data.id, [])
         }
     }
 
     async walkPuffle(args, user) {
-        if (args[0] !== 0) {
+        if (args[0] != 0) {
             user.data.walking = args[0]
             user.update({walking: user.data.walking})
-            user.room.send(user, 'walk_puffle', {user: user.data.id, puffle: args[0]}, [])
+            user.room.sendXt(user, 'ppw', `${user.data.id}%${args[0]}`, [])
         } else {
             this.stopWalking(args, user)
         }
     }
 
-    async getPuffleColor(args, user) {
+    async getPuffleSpecies(args, user) {
         if (!args[0]) {
             return
         }
         let puffleId = args[0]
-        let puffleColor = await this.db.getPuffleColor(puffleId)
-        if (puffleColor) {
-            user.sendXt('get_puffle_color', {
-                penguinId: args[1],
-                color: puffleColor.color,
-            })
+        let puffleColor = await this.db.getPuffleSpecies(puffleId)
+        if (puffleColor != undefined) {
+            user.sendXt('pgs', `${args[1]}%${puffleColor}`)
         }
     }
 

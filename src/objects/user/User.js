@@ -59,7 +59,8 @@ export default class User {
     }
 
     get string() {
-        return `${this.data.id}|${this.data.username}|${this.data.color}|${this.data.head}|${this.data.face}|${this.data.neck}|${this.data.body}|${this.data.hand}|${this.data.feet}|${this.data.flag}|${this.data.photo}|${this.data.coins}|${this.x}|${this.y}|${this.frame}|${this.data.rank}|${this.data.stealthMode ? 1 : 0}|${this.data.username_approved ? 1 : 0}|${this.data.username_rejected ? 1 : 0}|${this.data.walking}|${this.data.epfStatus}|${new Date(this.data.joinTime).getTime()}`
+        const values = [this.data.id, this.data.username, this.data.color, this.data.head, this.data.face, this.data.neck, this.data.body, this.data.hand, this.data.feet, this.data.flag, this.data.photo, this.data.coins, this.x, this.y, this.frame, this.data.rank, this.data.stealthMode ? 1 : 0, this.data.username_approved ? 1 : 0, this.data.username_rejected ? 1 : 0, this.data.walking, this.data.epfStatus, new Date(this.data.joinTime).getTime()]
+        return values.join('|')
     }
 
     get inWaddleGame() {

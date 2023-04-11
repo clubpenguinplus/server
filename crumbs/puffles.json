@@ -1,1 +1,202 @@
-{}
+{
+    "0": {
+        "parent": 0,
+        "name": "Blue",
+        "cost": 400
+    },
+    "1": {
+        "parent": 1,
+        "name": "Pink",
+        "cost": 800
+    },
+    "2": {
+        "parent": 2,
+        "name": "Black",
+        "cost": 800
+    },
+    "3": {
+        "parent": 3,
+        "name": "Green",
+        "cost": 800
+    },
+    "4": {
+        "parent": 4,
+        "name": "Purple",
+        "cost": 800
+    },
+    "5": {
+        "parent": 5,
+        "name": "Red",
+        "cost": 400
+    },
+    "6": {
+        "parent": 6,
+        "name": "Yellow",
+        "cost": 800
+    },
+    "7": {
+        "parent": 7,
+        "name": "White",
+        "cost": 800
+    },
+    "8": {
+        "parent": 8,
+        "name": "Orange",
+        "cost": 800
+    },
+    "9": {
+        "parent": 9,
+        "name": "Brown",
+        "cost": 800
+    },
+    "10": {
+        "parent": 10,
+        "name": "Rainbow",
+        "cost": 800
+    },
+    "11": {
+        "parent": 11,
+        "name": "Gold",
+        "cost": 800
+    },
+    "1000": {
+        "parent": 2,
+        "name": "Black T-Rex",
+        "cost": 800
+    },
+    "1001": {
+        "parent": 4,
+        "name": "Purple T-Rex",
+        "cost": 800
+    },
+    "1002": {
+        "parent": 5,
+        "name": "Red Triceratops",
+        "cost": 800
+    },
+    "1003": {
+        "parent": 0,
+        "name": "Blue Triceratops",
+        "cost": 800
+    },
+    "1004": {
+        "parent": 6,
+        "name": "Yellow Stegasaurus",
+        "cost": 800
+    },
+    "1005": {
+        "parent": 1,
+        "name": "Pink Stegasaurus",
+        "cost": 800
+    },
+    "1006": {
+        "parent": 0,
+        "name": "Blue Dog",
+        "cost": 800
+    },
+    "1007": {
+        "parent": 8,
+        "name": "Orange Cat",
+        "cost": 800
+    },
+    "1008": {
+        "parent": 3,
+        "name": "Green Raccoon",
+        "cost": 800
+    },
+    "1009": {
+        "parent": 8,
+        "name": "Orange Raccoon",
+        "cost": 800
+    },
+    "1010": {
+        "parent": 1,
+        "name": "Pink Raccoon",
+        "cost": 800
+    },
+    "1011": {
+        "parent": 0,
+        "name": "Blue Raccoon",
+        "cost": 800
+    },
+    "1012": {
+        "parent": 3,
+        "name": "Green Rabbit",
+        "cost": 800
+    },
+    "1013": {
+        "parent": 1,
+        "name": "Pink Rabbit",
+        "cost": 800
+    },
+    "1014": {
+        "parent": 7,
+        "name": "White Rabbit",
+        "cost": 800
+    },
+    "1015": {
+        "parent": 5,
+        "name": "Red Rabbit",
+        "cost": 800
+    },
+    "1016": {
+        "parent": 0,
+        "name": "Blue Deer",
+        "cost": 800
+    },
+    "1017": {
+        "parent": 2,
+        "name": "Black Deer",
+        "cost": 800
+    },
+    "1018": {
+        "parent": 5,
+        "name": "Red Deer",
+        "cost": 800
+    },
+    "1019": {
+        "parent": 4,
+        "name": "Purple Deer",
+        "cost": 800
+    },
+    "1020": {
+        "parent": 6,
+        "name": "Yellow Unicorn",
+        "cost": 800
+    },
+    "1021": {
+        "parent": 7,
+        "name": "Snowman",
+        "cost": 800
+    },
+    "1022": {
+        "parent": 4,
+        "name": "Ghost",
+        "cost": 800
+    },
+    "1023": {
+        "parent": 0,
+        "name": "Crystal",
+        "cost": 800
+    },
+    "1024": {
+        "parent": 3,
+        "name": "Green Alien",
+        "cost": 800
+    },
+    "1025": {
+        "parent": 8,
+        "name": "Orange Alien",
+        "cost": 800
+    },
+    "1026": {
+        "parent": 6,
+        "name": "Yellow Alien",
+        "cost": 800
+    },
+    "1027": {
+        "parent": 4,
+        "name": "Purple Alien",
+        "cost": 800
+    }
+}
