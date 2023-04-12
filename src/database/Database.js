@@ -488,7 +488,7 @@ export default class Database {
             where: {
                 userId: userId,
             },
-            attributes: ['id', 'color', 'name'],
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean'],
         })
     }
 

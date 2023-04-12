@@ -48,12 +48,10 @@ export default class Puffles extends Handler {
         }
         let userId = args[0]
         let puffles = await this.db.getPuffles(userId)
-        if (puffles) {
-            user.sendXt('get_puffles', {
-                userId: userId,
-                puffles: puffles,
-            })
-        }
+        puffles = puffles.map((puffle) => {
+            return `${puffle.dataValues.id}|${puffle.dataValues.species}|${puffle.dataValues.name}|${puffle.dataValues.food}|${puffle.dataValues.play}|${puffle.dataValues.rest}|${puffle.dataValues.clean}`
+        })
+        user.sendXt('pgp', puffles.join('%'))
     }
 
     async getWellbeing(args, user) {
@@ -76,9 +74,10 @@ export default class Puffles extends Handler {
 
     async stopWalking(args, user) {
         if (user.data.walking !== 0) {
+            const prevPuffle = user.data.walking
             user.data.walking = 0
             user.update({walking: user.data.walking})
-            user.room.sendXt(user, 'psw', user.data.id, [])
+            user.room.sendXt(user, 'psw', `${user.data.id}%${prevPuffle}`, [])
         }
     }
 
