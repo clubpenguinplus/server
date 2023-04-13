@@ -14,7 +14,7 @@ export default class UserPuffles extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                 },
-                color: {
+                species: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                 },
