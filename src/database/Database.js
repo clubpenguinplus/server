@@ -534,7 +534,7 @@ export default class Database {
     async adoptPuffle(userId, type, name) {
         let puffle = await this.userPuffles.create({
             userId: userId,
-            color: type,
+            species: type,
             name: name,
         })
         return puffle

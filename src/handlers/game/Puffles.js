@@ -15,9 +15,9 @@ export default class Puffles extends Handler {
 
     async adoptPuffle(args, user) {
         let type = args[0]
-        let name = args[0].charAt(0).toUpperCase() + args[0].slice(1).toLowerCase()
+        let name = args[1].charAt(0).toUpperCase() + args[1].slice(1).toLowerCase()
 
-        let cost = (await this.db.getPuffleCost(type)).dataValues.cost
+        let cost = this.crumbs.puffles[type].cost
 
         if (cost > user.data.coins) {
             user.sendXt('e', 0)
@@ -29,17 +29,8 @@ export default class Puffles extends Handler {
 
         let puffle = await this.db.adoptPuffle(user.data.id, type, name)
 
-        user.sendXt('adopt_puffle', {puffle: puffle.id, coins: user.data.coins})
-        let postcard = await this.db.userPostcards.create({
-            userId: user.data.id,
-            id: 111,
-            sender: 'Club Penguin Plus',
-            details: name,
-        })
-        if (postcard) {
-            user.postcards = await this.db.getPostcards(user.data.id)
-            user.sendXt('update_postcards', {postcards: user.postcards})
-        }
+        this.walkPuffle([puffle.id], user)
+        user.sendXt('ac', user.data.coins)
     }
 
     async getPuffles(args, user) {
