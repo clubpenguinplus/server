@@ -250,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `user_postcards` (
 CREATE TABLE IF NOT EXISTS `user_puffles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
-  `color` int NOT NULL,
+  `species` int NOT NULL,
   `name` varchar(50) NOT NULL DEFAULT '',
   `food` int NOT NULL DEFAULT '100',
   `play` int NOT NULL DEFAULT '100',
