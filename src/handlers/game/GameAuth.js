@@ -73,10 +73,7 @@ export default class GameAuth extends Handler {
         user.encryptionKey = serverKey
         user.decryptionKey = clientKey
 
-        this.handler.api.apiFunction('/logLogin', {user: user.data.id, ip: user.address})
-
-        // Update world population
-        await this.handler.updateWorldPopulation()
+        this.handler.analytics.login(user.data.id, user.address)
     }
 
     async modAuth(args, user) {

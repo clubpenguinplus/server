@@ -96,6 +96,6 @@ export default class Codes extends Handler {
         }
 
         // user.sendXt('aci', `${args[0]}%${item.name}%${slot}%`)
-        this.handler.api.apiFunction('/logTransaction', {amount: 0, user: user.data.id, reason: `code redemption for item ${args[0]} : ${item.name}`, total: 0})
+        this.handler.analytics.transaction(user.data.id, 0, `code redemption for item ${args[0]} : ${item.name}`)
     }
 }

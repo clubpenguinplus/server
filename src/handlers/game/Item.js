@@ -35,7 +35,7 @@ export default class Item extends Handler {
 
         user.updateCoins(-item.cost)
         user.sendXt('ai', `${args[0]}%${item.name}%${slot}%${user.data.coins}`)
-        this.handler.api.apiFunction('/logTransaction', {amount: -item.cost, user: user.data.id, reason: `purchase of item ${args[0]} : ${item.name}`, total: user.data.coins})
+        this.handler.analytics.transaction(user.data.id, -item.cost, `purchase of item ${args[0]} : ${item.name}`)
     }
 
     removeItem(args, user) {

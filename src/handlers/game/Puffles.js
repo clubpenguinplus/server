@@ -25,7 +25,7 @@ export default class Puffles extends Handler {
         }
 
         user.updateCoins(-cost)
-        this.handler.api.apiFunction('/logTransaction', {amount: -cost, user: user.data.id, reason: `purchase of puffle ${type} : ${name}`, total: user.data.coins})
+        this.handler.analytics.transaction(user.data.id, -cost, `purchase of puffle ${type} : ${name}`)
 
         let puffle = await this.db.adoptPuffle(user.data.id, type, name)
 

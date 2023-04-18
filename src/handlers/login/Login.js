@@ -269,8 +269,8 @@ export default class Login extends Handler {
 
     get worlds() {
         let worlds = []
-        for (let world of Object.keys(this.crumbs.worlds)) {
-            if (this.crumbs.worlds[world].public) {
+        for (let world of Object.keys(this.crumbs.worlds[process.env.environment || 'production'])) {
+            if (this.crumbs.worlds[process.env.environment || 'production'][world].public) {
                 worlds.push(world)
             }
         }
@@ -281,8 +281,15 @@ export default class Login extends Handler {
         let populations = []
 
         for (let world of this.worlds) {
-            let maxUsers = process.env.maxUsers || 300
-            let population = parseInt(await this.handler.api.apiFunction('/getPopulation', {world: world}))
+            let popData = JSON.parse(
+                await (
+                    await fetch(this.crumbs.worlds[process.env.environment || 'production'][world].address + '/getpopulation', {
+                        method: 'POST',
+                    })
+                ).text()
+            )
+            let population = parseInt(popData.population)
+            let maxUsers = parseInt(popData.maxUsers)
 
             if (population >= maxUsers) {
                 populations.push(`${world}:${isModerator ? 5 : 6}`)

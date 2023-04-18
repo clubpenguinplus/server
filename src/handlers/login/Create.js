@@ -130,6 +130,6 @@ export default class Create extends Handler {
         await this.handler.email.send(email, 'Verify your email', template, templateReplacers)
 
         user.sendXml('R#OK')
-        this.handler.api.apiFunction('/userCreated', {user: acc.dataValues.id, username: username, ip: user.address, email: email, color: color})
+        this.handler.analytics.createUser(acc.dataValues.id, username, user.address, email, color)
     }
 }

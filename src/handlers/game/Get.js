@@ -118,8 +118,8 @@ export default class Get extends Handler {
             } else if (args[0] != 'items') {
                 avaliable = true
             } else {
-                avaliable = await this.handler.api.apiFunction('/getItemAvaliable', {item: args[1]})
-                releases = await this.handler.api.apiFunction('/getItemReleases', {item: args[1]})
+                avaliable = await this.handler.analytics.getItemAvailability(args[1])
+                releases = await this.handler.analytics.getItemReleases(args[1])
                 releases = releases.map((j) => {
                     return JSON.stringify(j)
                 })

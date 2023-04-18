@@ -53,11 +53,6 @@ export default class User {
         this.setPuffleDecay()
     }
 
-    logChat(message, filtered = false, filter = '') {
-        filter = filter == '' ? 'unfiltered' : filter
-        this.handler.api.apiFunction('/logChatMsg', {user: this.data.id, message: message, room: this.room.id, filter: filter})
-    }
-
     get string() {
         const values = [this.data.id, this.data.username, this.data.color, this.data.head, this.data.face, this.data.neck, this.data.body, this.data.hand, this.data.feet, this.data.flag, this.data.photo, this.data.coins, this.x, this.y, this.frame, this.data.rank, this.data.stealthMode ? 1 : 0, this.data.username_approved ? 1 : 0, this.data.username_rejected ? 1 : 0, this.data.walking, this.data.epfStatus, new Date(this.data.joinTime).getTime()]
         return values.join('|')
@@ -344,7 +339,7 @@ export default class User {
             this.sendXt('endas3', endroom)
             this.sendXt('eg', `${this.data.coins}%${game}%${coins}`)
 
-            this.handler.api.apiFunction('/logTransaction', {amount: coins, this: this.data.id, reason: game, total: this.data.coins})
+            this.handler.analytics.transaction(this.data.id, coins, game)
         } else {
             this.sendXt('e', 12)
         }

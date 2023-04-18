@@ -29,7 +29,7 @@ export default class MiniGame extends Handler {
         user.updateCoins(args[0])
         user.sendXt('eg', `${user.data.coins}%${args[1]}%${args[0]}`)
 
-        this.handler.api.apiFunction('/logTransaction', {amount: args[0], user: user.data.id, reason: args[1], total: user.data.coins})
+        this.handler.analytics.transaction(user.data.id, args[0], args[1])
     }
 
     sendMove(args, user) {

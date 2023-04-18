@@ -1,8 +1,9 @@
-import Api from '../integration/Api'
 import Email from '../integration/Email'
+import Analytics from '../integration/Analytics'
 
 import fs from 'fs'
 import path from 'path'
+import fetch from 'node-fetch'
 const jsdom = require('jsdom')
 
 /**
@@ -15,7 +16,7 @@ export default class LoginHandler {
         this.db = db
         this.log = log
 
-        this.api = new Api(this)
+        this.analytics = new Analytics(this)
         this.email = new Email(this)
 
         this.events = {}
@@ -71,5 +72,39 @@ export default class LoginHandler {
 
     close(user) {
         delete this.users[user.socket.id]
+    }
+
+    async getServerPopulations() {
+        let environments = Object.keys(this.crumbs.worlds)
+        let string = ''
+        let currentEnvironment = 0
+        await processEnvironment(environments[currentEnvironment])
+        async function processEnvironment(env) {
+            string += `${env}:\n`
+            let worlds = Object.keys(this.crumbs.worlds[env])
+            let currentWorld = 0
+            await processWorld(worlds[currentWorld])
+            async function processWorld(world) {
+                let popData = JSON.parse(
+                    await (
+                        await fetch(this.crumbs.worlds[env][world].address + '/getpopulation', {
+                            method: 'POST',
+                        })
+                    ).text()
+                )
+                string += `    -${world}: ${popData.population}/${popData.maxUsers}`
+                currentWorld++
+                if (currentWorld < worlds.length) {
+                    string += '\n'
+                    await processWorld(worlds[currentWorld])
+                }
+            }
+            currentEnvironment++
+            if (currentEnvironment < environments.length) {
+                string += '\n\n'
+                await processEnvironment(environments[currentEnvironment])
+            }
+        }
+        return string
     }
 }

@@ -735,6 +735,47 @@ export default class Database {
         })
     }
 
+    async getQuestCompletion(userId, quest) {
+        return await this.findOne('questCompletion', {
+            where: {
+                user: userId,
+                id: quest,
+            },
+            attributes: ['completion', 'info'],
+        })
+    }
+
+    async setQuestCompletion(userId, quest, completion, info = null) {
+        let questCompletion = await this.findOne('questCompletion', {
+            where: {
+                user: userId,
+                id: quest,
+            },
+            attributes: ['completion'],
+        })
+        if (questCompletion) {
+            this.questCompletion.update(
+                {
+                    completion: completion,
+                    info: info,
+                },
+                {
+                    where: {
+                        user: userId,
+                        id: quest,
+                    },
+                }
+            )
+        } else {
+            this.questCompletion.create({
+                user: userId,
+                id: quest,
+                completion: completion,
+                info: info,
+            })
+        }
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {
