@@ -69,7 +69,7 @@ export default class GameAuth extends Handler {
 
         let packet = success.token ? `${serverKey}%${clientKey}%${success.token}` : `${serverKey}%${clientKey}`
         user.sendXt('ga', packet)
-
+        
         user.encryptionKey = serverKey
         user.decryptionKey = clientKey
 
