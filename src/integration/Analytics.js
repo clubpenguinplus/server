@@ -17,7 +17,7 @@ export default class Analytics {
         })
 
         if (handler.id == 'Login') {
-            setTimeout(() => this.dailyMaintenance(), this.distanceToMidnight)
+            this.dailyMaintenance()
         }
     }
 
@@ -63,9 +63,9 @@ export default class Analytics {
                     primaryKey: true,
                 },
                 availability: {
-                    type: Sequelize.BOOLEAN,
+                    type: Sequelize.INTEGER(1),
                     allowNull: false,
-                    defaultValue: true,
+                    defaultValue: 1,
                 },
             },
             {timestamps: false, tableName: 'items'}
@@ -590,6 +590,25 @@ export default class Analytics {
 
         // Init new chat table
         await this.initChatTable()
+
+        // Update chat view to point to new table(s)
+        await this.updateChatView()
+    }
+
+    async updateChatView() {
+        let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'chat_%'`)
+        let tables = []
+        for (let i = 0; i < results.length; i++) {
+            let tableName = results[i][Object.keys(results[i])[0]]
+            tables.push(tableName)
+        }
+        let query = 'CREATE OR REPLACE VIEW chat_view AS '
+        for (let table of tables) {
+            query += `SELECT * FROM ${table} UNION `
+        }
+        query = query.substring(0, query.length - 7) // Remove last 'UNION '
+        query += ';' // Add semicolon
+        await this.sequelize.query(query)
     }
 
     // - Group transactions by user/day after 7 days
@@ -652,5 +671,24 @@ export default class Analytics {
                 await this.sequelize.query(`DROP TABLE ${tableName}`)
             }
         }
+
+        // Update transactions view to point to new table(s)
+        await this.updateTransactionView()
+    }
+
+    async updateTransactionView() {
+        let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'transactions_%'`)
+        let tables = []
+        for (let i = 0; i < results.length; i++) {
+            let tableName = results[i][Object.keys(results[i])[0]]
+            tables.push(tableName)
+        }
+        let query = 'CREATE OR REPLACE VIEW transactions_view AS '
+        for (let table of tables) {
+            query += `SELECT * FROM ${table} UNION `
+        }
+        query = query.substring(0, query.length - 7) // Remove last 'UNION '
+        query += ';' // Add semicolon
+        await this.sequelize.query(query)
     }
 }
