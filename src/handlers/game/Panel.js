@@ -134,11 +134,10 @@ export default class Panel extends Handler {
         if (recipient) {
             await recipient.updateCoins(parseInt(args[1]))
             recipient.sendXt('eg', `${recipient.data.coins}%'Gift from a moderator!'%${args[1]}`)
-            this.handler.api.apiFunction('/logTransaction', {amount: args[1], user: args[0], reason: 'moderator gift', total: recipient.data.coins})
+            this.handler.analytics.transaction(args[0], args[1], 'moderator gift')
         } else {
             await this.db.addCoins(args[0], args[1])
-            let coins = (await this.db.getUserById(args[0])).data.coins
-            this.handler.api.apiFunction('/logTransaction', {amount: args[1], user: args[0], reason: 'moderator gift', total: coins})
+            this.handler.analytics.transaction(args[0], args[1], 'moderator gift')
         }
 
         this.discord.addCoinLogs(user.data.username, userName, args[1])
@@ -163,7 +162,7 @@ export default class Panel extends Handler {
             recipient.inventory.add(args[1])
             recipient.sendXt('ai', args[1], args[2], this.crumbs.items.slots[item.type - 1], recipient.data.coins)
             user.sendXt('e', 17)
-            this.handler.api.apiFunction('/logTransaction', {amount: '0', user: args[0], reason: `moderator gift of item ${args[1]} : ${args[2]}`, total: recipient.data.coins})
+            this.handler.analytics.transaction(args[0], 0, `moderator gift of item ${args[1]} : ${args[2]}`)
         } else {
             let item = this.db.addItem(args[0], args[1])
 
@@ -171,7 +170,7 @@ export default class Panel extends Handler {
                 user.sendXt('e', 17)
             }
 
-            this.handler.api.apiFunction('/logTransaction', {amount: '0', user: args[0], reason: `moderator gift of item ${args[1]} : ${args[2]}`, total: (await this.db.getUserById(args[0])).data.coins})
+            this.handler.analytics.transaction(args[0], 0, `moderator gift of item ${args[1]} : ${args[2]}`)
         }
     }
 
@@ -200,7 +199,7 @@ export default class Panel extends Handler {
 
             user.sendXt('e', [18, expiryDate.toUTCString().replaceAll(',', '')])
 
-            this.handler.api.apiFunction('/logBan', {moderator: user.data.username, user: args[0], reason: args[3], duration: `${args[1]}`})
+            this.handler.analytics.banUser(args[0], user.data.id, args[3], args[1])
             this.discord.banLogs(user.data.username, userName, args[3], expiryDate.toUTCString())
         } else {
             user.sendXt('e', 15)
@@ -275,6 +274,6 @@ export default class Panel extends Handler {
         let item = this.crumbs.items[args[0]]
         if (!item) return
 
-        this.handler.api.apiFunction('/setItemAvaliable', {item: args[0], available: args[1]})
+        this.handler.analytics.setItemAvailability(args[0], parseInt(args[1]))
     }
 }

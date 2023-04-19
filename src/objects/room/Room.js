@@ -61,15 +61,25 @@ export default class Room {
 
             u.sendXt(action, args)
         }
+    }
 
-        if (action == 'sm') {
-            for (let w of this.wiretapMods) {
-                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owt', `${user.data.id}%${args.split('%')[1]}%${this.id}%${user.data.username}`)
-            }
-        } else if (action == 'fm') {
-            for (let w of this.wiretapMods) {
-                if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owf', `${user.data.id}%${args.split('%')[1]}%${this.id}%${user.data.username}`)
-            }
+    sendChat(user, message, filterLevel) {
+        // Filter levels:
+        // 0 - Blacklist filter (only sent to mods)
+        // 1 - Whitelist filter (sent to everyone who has lenient filter turned on)
+        // 2 - No filter (sent to everyone who's not on safe-chat only)
+        // 3 - Safe-chat bypass (sent to everyone in the room, including those on safe-chat only mode. Only mods can send these by prefacing their message with SCBYPASS)
+
+        let users = this.userValues.filter((u) => u.data.filter >= filterLevel || u.data.id == user.data.id)
+
+        for (let u of users) {
+            if (u.ignore.includes(user.data.id)) continue
+
+            u.sendXt('sm', `${user.data.id}%${message}`)
+        }
+
+        for (let w of this.wiretapMods) {
+            if (this.handler.modsOnPanel[w]) this.handler.modsOnPanel[w].sendXt('owt', `${user.data.id}%${message}%${this.id}%${user.data.username}%${filterLevel}`)
         }
     }
 }

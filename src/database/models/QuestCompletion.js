@@ -1,31 +1,33 @@
 import Sequelize from 'sequelize'
 
-export default class PartyCompletion extends Sequelize.Model {
+export default class QuestCompletion extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(
             {
-                penguinId: {
+                user: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
                 },
-                party: {
+                id: {
                     type: DataTypes.STRING(50),
                     allowNull: false,
+                    primaryKey: true,
+                },
+                completion: {
+                    type: DataTypes.INTEGER(11),
+                    allowNull: false,
+                    defaultValue: 0,
                 },
                 info: {
-                    type: DataTypes.STRING(50),
-                    allowNull: false,
-                },
-                value: {
-                    type: DataTypes.STRING(50),
-                    allowNull: false,
+                    type: DataTypes.TEXT,
+                    allowNull: true,
                 },
             },
             {
                 sequelize,
                 timestamps: false,
-                tableName: 'party_completion',
+                tableName: 'quest_completion',
             }
         )
     }

@@ -42,6 +42,10 @@ export default class Server {
             res.send('OK')
         })
 
+        this.app.post('/getpopulation', (req, res) => {
+            res.send({population: Object.entries(this.handler.users).length || 0, maxUsers: process.env.maxUsers})
+        })
+
         // Issue tracker
 
         this.app.post('/getissues', async (req, res) => {

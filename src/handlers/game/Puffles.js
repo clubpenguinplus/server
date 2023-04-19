@@ -7,7 +7,7 @@ export default class Puffles extends Handler {
             'p#pn': this.adoptPuffle,
             'p#pg': this.getPuffles,
             'p#phg': this.getWellbeing,
-            'p#pgc': this.getPuffleColor,
+            'p#pgs': this.getPuffleSpecies,
             'p#pw': this.walkPuffle,
             'p#pgc': this.getPuffleCount,
         }
@@ -15,9 +15,9 @@ export default class Puffles extends Handler {
 
     async adoptPuffle(args, user) {
         let type = args[0]
-        let name = args[0].charAt(0).toUpperCase() + args[0].slice(1).toLowerCase()
+        let name = args[1].charAt(0).toUpperCase() + args[1].slice(1).toLowerCase()
 
-        let cost = (await this.db.getPuffleCost(type)).dataValues.cost
+        let cost = this.crumbs.puffles[type].cost
 
         if (cost > user.data.coins) {
             user.sendXt('e', 0)
@@ -25,21 +25,12 @@ export default class Puffles extends Handler {
         }
 
         user.updateCoins(-cost)
-        this.handler.api.apiFunction('/logTransaction', {amount: -cost, user: user.data.id, reason: `purchase of puffle ${type} : ${name}`, total: user.data.coins})
+        this.handler.analytics.transaction(user.data.id, -cost, `purchase of puffle ${type} : ${name}`)
 
         let puffle = await this.db.adoptPuffle(user.data.id, type, name)
 
-        user.sendXt('adopt_puffle', {puffle: puffle.id, coins: user.data.coins})
-        let postcard = await this.db.userPostcards.create({
-            userId: user.data.id,
-            id: 111,
-            sender: 'Club Penguin Plus',
-            details: name,
-        })
-        if (postcard) {
-            user.postcards = await this.db.getPostcards(user.data.id)
-            user.sendXt('update_postcards', {postcards: user.postcards})
-        }
+        this.walkPuffle([puffle.id], user)
+        user.sendXt('ac', user.data.coins)
     }
 
     async getPuffles(args, user) {
@@ -48,12 +39,10 @@ export default class Puffles extends Handler {
         }
         let userId = args[0]
         let puffles = await this.db.getPuffles(userId)
-        if (puffles) {
-            user.sendXt('get_puffles', {
-                userId: userId,
-                puffles: puffles,
-            })
-        }
+        puffles = puffles.map((puffle) => {
+            return `${puffle.dataValues.id}|${puffle.dataValues.species}|${puffle.dataValues.name}|${puffle.dataValues.food}|${puffle.dataValues.play}|${puffle.dataValues.rest}|${puffle.dataValues.clean}`
+        })
+        user.sendXt('pgp', puffles.join('%'))
     }
 
     async getWellbeing(args, user) {
@@ -76,33 +65,31 @@ export default class Puffles extends Handler {
 
     async stopWalking(args, user) {
         if (user.data.walking !== 0) {
+            const prevPuffle = user.data.walking
             user.data.walking = 0
             user.update({walking: user.data.walking})
-            user.room.send(user, 'stop_walking', {user: user.data.id}, [])
+            user.room.sendXt(user, 'psw', `${user.data.id}%${prevPuffle}`, [])
         }
     }
 
     async walkPuffle(args, user) {
-        if (args[0] !== 0) {
+        if (args[0] != 0) {
             user.data.walking = args[0]
             user.update({walking: user.data.walking})
-            user.room.send(user, 'walk_puffle', {user: user.data.id, puffle: args[0]}, [])
+            user.room.sendXt(user, 'ppw', `${user.data.id}%${args[0]}`, [])
         } else {
             this.stopWalking(args, user)
         }
     }
 
-    async getPuffleColor(args, user) {
+    async getPuffleSpecies(args, user) {
         if (!args[0]) {
             return
         }
         let puffleId = args[0]
-        let puffleColor = await this.db.getPuffleColor(puffleId)
-        if (puffleColor) {
-            user.sendXt('get_puffle_color', {
-                penguinId: args[1],
-                color: puffleColor.color,
-            })
+        let puffleColor = await this.db.getPuffleSpecies(puffleId)
+        if (puffleColor != undefined) {
+            user.sendXt('pgs', `${args[1]}%${puffleColor}`)
         }
     }
 

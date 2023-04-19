@@ -203,6 +203,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_login` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `current_igloo` tinyint NOT NULL DEFAULT '0',
   `epfStatus` tinyint NOT NULL DEFAULT '0',
+  `filter` tinyint NOT NULL DEFAULT '2',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Users';
 
@@ -249,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `user_postcards` (
 CREATE TABLE IF NOT EXISTS `user_puffles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
-  `color` int NOT NULL,
+  `species` int NOT NULL,
   `name` varchar(50) NOT NULL DEFAULT '',
   `food` int NOT NULL DEFAULT '100',
   `play` int NOT NULL DEFAULT '100',
@@ -267,6 +268,16 @@ CREATE TABLE IF NOT EXISTS `user_stamps` (
   PRIMARY KEY (`userId`,`stampId`),
   CONSTRAINT `FK_user_stamps_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE IF NOT EXISTS `quest_completion` (
+	`user` INT(10) NOT NULL,
+	`id` INT(10) NOT NULL,
+	`completion` INT(10) NOT NULL,
+	PRIMARY KEY (`id`, `user`) USING BTREE,
+	INDEX `user` (`user`) USING BTREE,
+	CONSTRAINT `user` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+) COLLATE='utf8mb4_0900_ai_ci' ENGINE=InnoDB;
 
 
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';

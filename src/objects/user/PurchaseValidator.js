@@ -2,7 +2,7 @@ export default class PurchaseValidator {
     constructor(user) {
         this.user = user
         this.crumbs = user.crumbs
-        this.api = user.handler.api
+        this.analytics = user.handler.analytics
     }
 
     item(id, isFree = false) {
@@ -38,7 +38,7 @@ export default class PurchaseValidator {
         }  else if (item.patched) {
             this.user.sendXt('e', 2)
             return false
-        } else if (type == 'items' && !(await this.api.apiFunction('/getItemAvaliable', {item: id}))) {
+        } else if (type == 'items' && !(await this.analytics.getItemAvailability(id))) {
             this.user.sendXt('e', 2)
             return false
         }  */ else {

@@ -27,21 +27,19 @@ export default class Discord {
                 }
 
                 if (commandName === 'getitemavailable') {
-                    let response = (await this.handler.api.apiFunction('/getItemAvaliable', {item: args.item})) ? 'Item id ' + args.item + ' is available.' : 'Item id ' + args.item + ' is not available.'
+                    let response = (await this.handler.analytics.getItemAvailability(args.item)) ? 'Item id ' + args.item + ' is available.' : 'Item id ' + args.item + ' is not available.'
                     await interaction.reply(response)
                 } else if (commandName === 'setitemavailable') {
-                    if ((await this.handler.api.apiFunction('/setItemAvaliable', {item: args.item, available: args.available})) === 'OK') {
-                        await interaction.reply('Item id ' + args.item + ' is now ' + (args.available ? 'available' : 'unavailable'))
-                    }
+                    await this.handler.analytics.setItemAvailability(args.item, args.available)
+                    await interaction.reply('Item id ' + args.item + ' is now ' + (args.available ? 'available' : 'unavailable'))
                 } else if (commandName === 'setmultipleitemsavailable') {
                     let items = args.items.split(',')
                     for (let item of items) {
-                        if ((await this.handler.api.apiFunction('/setItemAvaliable', {item: item, available: args.available})) !== 'OK') {
-                        }
+                        await this.handler.analytics.setItemAvailability(item, args.available)
                     }
                     await interaction.reply('These items are now ' + (args.available ? 'available' : 'unavailable'))
                 } else if (commandName === 'getitemreleases') {
-                    let response = await this.handler.api.apiFunction('/getItemReleases', {item: args.item})
+                    let response = await this.handler.analytics.getItemReleases(args.item)
                     if (!response) {
                         return await interaction.reply('Item id ' + args.item + ' has never been released.')
                     }
@@ -49,76 +47,22 @@ export default class Discord {
                 } else if (commandName === 'getusercreationlog') {
                     await interaction.reply('This function returns personal data about a user and therefore is not available on Discord.')
                 } else if (commandName === 'getuserchatlog') {
-                    let chatlog = await this.handler.api.apiFunction('/getUserChatLog', {user: args.user})
-                    if (chatlog == 'USER NOT FOUND OR HAS NEVER CHATTED') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never sent a chat message.')
-                    } else {
-                        fs.writeFileSync('./.tmp', chatlog)
-                        interaction.reply({
-                            content: 'Here is the chatlog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getuserkicklog') {
-                    let kicklog = await this.handler.api.apiFunction('/getUserKickLog', {user: args.user})
-                    if (kicklog == 'USER NOT FOUND OR HAS NEVER BEEN KICKED') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never been kicked.')
-                    } else {
-                        fs.writeFileSync('./.tmp', transactionlog)
-                        interaction.reply({
-                            content: 'Here is the kicklog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getuserbanlog') {
-                    let banlog = await this.handler.api.apiFunction('/getUserBanLog', {user: args.user})
-                    if (banlog == 'USER NOT FOUND OR HAS NEVER BEEN BANNED') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never been banned.')
-                    } else {
-                        fs.writeFileSync('./.tmp', banlog)
-                        interaction.reply({
-                            content: 'Here is the banlog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getuserwarnlog') {
-                    let warnlog = await this.handler.api.apiFunction('/getUserWarnLog', {user: args.user})
-                    if (warnlog == 'USER NOT FOUND OR HAS NEVER BEEN WARNED') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never been warned.')
-                    } else {
-                        fs.writeFileSync('./.tmp', warnlog)
-                        interaction.reply({
-                            content: 'Here is the warnlog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getusermutelog') {
-                    let mutelog = await this.handler.api.apiFunction('/getUserMuteLog', {user: args.user})
-                    if (mutelog == 'USER NOT FOUND OR HAS NEVER BEEN MUTED') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never been muted.')
-                    } else {
-                        fs.writeFileSync('./.tmp', mutelog)
-                        interaction.reply({
-                            content: 'Here is the mutelog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getuserloginlog') {
                     await interaction.reply('This function returns personal data about a user and therefore is not available on Discord.')
                 } else if (commandName === 'getusertransactionlog') {
-                    let transactionlog = await this.handler.api.apiFunction('/getUserTransactionLog', {user: args.user})
-                    if (transactionlog == 'USER NOT FOUND OR HAS NEVER MADE A TRANSACTION') {
-                        await interaction.reply('User ' + args.user + ' does not exist or has never made a transaction.')
-                    } else {
-                        fs.writeFileSync('./.tmp', transactionlog)
-                        interaction.reply({
-                            content: 'Here is the transactionlog for the user with id ' + args.user,
-                            files: [{attachment: `./.tmp`, name: `${args.user}-log.txt`}],
-                        })
-                    }
+                    await interaction.reply('TODO')
                 } else if (commandName === 'getpopulation') {
-                    let population = await this.handler.api.apiFunction('/getPopulation', {world: args.server})
-                    await interaction.reply(`The population of ${args.server} is ${population}`)
+                    let population = await this.handler.getServerPopulations
+                    await interaction.reply(population)
                 }
             } catch (error) {
                 this.handler.log.error(error)

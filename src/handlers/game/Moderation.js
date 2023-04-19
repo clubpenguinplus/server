@@ -24,7 +24,7 @@ export default class Moderation extends Handler {
             recipient.sendXt('k', 'k')
             recipient.close()
             this.discord.kickLogs(user.data.username, recipient.data.username)
-            this.handler.api('/logKick', {moderator: user.data.username, user: args[0], reason: args[1]})
+            this.handler.analytics.kickUser(recipient.data.id, user.data.id, args[1])
         }
     }
 
@@ -38,7 +38,7 @@ export default class Moderation extends Handler {
         if (recipient && recipient.data.rank < user.data.rank) {
             recipient.sendXt('w')
         }
-        this.handler.api('/logWarn', {moderator: user.data.username, user: args[0], reason: args[1]})
+        this.handler.analytics.warnUser(recipient.data.id, user.data.id, args[1])
     }
 
     stealthMode(args, user) {
@@ -89,7 +89,7 @@ export default class Moderation extends Handler {
         let userName = (await this.db.getUserById(id)).username
 
         this.discord.banLogs(moderator.data.username, userName, expires)
-        this.handler.api('/logBan', {moderator: user.data.username, user: args[0], reason: message, duration: `${hours} hours`})
+        this.handler.analytics.banUser(id, moderator.data.id, message, hours)
     }
 
     async getRecipientRank(recipient, id) {

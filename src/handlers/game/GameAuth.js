@@ -69,14 +69,11 @@ export default class GameAuth extends Handler {
 
         let packet = success.token ? `${serverKey}%${clientKey}%${success.token}` : `${serverKey}%${clientKey}`
         user.sendXt('ga', packet)
-
+        
         user.encryptionKey = serverKey
         user.decryptionKey = clientKey
 
-        this.handler.api.apiFunction('/logLogin', {user: user.data.id, ip: user.address})
-
-        // Update world population
-        await this.handler.updateWorldPopulation()
+        this.handler.analytics.login(user.data.id, user.address)
     }
 
     async modAuth(args, user) {

@@ -1,11 +1,12 @@
 import Room from '../objects/room/Room'
 import WaddleRoom from '../objects/room/WaddleRoom'
 import OpenIgloos from '../objects/room/OpenIgloos'
-import Api from '../integration/Api'
 import Discord from '../integration/Discord'
 import Filter from '../integration/Filter'
+import Analytics from '../integration/Analytics'
 import fs from 'fs'
 import path from 'path'
+import fetch from 'node-fetch'
 
 export default class DataHandler {
     constructor(id, users, db, log) {
@@ -15,7 +16,7 @@ export default class DataHandler {
         this.log = log
         this.discord = new Discord(this)
 
-        this.api = new Api(this)
+        this.analytics = new Analytics(this)
 
         this.partyData = {}
 
@@ -52,7 +53,6 @@ export default class DataHandler {
 
         await this.setWaddles()
 
-        this.updateWorldPopulation()
         this.loadHandlers()
 
         this.log.info(`[DataHandler] Created DataHandler for server: ${this.id}`)
@@ -68,7 +68,7 @@ export default class DataHandler {
 
         for (let w in waddles) {
             let waddle = waddles[w]
-            this.rooms[waddle.roomId].waddles[waddle.id] = new WaddleRoom(waddle)
+            this.rooms[waddle.roomId].waddles[w] = new WaddleRoom(waddle, w)
         }
     }
 
@@ -118,7 +118,7 @@ export default class DataHandler {
 
         user.updateStats()
 
-        if (user.data) this.api.apiFunction('/logLogout', {user: user.data.id, ip: user.address})
+        if (user.data) this.analytics.logout(user.data.id)
 
         setTimeout(() => {
             if (user.room) {
@@ -146,17 +146,11 @@ export default class DataHandler {
             }
 
             delete this.users[user.socket.id]
-
-            this.updateWorldPopulation()
         }, 2500)
     }
 
     get population() {
         return Object.keys(this.users).length
-    }
-
-    async updateWorldPopulation() {
-        this.api.apiFunction('/setPopulation', {population: this.population, world: this.id})
     }
 
     broadcast(message) {
@@ -187,7 +181,41 @@ export default class DataHandler {
         try {
             this.events[event](args, user)
         } catch (error) {
-            this.log.error(`[DataHandler] Event (${event}) not handled: ${error}`)
+            this.log.error(`[DataHandler] Event (${event}) not handled: ${error.stack}`)
         }
+    }
+
+    async getServerPopulations() {
+        let environments = Object.keys(this.crumbs.worlds)
+        let string = ''
+        let currentEnvironment = 0
+        await processEnvironment(environments[currentEnvironment])
+        async function processEnvironment(env) {
+            string += `${env}:\n`
+            let worlds = Object.keys(this.crumbs.worlds[env])
+            let currentWorld = 0
+            await processWorld(worlds[currentWorld])
+            async function processWorld(world) {
+                let popData = JSON.parse(
+                    await (
+                        await fetch(this.crumbs.worlds[env][world].address + '/getpopulation', {
+                            method: 'POST',
+                        })
+                    ).text()
+                )
+                string += `    -${world}: ${popData.population}/${popData.maxUsers}`
+                currentWorld++
+                if (currentWorld < worlds.length) {
+                    string += '\n'
+                    await processWorld(worlds[currentWorld])
+                }
+            }
+            currentEnvironment++
+            if (currentEnvironment < environments.length) {
+                string += '\n\n'
+                await processEnvironment(environments[currentEnvironment])
+            }
+        }
+        return string
     }
 }

@@ -10,7 +10,7 @@ export default class Database {
             host: process.env.dbHost,
             port: process.env.dbPort,
             dialect: process.env.dbDialect,
-            logging: process.env.dbDebug == 'true' ? console.log : false,
+            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
         })
 
         // Used to translate type id to string
@@ -43,7 +43,7 @@ export default class Database {
                 try {
                     return await update.call(this, values, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -52,7 +52,7 @@ export default class Database {
                 try {
                     return await destroy.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -61,7 +61,7 @@ export default class Database {
                 try {
                     return await create.call(this, values, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -70,7 +70,7 @@ export default class Database {
                 try {
                     return await findAll.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -79,7 +79,7 @@ export default class Database {
                 try {
                     return await findOne.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
         })
@@ -488,7 +488,7 @@ export default class Database {
             where: {
                 userId: userId,
             },
-            attributes: ['id', 'color', 'name'],
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean'],
         })
     }
 
@@ -501,13 +501,15 @@ export default class Database {
         })
     }
 
-    async getPuffleColor(puffleId) {
-        return await this.findOne('userPuffles', {
-            where: {
-                id: puffleId,
-            },
-            attributes: ['color'],
-        })
+    async getPuffleSpecies(puffleId) {
+        return (
+            await this.findOne('userPuffles', {
+                where: {
+                    id: puffleId,
+                },
+                attributes: ['species'],
+            })
+        ).species
     }
 
     async getPuffleCount(userId) {
@@ -532,7 +534,7 @@ export default class Database {
     async adoptPuffle(userId, type, name) {
         let puffle = await this.userPuffles.create({
             userId: userId,
-            color: type,
+            species: type,
             name: name,
         })
         return puffle
@@ -731,6 +733,47 @@ export default class Database {
         ).map((like) => {
             return like.dataValues.likerId
         })
+    }
+
+    async getQuestCompletion(userId, quest) {
+        return await this.findOne('questCompletion', {
+            where: {
+                user: userId,
+                id: quest,
+            },
+            attributes: ['completion', 'info'],
+        })
+    }
+
+    async setQuestCompletion(userId, quest, completion, info = null) {
+        let questCompletion = await this.findOne('questCompletion', {
+            where: {
+                user: userId,
+                id: quest,
+            },
+            attributes: ['completion'],
+        })
+        if (questCompletion) {
+            this.questCompletion.update(
+                {
+                    completion: completion,
+                    info: info,
+                },
+                {
+                    where: {
+                        user: userId,
+                        id: quest,
+                    },
+                }
+            )
+        } else {
+            this.questCompletion.create({
+                user: userId,
+                id: quest,
+                completion: completion,
+                info: info,
+            })
+        }
     }
 
     /*========== Helper functions ==========*/

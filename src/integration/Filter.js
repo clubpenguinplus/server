@@ -5,7 +5,7 @@ export default class Filter {
     constructor(handler) {
         this.handler = handler
 
-        const en = fs.readFileSync('filterlist/en.txt', {encoding: 'utf8', flag: 'r'})
+        const en = fs.readFileSync('./filterlist/en.txt', {encoding: 'utf8', flag: 'r'})
 
         this.wordlist = en.split('\r\n')
     }

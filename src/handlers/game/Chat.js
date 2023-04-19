@@ -44,12 +44,9 @@ export default class Chat extends Handler {
 
         let blacklist = this.handler.filter.checkBlacklistFilter(message)
 
-        if (!whitelist && !blacklist) {
-            user.room.sendXt(user, 'sm', `${user.data.id}%${message}`, [], true)
-            user.logChat(message)
-        } else if (!whitelist && blacklist) {
-            user.room.sendXt(user, 'fm', `${user.data.id}%${message}`, [], true)
-            user.logChat(message, true, `blacklist filter because of ${blacklist}`)
+        if (blacklist) {
+            user.room.sendChat(user, message, 0)
+            this.handler.analytics.chatMessage(user.data.id, message, user.room.id, 0)
 
             if (user.sesWarns >= 2) {
                 return this.chatBan(user, blacklist)
@@ -58,10 +55,23 @@ export default class Chat extends Handler {
             // warning prompt
             user.sendXt('w', 'c')
             user.sesWarns++
-        } else {
-            user.room.sendXt(user, 'fm', `${user.data.id}%${message}`, [], true)
-            user.logChat(message, true, `whitelist filter because of ${whitelist}`)
+            return
         }
+
+        if (whitelist) {
+            user.room.sendChat(user, message, 1)
+            this.handler.analytics.chatMessage(user.data.id, message, user.room.id, 1)
+            return
+        }
+
+        if (user.data.rank >= 3 && message.split(' ')[0] == 'SCBYPASS') {
+            user.room.sendChat(user, message.split(' ').slice(1).join(' '), 3)
+            this.handler.analytics.chatMessage(user.data.id, message, user.room.id, 3)
+            return
+        }
+
+        user.room.sendChat(user, message, 2)
+        this.handler.analytics.chatMessage(user.data.id, message, user.room.id, 2)
     }
 
     sendSafe(args, user) {

@@ -1,6 +1,21 @@
 {
-    "Blizzard": {
-        "safe": false,
-        "public": true
+    "local": {
+        "Blizzard": {
+            "safe": false,
+            "public": true,
+            "address": "http://localhost:6112"
+        }
+    },
+    "production": {
+        "Blizzard": {
+            "safe": false,
+            "public": true,
+            "address": "https://blizzard.cpplus.pw"
+        },
+        "Development": {
+            "safe": false,
+            "public": false,
+            "address": "https://development.cpplus.pw"
+        }
     }
 }
