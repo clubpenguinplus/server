@@ -13,7 +13,7 @@ export default class Analytics {
             host: process.env.dbHost,
             port: process.env.dbPort,
             dialect: process.env.dbDialect,
-            logging: process.env.dbDebug == 'true' ? console.log : false,
+            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
         })
 
         if (handler.id == 'Login' || handler.id == 'Development') {
@@ -565,7 +565,7 @@ export default class Analytics {
     // Maintenance functions (performed on login server only):
 
     async dailyMaintenance() {
-        console.info('[Analytics] Performing daily maintenance')
+        this.handler.log.info('[Analytics] Performing daily maintenance')
         await this.removeOldChatMessages()
         await this.groupTransactions()
         setTimeout(() => this.dailyMaintenance(), this.distanceToMidnight)
@@ -675,6 +675,7 @@ export default class Analytics {
             }
         }
 
+        await this.initTransactionTable()
         // Update transactions view to point to new table(s)
         await this.updateTransactionView()
     }

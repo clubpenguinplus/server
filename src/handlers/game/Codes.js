@@ -37,7 +37,7 @@ export default class Codes extends Handler {
 
     async checkCode(args, user) {
         let activeCodes = await this.db.getActiveCode(args[0])
-        console.log(activeCodes)
+        this.handler.log.info(activeCodes)
         if (activeCodes) {
             if (activeCodes?.code === args[0]) {
                 return true
@@ -58,7 +58,7 @@ export default class Codes extends Handler {
     }
 
     async reedemCode(args, user) {
-        console.log('Reedem Args', args)
+        this.handler.log.info('Reedem Args', args)
         if (!(await this.checkCode(args[0]))) {
             return user.sendXt('e', 50)
         }

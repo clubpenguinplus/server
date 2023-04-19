@@ -10,7 +10,7 @@ export default class Database {
             host: process.env.dbHost,
             port: process.env.dbPort,
             dialect: process.env.dbDialect,
-            logging: process.env.dbDebug == 'true' ? console.log : false,
+            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
         })
 
         // Used to translate type id to string
@@ -43,7 +43,7 @@ export default class Database {
                 try {
                     return await update.call(this, values, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -52,7 +52,7 @@ export default class Database {
                 try {
                     return await destroy.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -61,7 +61,7 @@ export default class Database {
                 try {
                     return await create.call(this, values, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -70,7 +70,7 @@ export default class Database {
                 try {
                     return await findAll.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
 
@@ -79,7 +79,7 @@ export default class Database {
                 try {
                     return await findOne.call(this, options)
                 } catch (error) {
-                    console.log(error)
+                    this.handler.log.error(error)
                 }
             }
         })
