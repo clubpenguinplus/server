@@ -600,8 +600,10 @@ export default class Analytics {
         let tables = []
         for (let i = 0; i < results.length; i++) {
             let tableName = results[i][Object.keys(results[i])[0]]
+            if (tableName.includes('view')) continue // Skip view (if it exists)
             tables.push(tableName)
         }
+        if (tables.length == 0) return
         let query = 'CREATE OR REPLACE VIEW chat_view AS '
         for (let table of tables) {
             query += `SELECT * FROM ${table} UNION `
@@ -681,8 +683,10 @@ export default class Analytics {
         let tables = []
         for (let i = 0; i < results.length; i++) {
             let tableName = results[i][Object.keys(results[i])[0]]
+            if (tableName.includes('view')) continue // Skip view (if it exists)
             tables.push(tableName)
         }
+        if (tables.length == 0) return
         let query = 'CREATE OR REPLACE VIEW transactions_view AS '
         for (let table of tables) {
             query += `SELECT * FROM ${table} UNION `
