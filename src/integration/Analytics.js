@@ -16,7 +16,8 @@ export default class Analytics {
             logging: process.env.dbDebug == 'true' ? console.log : false,
         })
 
-        if (handler.id == 'Login') {
+        if (handler.id == 'Login' || handler.id == 'Development') {
+            // MUST REMOVE DEV SERVER BEFORE DEPLOYING TO PRODUCTION
             this.dailyMaintenance()
         }
     }
