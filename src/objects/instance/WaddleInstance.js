@@ -33,12 +33,6 @@ export default class WaddleInstance {
     // Functions
 
     async getPayout(user, score) {
-        if (score === 0) {
-            user.data.sledRacesWon = user.data.sledRacesWon + 1
-            user.update({
-                sledRacesWon: user.data.sledRacesWon,
-            })
-        }
         return this.payouts[score] || this.minPayout
     }
 

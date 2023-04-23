@@ -129,51 +129,6 @@ export default class Users extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 1,
                 },
-                messagesSent: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                snowballsThrown: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                timePlayed: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                sledRacesWon: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                findFourWon: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                coinsEarned: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                coinsSpent: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                partyTasksCompleted: {
-                    type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                    defaultValue: 0,
-                },
-                hasBeenPOTW: {
-                    type: DataTypes.BOOLEAN,
-                    allowNull: false,
-                    defaultValue: 0,
-                },
                 stampbookColor: {
                     type: DataTypes.INTEGER(1),
                     allowNull: false,

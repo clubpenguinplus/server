@@ -13,6 +13,10 @@ export default class UserPuffles extends Sequelize.Model {
                 userId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 species: {
                     type: DataTypes.INTEGER(11),

@@ -8,6 +8,10 @@ export default class UserStamps extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 stampId: {
                     type: DataTypes.INTEGER(11),

@@ -39,10 +39,6 @@ export default class FindFourInstance extends WaddleInstance {
         if (verticalMatch || horizontalMatch || diagonalMatch) {
             let winner = user.data.id
             this.sendXt('eff', winner)
-            user.data.findFourWon = user.data.findFourWon + 1
-            user.update({
-                findFourWon: user.data.findFourWon,
-            })
             for (let x in this.users) {
                 if (this.users[x].data.id === winner) {
                     this.users[x].updateCoins(25)

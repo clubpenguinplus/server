@@ -13,6 +13,10 @@ export default class Bans extends Sequelize.Model {
                 userId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 issued: {
                     type: Sequelize.DATE,
@@ -26,6 +30,10 @@ export default class Bans extends Sequelize.Model {
                 moderatorId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 message: {
                     type: DataTypes.STRING(60),
