@@ -162,6 +162,18 @@ export default class User {
         this.room.add(this)
     }
 
+    joinSoloRoom(room) {
+        if (!room || room === this.room) {
+            return
+        }
+
+        this.room.remove(this)
+
+        this.room = room
+
+        this.room.add(this)
+    }
+
     update(query) {
         this.db.users.update(query, {
             where: {

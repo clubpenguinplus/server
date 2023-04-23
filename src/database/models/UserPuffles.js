@@ -42,6 +42,11 @@ export default class UserPuffles extends Sequelize.Model {
                     allowNull: false,
                     defaultValue: 100,
                 },
+                isBackyard: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false,
+                    defaultValue: 0,
+                },
             },
             {
                 sequelize,

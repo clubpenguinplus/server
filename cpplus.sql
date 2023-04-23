@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `user_puffles` (
   `play` int NOT NULL DEFAULT '100',
   `rest` int NOT NULL DEFAULT '100',
   `clean` int NOT NULL DEFAULT '100',
+  `isBackyard` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_user_puffles_users` (`userId`),
   CONSTRAINT `FK_user_puffles_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

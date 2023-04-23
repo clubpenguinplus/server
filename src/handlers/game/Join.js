@@ -8,6 +8,7 @@ export default class Join extends Handler {
             'l#lp': this.loadPlayer,
             'j#js': this.joinServer,
             'j#jr': this.joinRoom,
+            'j#jsr': this.joinSoloRoom,
             'j#jp': this.joinIgloo,
         }
     }
@@ -34,6 +35,10 @@ export default class Join extends Handler {
     async joinIgloo(args, user) {
         let igloo = await this.getIgloo(args[0])
         user.joinRoom(igloo, args[1], args[2])
+    }
+
+    async joinSoloRoom(args, user) {
+        user.joinSoloRoom(this.rooms[2000])
     }
 
     // Functions

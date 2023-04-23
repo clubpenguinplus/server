@@ -10,10 +10,15 @@ export default class Puffles extends Handler {
             'p#pgs': this.getPuffleSpecies,
             'p#pw': this.walkPuffle,
             'p#pgc': this.getPuffleCount,
+            'p#tby': this.toggleBackyard,
         }
     }
 
     async adoptPuffle(args, user) {
+        let puffles = await this.db.getPuffleCount(user.data.id)
+        if (puffles >= 75) {
+            return user.sendXt('e', 53)
+        }
         let type = args[0]
         let name = args[1].charAt(0).toUpperCase() + args[1].slice(1).toLowerCase()
 
@@ -38,7 +43,7 @@ export default class Puffles extends Handler {
             return
         }
         let userId = args[0]
-        let puffles = await this.db.getPuffles(userId)
+        let puffles = await this.db.getPuffles(userId, args[1])
         puffles = puffles.map((puffle) => {
             return `${puffle.dataValues.id}|${puffle.dataValues.species}|${puffle.dataValues.name}|${puffle.dataValues.food}|${puffle.dataValues.play}|${puffle.dataValues.rest}|${puffle.dataValues.clean}`
         })
@@ -102,6 +107,23 @@ export default class Puffles extends Handler {
             user.sendXt('get_puffle_count', {
                 count: puffleCount,
             })
+        }
+    }
+
+    async toggleBackyard(args, user) {
+        let puffle = await this.db.getPuffle(user.data.id, args[0])
+
+        if (args[1] == '0') {
+            let iglooPuffles = await this.db.getPuffles(user.data.id)
+            if (iglooPuffles.length >= 10) {
+                this.db.userPuffles.update({isBackyard: 1}, {where: {id: iglooPuffles[0].dataValues.id}})
+                user.sendXt('tby', `${iglooPuffles[0].dataValues.id}%1%${iglooPuffles[0].dataValues.id}|${iglooPuffles[0].dataValues.species}|${iglooPuffles[0].dataValues.name}|${iglooPuffles[0].dataValues.food}|${iglooPuffles[0].dataValues.play}|${iglooPuffles[0].dataValues.rest}|${iglooPuffles[0].dataValues.clean}`)
+            }
+        }
+
+        if (puffle) {
+            this.db.userPuffles.update({isBackyard: args[1]}, {where: {id: puffle.dataValues.id}})
+            user.sendXt('tby', `${args[0]}%${args[1]}%${puffle.dataValues.id}|${puffle.dataValues.species}|${puffle.dataValues.name}|${puffle.dataValues.food}|${puffle.dataValues.play}|${puffle.dataValues.rest}|${puffle.dataValues.clean}`)
         }
     }
 }
