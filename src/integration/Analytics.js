@@ -16,8 +16,7 @@ export default class Analytics {
             logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
         })
 
-        if (handler.id == 'Login' || handler.id == 'Development') {
-            // MUST REMOVE DEV SERVER BEFORE DEPLOYING TO PRODUCTION
+        if (handler.id == 'Login') {
             this.dailyMaintenance()
         }
     }
@@ -645,21 +644,21 @@ export default class Analytics {
 
     async groupTransactions() {
         if (!this.tables['persistentTransactions']) await this.initPersistentTransactionTable()
-        let sevenDaysAgo = new Date(this.dateInPST - 7 * 24 * 60 * 60 * 1000)
-        let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'transactions_%'`)
+        const sevenDaysAgo = new Date(this.dateInPST - 7 * 24 * 60 * 60 * 1000)
+        const [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'transactions_%'`)
         for (let i = 0; i < results.length; i++) {
-            let tableName = results[i][Object.keys(results[i])[0]]
+            const tableName = results[i][Object.keys(results[i])[0]]
             // Tablename format: transactions_DD_MM_YYYY
-            let date = tableName.split('_')
-            let day = parseInt(date[1])
-            let month = parseInt(date[2])
-            let year = parseInt(date[3])
-            let tableDate = new Date(year, month - 1, day)
+            const date = tableName.split('_')
+            const day = parseInt(date[1])
+            const month = parseInt(date[2])
+            const year = parseInt(date[3])
+            const tableDate = new Date(year, month - 1, day)
             if (tableDate < sevenDaysAgo) {
-                let transactions = await this.sequelize.query(`SELECT * FROM ${tableName}`)
-                for (let j = 0; j < transactions.length; j++) {
-                    let transaction = transactions[j]
-                    let user = await this.tables['persistentTransactions'].findOne({where: {userId: transaction.userId, date: tableDate}})
+                const transactions = await this.sequelize.query(`SELECT * FROM ${tableName}`)
+                for (let transaction of transactions[0]) {
+                    if (!transaction.userId) continue
+                    const user = await this.tables['persistentTransactions'].findOne({where: {userId: transaction.userId, date: tableDate}})
                     if (user) {
                         if (transaction.amount > 0) {
                             user.coinsEarned += transaction.amount
