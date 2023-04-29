@@ -8,6 +8,10 @@ export default class LocationInventories extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 locationId: {
                     type: DataTypes.INTEGER(11),

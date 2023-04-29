@@ -40,6 +40,10 @@ export default class Database {
             let modelImport = require(path.join(this.dir, model)).default
             let modelObject = modelImport.init(this.sequelize, Sequelize)
 
+            if (process.env.environment == 'local') {
+                modelObject.sync()
+            }
+
             let name = model.charAt(0).toLowerCase() + model.slice(1, -3)
 
             this[name] = modelObject
@@ -489,10 +493,21 @@ export default class Database {
         return true
     }
 
-    async getPuffles(userId) {
+    async getPuffle(userId, puffleId) {
+        return await this.findOne('userPuffles', {
+            where: {
+                id: puffleId,
+                userId: userId,
+            },
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean', 'isBackyard'],
+        })
+    }
+
+    async getPuffles(userId, isBackyard = 0) {
         return await this.findAll('userPuffles', {
             where: {
                 userId: userId,
+                isBackyard: isBackyard,
             },
             attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean'],
         })
@@ -528,20 +543,14 @@ export default class Database {
         return puffles.length
     }
 
-    async getPuffleCost(puffleId) {
-        return await this.findOne('puffles', {
-            where: {
-                id: puffleId,
-            },
-            attributes: ['cost'],
-        })
-    }
-
     async adoptPuffle(userId, type, name) {
+        let puffles = await this.getPuffles(userId)
+        let backyard = puffles.length >= 10
         let puffle = await this.userPuffles.create({
             userId: userId,
             species: type,
             name: name,
+            isBackyard: backyard,
         })
         return puffle
     }

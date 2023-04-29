@@ -117,8 +117,6 @@ export default class DataHandler {
             return
         }
 
-        user.updateStats()
-
         if (user.data) this.analytics.logout(user.data.id)
 
         setTimeout(() => {

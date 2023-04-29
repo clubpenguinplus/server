@@ -8,6 +8,10 @@ export default class IglooLikes extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 iglooId: {
                     type: DataTypes.INTEGER(1),
@@ -18,6 +22,10 @@ export default class IglooLikes extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
             },
             {sequelize, timestamps: false, tableName: 'igloo_likes'}

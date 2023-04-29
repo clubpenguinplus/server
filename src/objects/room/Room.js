@@ -28,6 +28,10 @@ export default class Room {
         if (this.users[user.data.id]) this.remove(user)
         this.users[user.data.id] = user
 
+        if (this.id == 2000) {
+            return
+        }
+
         if (this.game) {
             return user.sendXt('jg', this.id)
         }

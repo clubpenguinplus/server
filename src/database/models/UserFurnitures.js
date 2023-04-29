@@ -13,6 +13,10 @@ export default class UserFurnitures extends Sequelize.Model {
                 userId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 iglooId: {
                     type: DataTypes.INTEGER(1),

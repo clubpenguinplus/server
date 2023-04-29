@@ -17,7 +17,7 @@ export default class Codes extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                 },
-                Active: {
+                active: {
                     type: DataTypes.BOOLEAN,
                     allowNull: false,
                     defaultValue: false,

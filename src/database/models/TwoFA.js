@@ -7,6 +7,10 @@ export default class TwoFA extends Sequelize.Model {
                 userId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 ip: {
                     type: DataTypes.STRING(255),

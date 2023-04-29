@@ -30,10 +30,6 @@ export default class User {
         this.frame = 1
         this.sesWarns = 0
 
-        this.messagesSentThisSession = 0
-        this.snowballsThrownThisSession = 0
-        this.timePlayed = 0
-
         this.friend
         this.ignore
         this.inventory
@@ -43,10 +39,6 @@ export default class User {
         // Game server authentication
         this.authenticated = false
         this.token = {}
-
-        setInterval(() => {
-            this.timePlayed++
-        }, 1000)
 
         this.partyData = {}
 
@@ -162,6 +154,18 @@ export default class User {
         this.room.add(this)
     }
 
+    joinSoloRoom(room) {
+        if (!room || room === this.room) {
+            return
+        }
+
+        this.room.remove(this)
+
+        this.room = room
+
+        this.room.add(this)
+    }
+
     update(query) {
         this.db.users.update(query, {
             where: {
@@ -182,19 +186,6 @@ export default class User {
 
     close() {
         this.socket.disconnect(true)
-    }
-
-    updateStats() {
-        if (!this.data) return
-        this.data.messagesSent += this.messagesSentThisSession
-        this.data.snowballsThrown += this.snowballsThrownThisSession
-        this.data.timePlayed += this.timePlayed
-
-        this.update({
-            messagesSent: this.data.messagesSent,
-            snowballsThrown: this.data.snowballsThrown,
-            timePlayed: this.data.timePlayed,
-        })
     }
 
     async setPuffleDecay() {

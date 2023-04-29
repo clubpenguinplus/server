@@ -8,6 +8,10 @@ export default class FlooringInventories extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
+                    references: {
+                        model: 'users',
+                        key: 'id',
+                    },
                 },
                 floorId: {
                     type: DataTypes.INTEGER(11),
