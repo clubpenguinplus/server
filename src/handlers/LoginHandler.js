@@ -14,6 +14,7 @@ export default class LoginHandler {
         this.id = id
         this.users = users
         this.db = db
+        db.handler = this
         this.log = log
 
         this.analytics = new Analytics(this)

@@ -4,7 +4,8 @@ const Op = Sequelize.Op
 
 export default class Analytics {
     constructor(handler) {
-        if (!process.env.analyticsDbName) return
+        this.enabled = process.env.analyticsDbName ? true : false
+        if (!this.enabled) return handler.log.warn('Analytics database not enabled. Analytics will not be tracked.')
 
         this.handler = handler
 
@@ -102,6 +103,7 @@ export default class Analytics {
 
     // - User created
     async initUserCreationTable() {
+        if (!this.enabled) return
         this.tables['userCreation'] = await this.sequelize.define(
             'user_creation',
             {
@@ -137,17 +139,20 @@ export default class Analytics {
     }
 
     async createUser(userId, username, ip, email, color) {
+        if (!this.enabled) return
         if (!this.tables['userCreation']) await this.initUserCreationTable()
         await this.tables['userCreation'].create({userId: userId, username: username, ip: ip, email: email, color: color, date: this.dateInPST})
     }
 
     async getUserCreation(userId) {
+        if (!this.enabled) return
         if (!this.tables['userCreation']) await this.initUserCreationTable()
         return await this.tables['userCreation'].findOne({where: {userId: userId}})
     }
 
     // - Chat message sent
     async initChatTable() {
+        if (!this.enabled) return
         const tableName = `chat_${this.dayInPST}_${this.monthInPST + 1}_${this.yearInPST}`
         this.tables['chat'] = await this.sequelize.define(
             tableName,
@@ -185,11 +190,13 @@ export default class Analytics {
     }
 
     async chatMessage(userId, message, room, filter) {
+        if (!this.enabled) return
         if (!this.tables['chat']) await this.initChatTable()
         await this.tables['chat'].create({userId: userId, message: message, date: this.dateInPST, room: room, filter: filter})
     }
 
     async getUserChatLog(userId, bygoneDays = 0, startDay = 0) {
+        if (!this.enabled) return
         if (!this.tables['chat']) await this.initChatTable()
         bygoneDays = Math.min(bygoneDays, 30)
         startDay = Math.min(startDay, bygoneDays)
@@ -236,6 +243,7 @@ export default class Analytics {
     }
 
     async getRoomChatLog(room, bygoneDays = 0, startDay = 0) {
+        if (!this.enabled) return
         if (!this.tables['chat']) await this.initChatTable()
         bygoneDays = Math.min(bygoneDays, 30)
         startDay = Math.min(startDay, bygoneDays)
@@ -283,6 +291,7 @@ export default class Analytics {
 
     // - User kicked
     async initKickTable() {
+        if (!this.enabled) return
         this.tables['kick'] = await this.sequelize.define(
             'kick',
             {
@@ -315,22 +324,26 @@ export default class Analytics {
     }
 
     async kickUser(userId, moderatorId, reason) {
+        if (!this.enabled) return
         if (!this.tables['kick']) await this.initKickTable()
         await this.tables['kick'].create({userId: userId, moderatorId: moderatorId, reason: reason, date: this.dateInPST})
     }
 
     async getUserKickLog(userId) {
+        if (!this.enabled) return
         if (!this.tables['kick']) await this.initKickTable()
         return await this.tables['kick'].findAll({where: {userId: userId}})
     }
 
     async getModeratorKickLog(moderatorId) {
+        if (!this.enabled) return
         if (!this.tables['kick']) await this.initKickTable()
         return await this.tables['kick'].findAll({where: {moderatorId: moderatorId}})
     }
 
     // - User banned
     async initBanTable() {
+        if (!this.enabled) return
         this.tables['ban'] = await this.sequelize.define(
             'ban',
             {
@@ -367,17 +380,20 @@ export default class Analytics {
     }
 
     async banUser(userId, moderatorId, reason, length) {
+        if (!this.enabled) return
         if (!this.tables['ban']) await this.initBanTable()
         await this.tables['ban'].create({userId: userId, moderatorId: moderatorId, reason: reason, length: length, date: this.dateInPST})
     }
 
     async getUserBanLog(userId) {
+        if (!this.enabled) return
         if (!this.tables['ban']) await this.initBanTable()
         return await this.tables['ban'].findAll({where: {userId: userId}})
     }
 
     // - User warned
     async initWarnTable() {
+        if (!this.enabled) return
         this.tables['warn'] = await this.sequelize.define(
             'warn',
             {
@@ -410,17 +426,20 @@ export default class Analytics {
     }
 
     async warnUser(userId, moderatorId, reason) {
+        if (!this.enabled) return
         if (!this.tables['warn']) await this.initWarnTable()
         await this.tables['warn'].create({userId: userId, moderatorId: moderatorId, reason: reason, date: this.dateInPST})
     }
 
     async getUserWarnLog(userId) {
+        if (!this.enabled) return
         if (!this.tables['warn']) await this.initWarnTable()
         return await this.tables['warn'].findAll({where: {userId: userId}})
     }
 
     // - User muted
     async initMuteTable() {
+        if (!this.enabled) return
         this.tables['mute'] = await this.sequelize.define(
             'mute',
             {
@@ -457,17 +476,20 @@ export default class Analytics {
     }
 
     async muteUser(userId, moderatorId, reason, length) {
+        if (!this.enabled) return
         if (!this.tables['mute']) await this.initMuteTable()
         await this.tables['mute'].create({userId: userId, moderatorId: moderatorId, reason: reason, length: length, date: this.dateInPST})
     }
 
     async getUserMuteLog(userId) {
+        if (!this.enabled) return
         if (!this.tables['mute']) await this.initMuteTable()
         return await this.tables['mute'].findAll({where: {userId: userId}})
     }
 
     // - Login/logout
     async initLoginTable() {
+        if (!this.enabled) return
         this.tables['sessions'] = await this.sequelize.define(
             'sessions',
             {
@@ -500,11 +522,13 @@ export default class Analytics {
     }
 
     async login(userId, ip) {
+        if (!this.enabled) return
         if (!this.tables['sessions']) await this.initLoginTable()
         await this.tables['sessions'].create({userId: userId, ip: ip, loggedIn: this.dateInPST})
     }
 
     async logout(userId) {
+        if (!this.enabled) return
         if (!this.tables['sessions']) await this.initLoginTable()
         let logins = await this.tables['sessions'].findAll({where: {userId: userId, loggedOut: null}})
         if (logins.length > 0) {
@@ -518,12 +542,14 @@ export default class Analytics {
     }
 
     async getUserLoginLog(userId) {
+        if (!this.enabled) return
         if (!this.tables['sessions']) await this.initLoginTable()
         return await this.tables['sessions'].findAll({where: {userId: userId}})
     }
 
     // - Transaction occurred
     async initTransactionTable() {
+        if (!this.enabled) return
         let tableName = `transactions_${this.dayInPST}_${this.monthInPST + 1}_${this.yearInPST}`
         this.tables['transactions'] = await this.sequelize.define(
             tableName,
@@ -557,6 +583,7 @@ export default class Analytics {
     }
 
     async transaction(userId, amount, reason) {
+        if (!this.enabled) return
         if (!this.tables['transactions']) await this.initTransactionTable()
         await this.tables['transactions'].create({userId: userId, amount: amount, reason: reason, date: this.dateInPST})
     }
@@ -564,6 +591,7 @@ export default class Analytics {
     // Maintenance functions (performed on login server only):
 
     async dailyMaintenance() {
+        if (!this.enabled) return
         this.handler.log.info('[Analytics] Performing daily maintenance')
         await this.removeOldChatMessages()
         await this.groupTransactions()
@@ -572,6 +600,7 @@ export default class Analytics {
 
     // - Remove chat messages older than 30 days
     async removeOldChatMessages() {
+        if (!this.enabled) return
         // Remove old chat tables
         let thirtyDaysAgo = new Date(this.dateInPST - 30 * 24 * 60 * 60 * 1000)
         let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'chat_%'`)
@@ -596,6 +625,7 @@ export default class Analytics {
     }
 
     async updateChatView() {
+        if (!this.enabled) return
         let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'chat_%'`)
         let tables = []
         for (let i = 0; i < results.length; i++) {
@@ -615,6 +645,7 @@ export default class Analytics {
 
     // - Group transactions by user/day after 7 days
     async initPersistentTransactionTable() {
+        if (!this.enabled) return
         this.tables['persistentTransactions'] = await this.sequelize.define(
             'persistent_transactions',
             {
@@ -643,6 +674,7 @@ export default class Analytics {
     }
 
     async groupTransactions() {
+        if (!this.enabled) return
         if (!this.tables['persistentTransactions']) await this.initPersistentTransactionTable()
         const sevenDaysAgo = new Date(this.dateInPST - 7 * 24 * 60 * 60 * 1000)
         const [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'transactions_%'`)
@@ -680,6 +712,7 @@ export default class Analytics {
     }
 
     async updateTransactionView() {
+        if (!this.enabled) return
         let [results, metadata] = await this.sequelize.query(`SHOW TABLES LIKE 'transactions_%'`)
         let tables = []
         for (let i = 0; i < results.length; i++) {

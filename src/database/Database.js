@@ -6,6 +6,12 @@ const Op = Sequelize.Op
 
 export default class Database {
     constructor() {
+        this.handler = new Object()
+        this.handler.log = new Object()
+        this.handler.log.info = console.log
+        this.handler.log.error = console.error
+        console.log(this.handler)
+        // Prevents crashing before the handler is initialized
         this.sequelize = new Sequelize(process.env.dbName, process.env.dbUser, process.env.dbPassword, {
             host: process.env.dbHost,
             port: process.env.dbPort,
@@ -43,45 +49,45 @@ export default class Database {
             this[name] = modelObject
 
             const update = this[name].update
-            this[name].update = async function (values, options) {
+            this[name].update = async (values, options) => {
                 try {
-                    return await update.call(this, values, options)
+                    return await update.call(this[name], values, options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
             }
 
             const destroy = this[name].destroy
-            this[name].destroy = async function (options) {
+            this[name].destroy = async (options) => {
                 try {
-                    return await destroy.call(this, options)
+                    return await destroy.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
             }
 
             const create = this[name].create
-            this[name].create = async function (values, options) {
+            this[name].create = async (values, options) => {
                 try {
-                    return await create.call(this, values, options)
+                    return await create.call(this[name], values, options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
             }
 
             const findAll = this[name].findAll
-            this[name].findAll = async function (options) {
+            this[name].findAll = async (options) => {
                 try {
-                    return await findAll.call(this, options)
+                    return await findAll.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
             }
 
             const findOne = this[name].findOne
-            this[name].findOne = async function (options) {
+            this[name].findOne = async (options) => {
                 try {
-                    return await findOne.call(this, options)
+                    return await findOne.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
