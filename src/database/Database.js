@@ -51,7 +51,7 @@ export default class Database {
             const update = this[name].update
             this[name].update = async (values, options) => {
                 try {
-                    return await update.call(this, values, options)
+                    return await update.call(this[name], values, options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
@@ -60,7 +60,7 @@ export default class Database {
             const destroy = this[name].destroy
             this[name].destroy = async (options) => {
                 try {
-                    return await destroy.call(this, options)
+                    return await destroy.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
@@ -69,7 +69,7 @@ export default class Database {
             const create = this[name].create
             this[name].create = async (values, options) => {
                 try {
-                    return await create.call(this, values, options)
+                    return await create.call(this[name], values, options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
@@ -78,7 +78,7 @@ export default class Database {
             const findAll = this[name].findAll
             this[name].findAll = async (options) => {
                 try {
-                    return await findAll.call(this, options)
+                    return await findAll.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
@@ -87,7 +87,7 @@ export default class Database {
             const findOne = this[name].findOne
             this[name].findOne = async (options) => {
                 try {
-                    return await findOne.call(this, options)
+                    return await findOne.call(this[name], options)
                 } catch (error) {
                     this.handler.log.error(error)
                 }
