@@ -13,6 +13,7 @@ export default class DataHandler {
         this.id = id
         this.users = users
         this.db = db
+        db.handler = this
         this.log = log
         this.discord = new Discord(this)
 
