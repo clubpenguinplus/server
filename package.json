@@ -48,7 +48,7 @@
     "rate-limiter-flexible": "^2.4.1",
     "request": "^2.88.2",
     "sequelize": "^6.31.1",
-    "socket.io": "^4.5.3",
+    "socket.io": "^4.6.1",
     "uuid": "^9.0.0"
   },
   "optionalDependencies": {
