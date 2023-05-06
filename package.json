@@ -20,11 +20,11 @@
   },
   "homepage": "https://www.cpplus.pw",
   "devDependencies": {
-    "@babel/cli": "^7.19.3",
+    "@babel/cli": "^7.21.5",
     "@babel/core": "^7.19.6",
     "@babel/node": "^7.20.0",
     "@babel/preset-env": "^7.19.4",
-    "babel-watch": "^7.7.0"
+    "babel-watch": "^7.7.2"
   },
   "dependencies": {
     "@logtail/node": "^0.1.12",
@@ -32,7 +32,7 @@
     "badwords": "^1.0.0",
     "bcrypt": "^5.1.0",
     "crypto-js": "^4.1.1",
-    "discord.js": "^13.6.0",
+    "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fastest-validator": "^1.15.0",
@@ -43,12 +43,12 @@
     "mysql2": "^2.2.5",
     "node-fetch": "^2.6.1",
     "perspective-api-client": "^3.1.0",
-    "pm2": "^5.2.2",
-    "profane-words": "^1.5.3",
+    "pm2": "^5.3.0",
+    "profane-words": "^1.5.8",
     "rate-limiter-flexible": "^2.4.1",
     "request": "^2.88.2",
-    "sequelize": "^6.25.3",
-    "socket.io": "^4.5.3",
+    "sequelize": "^6.31.1",
+    "socket.io": "^4.6.1",
     "uuid": "^9.0.0"
   },
   "optionalDependencies": {
