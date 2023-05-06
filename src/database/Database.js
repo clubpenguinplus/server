@@ -10,8 +10,7 @@ export default class Database {
         this.handler.log = new Object()
         this.handler.log.info = console.log
         this.handler.log.error = console.error
-        console.log(this.handler)
-        // Prevents crashing before the handler is initialized
+
         this.sequelize = new Sequelize(process.env.dbName, process.env.dbUser, process.env.dbPassword, {
             host: process.env.dbHost,
             port: process.env.dbPort,
