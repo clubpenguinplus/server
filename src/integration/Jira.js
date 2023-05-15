@@ -5,7 +5,7 @@ export default class Jira {
     constructor(server) {
         this.handler = server.handler
 
-        setInterval(() => {
+        const refreshJira = () => {
             this.jira = new JiraApi({
                 protocol: 'https',
                 host: 'clubpenguinplus.atlassian.net',
@@ -14,7 +14,9 @@ export default class Jira {
                 apiVersion: '2',
                 strictSSL: true,
             })
-        }, 1000 * 60) // Refreshes the Jira API instance every minute
+            setTimeout(() => refreshJira(), 1000 * 60) // Refreshes the Jira API instance every minute
+        }
+        refreshJira()
     }
 
     async issueToJSON(issue) {
