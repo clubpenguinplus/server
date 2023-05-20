@@ -43,7 +43,7 @@ export default class Igloo extends Room {
     async update(query) {
         let user = await this.db.getUserById(this.userId)
 
-        let igloo = await this.db.userIgloos.findOne({where: {userId: this.userId, iglooId: user.dataValues.current_igloo}})
+        let igloo = await this.db.getIgloo(this.userId, user.dataValues.current_igloo)
 
         if (!igloo) {
             igloo = await this.db.userIgloos.create({
@@ -53,6 +53,7 @@ export default class Igloo extends Room {
                 flooring: 0,
                 music: 0,
                 location: 1,
+                locked: 1,
             })
         }
 
