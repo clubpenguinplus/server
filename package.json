@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Dev",
@@ -16,7 +16,7 @@
   },
   "author": "Club Penguin Plus",
   "bugs": {
-    "url": "https://github.com/clubpenguinplus/server/issues"
+    "url": "https://clubpenguinplus.atlassian.net/browse/BUG"
   },
   "homepage": "https://www.cpplus.pw",
   "devDependencies": {
