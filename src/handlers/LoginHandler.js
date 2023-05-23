@@ -25,7 +25,11 @@ export default class LoginHandler extends BaseHandler {
     handle(message, user) {
         let xml = new jsdom.JSDOM(message)
         xml = xml.window.document
-        this.events.emit(xml.getElementsByTagName('body')[0].getAttribute('action'), xml, user)
+        try {
+            this.events.emit(xml.getElementsByTagName('body')[0].getAttribute('action'), xml, user)
+        } catch (error) {
+            this.log.error(`[${this.id}] Error: ${error}`)
+        }
     }
 
     close(user) {
