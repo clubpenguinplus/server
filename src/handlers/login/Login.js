@@ -391,6 +391,7 @@ export default class Login extends Handler {
         let templateReplacers = [
             ['2FA_LINK', `https://play.cpplus.pw/en/?twofa=${user.dataValues.id}&${code}`],
             ['PENGUIN_NAME', user.dataValues.username],
+            ['PENGUIN_EMAIL', user.dataValues.email],
         ]
 
         this.handler.email.send(user.dataValues.email, 'Login from new device', template, templateReplacers)

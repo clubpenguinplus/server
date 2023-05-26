@@ -16,7 +16,6 @@ export default class Get extends Handler {
             'ma#g': this.getMascots,
             'i#gi': this.getItemInfo,
             'i#gc': this.getCost,
-            'u#si': this.getSettingsInfo,
         }
     }
 
@@ -148,43 +147,5 @@ export default class Get extends Handler {
         if (items.length > 0) {
             user.sendXt('gic', `${args[0]}%${items.join('|')}`)
         }
-    }
-
-    maskEmail(email) {
-        // Split the email address into username and domain parts
-        var parts = email.split('@')
-        var username = parts[0] || ''
-        var domain = parts[1] || ''
-
-        // Replace characters in the username with asterisks, except the first letter
-        var maskedUsername = username.charAt(0) + username.slice(1).replace(/./g, '*')
-
-        // Split the domain into domain name and TLD parts
-        var domainParts = domain.split('.')
-        var domainName = domainParts.slice(0, -1).join('.')
-        var tld = domainParts[domainParts.length - 1]
-
-        // Replace characters in the domain name with asterisks, except the first letter
-        var maskedDomainName = domainName.charAt(0) + domainName.slice(1).replace(/./g, '*')
-
-        // Combine the masked username, masked domain name, and TLD to form the masked email
-        var maskedEmail = maskedUsername + '@' + maskedDomainName + '.' + tld
-
-        return maskedEmail
-    }
-
-    async getSettingsInfo(args, user) {
-        let settings = await this.db.getUserById(user.data.id)
-        let id = user.data.id
-        let username = user.data.username
-        let email = this.maskEmail(settings.dataValues.email || '')
-        let age = settings.dataValues.over13 ? 1 : 0
-
-        // TODO: Parental controls
-        let forceChatTier = /* settings.dataValues.forceChat */ 0
-        let playtimeLimit = /* settings.dataValues.playtimeLimit */ 0
-        let infractionNotifications = /* settings.dataValues.infractionNotifications */ 0
-
-        user.sendXt('gsi', `${id}%${username}%${email}%${age}%${forceChatTier}%${playtimeLimit}%${infractionNotifications}`)
     }
 }

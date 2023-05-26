@@ -1,7 +1,6 @@
 import Room from '../objects/room/Room'
 import WaddleRoom from '../objects/room/WaddleRoom'
 import OpenIgloos from '../objects/room/OpenIgloos'
-import Discord from '../integration/Discord'
 import Filter from '../integration/Filter'
 import BaseHandler from './BaseHandler'
 import fs from 'fs'
@@ -9,7 +8,6 @@ import fs from 'fs'
 export default class DataHandler extends BaseHandler {
     constructor(id, users, db, log) {
         super(id, users, db, log)
-        this.discord = new Discord(this)
 
         this.partyData = {}
 

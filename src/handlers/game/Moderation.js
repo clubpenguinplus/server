@@ -23,8 +23,6 @@ export default class Moderation extends Handler {
         if (recipient && recipient.data.rank < user.data.rank) {
             recipient.sendXt('k', 'k')
             recipient.close()
-            this.discord.kickLogs(user.data.username, recipient.data.username)
-            this.handler.analytics.kickUser(recipient.data.id, user.data.id, args[1])
         }
     }
 
@@ -88,7 +86,6 @@ export default class Moderation extends Handler {
 
         let userName = (await this.db.getUserById(id)).username
 
-        this.discord.banLogs(moderator.data.username, userName, expires)
         this.handler.analytics.banUser(id, moderator.data.id, message, hours)
     }
 

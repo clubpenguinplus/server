@@ -51,7 +51,6 @@ export default class GameAuth extends Handler {
         this.usersBySessionId[user.sessionId] = user.data.id
         this.usersById[user.data.id] = user
         user.crumbs = this.crumbs
-        await this.discord.logLogin(user.data.username)
 
         await user.setFriends(await user.db.getFriends(user.data.id))
         await user.setIgnores(await user.db.getIgnores(user.data.id))
