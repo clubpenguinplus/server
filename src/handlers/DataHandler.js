@@ -1,23 +1,13 @@
 import Room from '../objects/room/Room'
 import WaddleRoom from '../objects/room/WaddleRoom'
 import OpenIgloos from '../objects/room/OpenIgloos'
-import Discord from '../integration/Discord'
 import Filter from '../integration/Filter'
-import Analytics from '../integration/Analytics'
+import BaseHandler from './BaseHandler'
 import fs from 'fs'
-import path from 'path'
-import fetch from 'node-fetch'
 
-export default class DataHandler {
+export default class DataHandler extends BaseHandler {
     constructor(id, users, db, log) {
-        this.id = id
-        this.users = users
-        this.db = db
-        db.handler = this
-        this.log = log
-        this.discord = new Discord(this)
-
-        this.analytics = new Analytics(this)
+        super(id, users, db, log)
 
         this.partyData = {}
 
@@ -29,9 +19,6 @@ export default class DataHandler {
         this.openIgloos = new OpenIgloos()
 
         this.filter = new Filter(this)
-
-        this.events = {}
-        this.handlers = {}
 
         this.dir = `${__dirname}/game`
 
@@ -56,12 +43,7 @@ export default class DataHandler {
 
         this.loadHandlers()
 
-        this.log.info(`[DataHandler] Created DataHandler for server: ${this.id}`)
-    }
-
-    getCrumb(type) {
-        const data = fs.readFileSync(`./crumbs/${type}.json`)
-        return JSON.parse(data)
+        this.log.info(`[${this.id}] Created DataHandler for server: ${this.id}`)
     }
 
     async setWaddles() {
@@ -102,14 +84,10 @@ export default class DataHandler {
                 return
             }
 
-            this.fireEvent(identifier, args, user)
+            this.events.emit(identifier, args, user)
         } catch (error) {
-            this.log.error(`[DataHandler] Error: ${error}`)
+            this.log.error(`[${this.id}] Error: ${error}`)
         }
-    }
-
-    fireEvent(event, args, user) {
-        this.getEvent(event, args, user)
     }
 
     close(user) {
@@ -148,73 +126,10 @@ export default class DataHandler {
         }, 2500)
     }
 
-    get population() {
-        return Object.keys(this.users).length
-    }
-
     broadcast(message) {
         for (let user of Object.values(this.users)) {
             // change this
             user.sendXt('e', message)
         }
-    }
-
-    loadHandlers() {
-        fs.readdirSync(this.dir).forEach((handler) => {
-            let handlerImport = require(path.join(this.dir, handler)).default
-            let handlerObject = new handlerImport(this)
-
-            this.handlers[handler.replace('.js', '').toLowerCase()] = handlerObject
-
-            this.loadEvents(handlerObject)
-        })
-    }
-
-    loadEvents(handler) {
-        for (let event in handler.events) {
-            this.events[event] = handler.events[event].bind(handler)
-        }
-    }
-
-    getEvent(event, args, user) {
-        try {
-            this.events[event](args, user)
-        } catch (error) {
-            this.log.error(`[DataHandler] Event (${event}) not handled: ${error.stack}`)
-        }
-    }
-
-    async getServerPopulations() {
-        let environments = Object.keys(this.crumbs.worlds)
-        let string = ''
-        let currentEnvironment = 0
-        await processEnvironment(environments[currentEnvironment])
-        async function processEnvironment(env) {
-            string += `${env}:\n`
-            let worlds = Object.keys(this.crumbs.worlds[env])
-            let currentWorld = 0
-            await processWorld(worlds[currentWorld])
-            async function processWorld(world) {
-                let popData = JSON.parse(
-                    await (
-                        await fetch(this.crumbs.worlds[env][world].address + '/getpopulation', {
-                            method: 'POST',
-                        })
-                    ).text()
-                )
-                string += `    -${world}: ${popData.population}/${popData.maxUsers}`
-                currentWorld++
-                if (currentWorld < worlds.length) {
-                    string += '\n'
-                    await processWorld(worlds[currentWorld])
-                }
-            }
-            currentEnvironment++
-            if (currentEnvironment < environments.length) {
-                string += '\n\n'
-                await processEnvironment(environments[currentEnvironment])
-            }
-        }
-        return string
     }
 }

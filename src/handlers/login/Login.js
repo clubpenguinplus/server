@@ -93,6 +93,7 @@ export default class Login extends Handler {
     async login(xmlData, user) {
         let username = xmlData.getElementsByTagName('nick')[0].childNodes[0].nodeValue
         let password = xmlData.getElementsByTagName('pword')[0].childNodes[0].nodeValue
+        let saveToken = xmlData.getElementsByTagName('saveToken')[0].childNodes[0].nodeValue == 'true'
 
         let check = this.check({
             username: username,
@@ -105,8 +106,22 @@ export default class Login extends Handler {
         } else {
             // Comparing password and checking for user existence
             let response = await this.comparePasswords(username, password, user.socket, user)
+            function getShortString() {
+                const values = [response.dataValues.id, response.dataValues.username, response.dataValues.color, response.dataValues.head, response.dataValues.face, response.dataValues.neck, response.dataValues.body, response.dataValues.hand, response.dataValues.feet, response.dataValues.flag, response.dataValues.photo]
+                return values.join('|')
+            }
             if (response.success) {
-                user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
+                user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}%${getShortString()}`)
+                // Create new token
+                if (saveToken) {
+                    let token = await this.genAuthToken(response.dataValues)
+                    this.db.authTokens.create({
+                        userId: response.dataValues.id,
+                        selector: token.split(':')[0],
+                        validator: token.split(':')[1],
+                    })
+                    user.sendXt('at', `${response.dataValues.username.toLowerCase()}%${token}`)
+                }
             } else {
                 user.sendXt('l', `f%${response.message}`)
             }
@@ -118,15 +133,45 @@ export default class Login extends Handler {
     async tokenLogin(xmlData, user) {
         let username = xmlData.getElementsByTagName('nick')[0].childNodes[0].nodeValue
         let token = xmlData.getElementsByTagName('token')[0].childNodes[0].nodeValue
+        let saveToken = xmlData.getElementsByTagName('saveToken')[0].childNodes[0].nodeValue == 'true'
 
         let response = await this.compareTokens(username, token, user.socket, user)
+        function getShortString() {
+            const values = [response.dataValues.id, response.dataValues.username, response.dataValues.color, response.dataValues.head, response.dataValues.face, response.dataValues.neck, response.dataValues.body, response.dataValues.hand, response.dataValues.feet, response.dataValues.flag, response.dataValues.photo]
+            return values.join('|')
+        }
         if (response.success) {
-            user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}`)
+            user.sendXt('l', `t%${response.username}%${response.isMod}%${response.key}%${response.populations.join()}%${getShortString()}`)
+            // Create new token
+            if (saveToken) {
+                let token = await this.genAuthToken(response.dataValues)
+                this.db.authTokens.create({
+                    userId: response.dataValues.id,
+                    selector: token.split(':')[0],
+                    validator: token.split(':')[1],
+                })
+                user.sendXt('at', `${response.dataValues.username.toLowerCase()}%${token}`)
+            }
         } else {
             user.sendXt('l', `f%${response.message}`)
         }
 
         user.close()
+    }
+
+    async genAuthToken(userData) {
+        let validator = crypto.randomBytes(16).toString('hex')
+        function generateSelector(userData) {
+            let userId = userData.id.toString()
+            let array = userId.split('')
+            array = array.map((num) => String.fromCharCode(parseInt(num) + 65))
+            array.reverse()
+            let now = Date.now().toString()
+            return array.join('') + now
+        }
+        let selector = generateSelector(userData)
+
+        return `${selector}:${validator}`
     }
 
     // Functions
@@ -174,10 +219,15 @@ export default class Login extends Handler {
             return this.responses.notFound
         }
 
+        const id = user.dataValues.id
+
         let split = token.split(':')
 
-        let match = split[1] == user.password
-        if (!match) {
+        let selector = split[0]
+        let validator = split[1]
+
+        let authToken = await this.db.getAuthToken(id, selector)
+        if (!authToken || authToken.dataValues.validator != validator) {
             return this.responses.wrongPassword
         }
 
@@ -198,11 +248,19 @@ export default class Login extends Handler {
 
         let twoFA = user.dataValues.has2FA == 1
         if (twoFA) {
-            let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
+            let validIP = await this.db.checkAllowedIp(id, u.address)
             if (!validIP) {
                 return await this.generate2FAToken(user, u)
             }
         }
+
+        // Delete token if successful
+        this.db.authTokens.destroy({
+            where: {
+                userId: id,
+                selector: selector,
+            },
+        })
 
         return await this.onLoginSuccess(socket, user)
     }
@@ -247,6 +305,7 @@ export default class Login extends Handler {
             key: randomKey,
             populations: populations,
             isMod: user.dataValues.rank >= 3 ? '1' : '0',
+            dataValues: user.dataValues,
         }
     }
 
@@ -332,6 +391,7 @@ export default class Login extends Handler {
         let templateReplacers = [
             ['2FA_LINK', `https://play.cpplus.pw/en/?twofa=${user.dataValues.id}&${code}`],
             ['PENGUIN_NAME', user.dataValues.username],
+            ['PENGUIN_EMAIL', user.dataValues.email],
         ]
 
         this.handler.email.send(user.dataValues.email, 'Login from new device', template, templateReplacers)

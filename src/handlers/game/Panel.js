@@ -139,8 +139,6 @@ export default class Panel extends Handler {
             await this.db.addCoins(args[0], args[1])
             this.handler.analytics.transaction(args[0], args[1], 'moderator gift')
         }
-
-        this.discord.addCoinLogs(user.data.username, userName, args[1])
     }
 
     async addUserItems(args, user) {
@@ -150,8 +148,6 @@ export default class Panel extends Handler {
         }
 
         let userName = (await this.db.getUserById(args[0])).username
-
-        this.discord.addItemLogs(user.data.username, userName, args[2])
 
         let recipient = this.usersById[args[0]]
 
@@ -200,7 +196,6 @@ export default class Panel extends Handler {
             user.sendXt('e', [18, expiryDate.toUTCString().replaceAll(',', '')])
 
             this.handler.analytics.banUser(args[0], user.data.id, args[3], args[1])
-            this.discord.banLogs(user.data.username, userName, args[3], expiryDate.toUTCString())
         } else {
             user.sendXt('e', 15)
         }
@@ -218,8 +213,6 @@ export default class Panel extends Handler {
 
         if (complete) {
             user.sendXt('e', 19)
-
-            this.discord.changeUsernameLogs(user.data.username, userName, args[1])
         }
     }
 

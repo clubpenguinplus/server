@@ -30,7 +30,7 @@ export default class Ignore extends Handler {
     }
 
     removeIgnore(args, user) {
-        if (!user.ignore.includes(args[0])) return
+        if (!user.ignore.includes(parseInt(args[0]))) return
 
         user.ignore.removeIgnore(args[0])
 

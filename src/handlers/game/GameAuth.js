@@ -51,7 +51,6 @@ export default class GameAuth extends Handler {
         this.usersBySessionId[user.sessionId] = user.data.id
         this.usersById[user.data.id] = user
         user.crumbs = this.crumbs
-        await this.discord.logLogin(user.data.username)
 
         await user.setFriends(await user.db.getFriends(user.data.id))
         await user.setIgnores(await user.db.getIgnores(user.data.id))
@@ -105,9 +104,6 @@ export default class GameAuth extends Handler {
         }
 
         user.sendXt('ma', `${user.data.id}%${user.data.rank}`)
-        if (success.token) {
-            user.sendXt('at', success.token)
-        }
 
         this.handler.modsOnPanel[user.data.id] = user
     }
@@ -137,9 +133,6 @@ export default class GameAuth extends Handler {
         }
 
         user.sendXt('ua')
-        if (success.token) {
-            user.sendXt('at', success.token)
-        }
     }
 
     // Functions
@@ -164,11 +157,6 @@ export default class GameAuth extends Handler {
             return false
         }
 
-        // Create new token
-        if (args[3]) {
-            token = await this.genAuthToken(user)
-        }
-
         // Disconnect if already logged in
         if (user.data.id in this.usersById) {
             this.usersById[user.data.id].sendXt('cwe', 41)
@@ -176,16 +164,6 @@ export default class GameAuth extends Handler {
         }
 
         user.authenticated = true
-
-        if (token) return {success: true, token: token}
         return true
-    }
-
-    async genAuthToken(user) {
-        let userData = await this.db.getUserById(user.data.id)
-        let validator = userData.password
-        let selector = userData.username
-
-        return `${selector}:${validator}`
     }
 }

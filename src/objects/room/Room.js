@@ -73,13 +73,10 @@ export default class Room {
         // 1 - Whitelist filter (sent to everyone who has lenient filter turned on)
         // 2 - No filter (sent to everyone who's not on safe-chat only)
         // 3 - Safe-chat bypass (sent to everyone in the room, including those on safe-chat only mode. Only mods can send these by prefacing their message with SCBYPASS)
-
-        let users = this.userValues.filter((u) => u.data.filter >= filterLevel || u.data.id == user.data.id)
-
-        for (let u of users) {
+        for (let u of this.userValues) {
             if (u.ignore.includes(user.data.id)) continue
 
-            u.sendXt('sm', `${user.data.id}%${message}`)
+            u.sendXt('sm', `${user.data.id}%${message}%${filterLevel}`)
         }
 
         for (let w of this.wiretapMods) {

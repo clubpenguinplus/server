@@ -3,7 +3,7 @@ import AES from 'crypto-js/aes'
 import enc from 'crypto-js/enc-utf8'
 
 import express from 'express'
-import bodyParser from 'body-parser'
+import HTTPHandler from '../handlers/HTTPHandler'
 import http from 'http'
 
 import User from '../objects/user/User'
@@ -18,93 +18,12 @@ export default class Server {
 
         this.app = express()
         http.createServer(this.app)
-        const bodyParser = require('body-parser')
 
         this.httpServer = this.app.listen(parseInt(process.env.startingPort) + iteration, () => {
             this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
         })
 
-        this.app.use(bodyParser.urlencoded({extended: true}))
-
-        this.app.post('/endgame', (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-            if (req.body.user && this.handler.usersById[req.body.user]) {
-                this.handler.usersById[req.body.user].endAS3Game(req.body.auth, req.body.game, req.body.score, req.body.endroom)
-            }
-            res.send('OK')
-        })
-
-        this.app.post('/stampearned', (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-            if (req.body.user && this.handler.usersById[req.body.user]) {
-                this.handler.usersById[req.body.user].stampEarnedAS3(req.body.auth, req.body.stamp)
-            }
-            res.send('OK')
-        })
-
-        this.app.post('/getpopulation', (req, res) => {
-            res.send({population: Object.entries(this.handler.users).length || 0, maxUsers: process.env.maxUsers})
-        })
-
-        // Issue tracker
-
-        this.app.post('/getissues', async (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-
-            // Checks user based on unique session id. Should prevent most abuse
-            // If we need to interface with the API outside of the game, we could make a separate API key
-            let userId = this.handler.usersBySessionId[req.body.sessionId]
-            if (!userId) {
-                res.send({error: 'Invalid session id'})
-                return
-            }
-
-            // Ensures users can only see their own player reports
-            if (req.body.type == 'RPT') {
-                req.body.reporter = this.handler.usersById[userId].data.id
-            }
-
-            let issues = await this.jira.getIssues(req.body.type, req.body.reporter, req.body.limit, req.body.from)
-            res.send(issues)
-        })
-
-        this.app.post('/getissue', async (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-
-            let userId = this.handler.usersBySessionId[req.body.sessionId]
-            if (!userId) {
-                res.send({error: 'Invalid session id'})
-                return
-            }
-
-            let issue = await this.jira.getIssue(req.body.key, userId)
-            res.send(issue)
-        })
-
-        this.app.post('/getissuecomments', async (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-
-            let userId = this.handler.usersBySessionId[req.body.sessionId]
-            if (!userId) {
-                res.send({error: 'Invalid session id'})
-                return
-            }
-
-            let comments = await this.jira.getIssueComments(req.body.id)
-            res.send(comments)
-        })
-
-        this.app.post('/createissue', (req, res) => {
-            req.body = JSON.parse(Object.keys(req.body)[0])
-
-            let userId = this.handler.usersBySessionId[req.body.sessionId]
-            if (!userId) {
-                res.send({error: 'Invalid session id'})
-                return
-            }
-
-            this.jira.createIssue(req.body.type, req.body.title, req.body.body, req.body.version, userId)
-        })
+        this.httpHandler = new HTTPHandler(this.app, this.handler, this.jira)
 
         let io = this.createIo({
             cors: {

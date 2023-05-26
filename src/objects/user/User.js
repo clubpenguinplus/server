@@ -50,6 +50,11 @@ export default class User {
         return values.join('|')
     }
 
+    get shortString() {
+        const values = [this.data.id, this.data.username_approved ? this.data.username : `P${this.data.id}`, this.data.color, this.data.head, this.data.face, this.data.neck, this.data.body, this.data.hand, this.data.feet, this.data.flag, this.data.photo]
+        return values.join('|')
+    }
+
     get inWaddleGame() {
         return this.waddle && this.room.game && this.waddle.id == this.room.id
     }

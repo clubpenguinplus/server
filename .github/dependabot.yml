@@ -5,3 +5,6 @@ updates:
       schedule:
           interval: 'daily'
       target-branch: 'beta'
+      ignore:
+          - dependency-name: 'node-fetch'
+            versions: ['3.x']

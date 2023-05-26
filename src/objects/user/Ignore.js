@@ -18,7 +18,7 @@ export default class Ignore {
     async init(ignores) {
         for (let ignore of ignores) {
             let user = await this.db.getUserById(ignore)
-            this.list.push({id: user.id, username: user.username})
+            this.list.push({id: user.dataValues.id, username: user.dataValues.username})
         }
     }
 
@@ -27,12 +27,12 @@ export default class Ignore {
     }
 
     addIgnore(id, username) {
+        id = parseInt(id)
         this.list.push({id: id, username: username})
         this.user.sendXt('ia', `${id}%${username}`)
     }
 
     removeIgnore(id) {
-        // Filter ignore out of list
         this.list = this.list.filter((obj) => obj.id != id)
         this.user.sendXt('ir', id)
     }
