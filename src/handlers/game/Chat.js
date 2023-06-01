@@ -188,6 +188,17 @@ export default class Chat extends Handler {
                 user.sendXt('afl', `${i}%${user.data.coins}`)
             }
         }
+
+        for (let i of Object.keys(this.crumbs.locations)) {
+            let item = await user.validatePurchase.location(i, true)
+            if (!item) {
+                continue
+            }
+
+            if (user.locationInventory.add(i)) {
+                user.sendXt('al', `${i}%${user.data.coins}`)
+            }
+        }
     }
 
     async addItem(args, user) {

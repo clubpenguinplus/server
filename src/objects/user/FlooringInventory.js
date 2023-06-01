@@ -18,6 +18,7 @@ export default class IglooInventory {
     }
 
     add(flooring) {
+        if (this.includes(flooring)) return false
         this.list.push(flooring)
 
         // Db query
@@ -25,5 +26,6 @@ export default class IglooInventory {
             userId: this.user.data.id,
             floorId: flooring,
         })
+        return true
     }
 }

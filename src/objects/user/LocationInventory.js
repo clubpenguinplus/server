@@ -18,6 +18,7 @@ export default class IglooInventory {
     }
 
     add(location) {
+        if (this.includes(location)) return false
         this.list.push(location)
 
         // Db query
@@ -25,5 +26,6 @@ export default class IglooInventory {
             userId: this.user.data.id,
             locationId: location,
         })
+        return true
     }
 }

@@ -23,11 +23,13 @@ export default class Inventory {
      * @param {number} item - Item ID
      */
     add(item) {
+        if (this.includes(item)) return false
         this.list.push(item)
 
         // Db query
         try {
             this.db.inventories.create({userId: this.user.data.id, itemId: item})
+            return true
         } catch (error) {
             this.handler.log.error(error)
         }

@@ -21,6 +21,10 @@ export default class PurchaseValidator {
         return this.validate(id, 'floorings', this.user.flooringInventory, isFree)
     }
 
+    location(id, isFree = false) {
+        return this.validate(id, 'locations', this.user.locationInventory, isFree)
+    }
+
     async validate(id, type, includes = [], isFree = false) {
         let item = this.crumbs[type][id]
 
