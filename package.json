@@ -45,7 +45,7 @@
     "profane-words": "^1.5.9",
     "rate-limiter-flexible": "^2.4.1",
     "sequelize": "^6.31.1",
-    "socket.io": "^4.6.1",
+    "socket.io": "^4.7.0",
     "uuid": "^9.0.0"
   },
   "optionalDependencies": {
