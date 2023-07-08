@@ -790,6 +790,129 @@ export default class Database {
         }
     }
 
+    async getGlobalChallenges() {
+        return (await this.findAll('globalChallenges', {
+            attributes: ['id', 'challenge_id'],
+            where: {
+                expires : {
+                    [Op.gt]: new Date()
+                }
+            }
+        })).map((challenge) => {
+            return {
+                id: challenge.dataValues.id,
+                challenge_id: challenge.dataValues.challenge_id,
+            }
+        })
+    }
+
+    async assignGlobalChallenges(userId) {
+        const globalChallenges = await this.getGlobalChallenges()
+        for (let challenge of globalChallenges) {
+            await this.assignGlobalChallenge(userId, challenge)
+        }
+    }
+
+    async assignGlobalChallenge(userId, challenge) {
+        let challengeCompletion = await this.findOne('challenges', {
+            where: {
+                global_id: challenge.id,
+                user_id: userId,
+            },
+        })
+        if (challengeCompletion) return
+        this.challenges.create({
+            global_id: challenge.id,
+            user_id: userId,
+            challenge_id: challenge.challenge_id,
+        })
+    }
+
+    async assignChallenge(userId, challenge) {
+        let activeChallenges = await this.findAll('challenges', {
+            where: {
+                user_id: userId,
+                complete: 0,
+            },
+        })
+        if (activeChallenges.length >= 3) return false
+        for (let activeChallenge of activeChallenges) {
+            if (activeChallenge.dataValue.challenge_id == challenge) return true
+        }
+        this.challenges.create({
+            user_id: userId,
+            challenge_id: challenge,
+        })
+    }
+
+    async getUserGlobalChallenges(userId) {
+        let userGlobalChallenges = []
+        let globalChallenges = await this.getGlobalChallenges()
+        for (let challenge of globalChallenges) {
+            let challengeCompletion = await this.findOne('challenges', {
+                where: {
+                    global_id: challenge.id,
+                    user_id: userId,
+                },
+            })
+            if (challengeCompletion){
+                userGlobalChallenges.push(challengeCompletion.dataValues)
+            }
+        }
+        return userGlobalChallenges
+    }
+
+
+
+    async getUserChallenges(userId) {
+        let activeChallenges = await this.findAll('challenges', {
+            where: {
+                user_id: userId,
+                complete: 0,
+                global_id: null,
+            },
+        })
+        activeChallenges = activeChallenges.map((challenge) => {return challenge.dataValues})
+        let oneDayAgo = new Date(Date.now() - 86400000)
+        let todayChallenge = await this.findOne('challenges', {
+            where: {
+                user_id: userId,
+                set: {
+                    [Op.gt]: oneDayAgo,
+                },
+                global_id: null,
+            },
+        })
+        if (todayChallenge) {
+            todayChallenge = todayChallenge.dataValues
+            for (let activeChallenge of activeChallenges) {
+                if (activeChallenge.id == todayChallenge.id) {
+                    return activeChallenges
+                }
+            }
+            activeChallenges.push(todayChallenge)
+        }
+        return activeChallenges
+    }
+
+    async getChallengeCompletion(userId, id) {
+        return await this.findOne('challenges', {
+            where: {
+                user_id: userId,
+                id: id,
+            },
+            attributes: ['completion'],
+        })
+    }
+
+    async setGlobalChallenge(challengeId, expires) {
+        await this.globalChallenges.create({
+            challenge_id: challengeId,
+            expires: expires
+        })
+    }
+
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {
