@@ -45,6 +45,17 @@ CREATE TABLE IF NOT EXISTS `buddies` (
   CONSTRAINT `buddies_ibfk_2` FOREIGN KEY (`buddyId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `challenges` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL DEFAULT '0',
+  `challenge_id` int NOT NULL DEFAULT '0',
+  `completion` int NOT NULL DEFAULT '0',
+  `complete` tinyint(1) NOT NULL DEFAULT '0',
+  `set` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `global_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE IF NOT EXISTS `codes` (
   `id` int NOT NULL,
   `code` varchar(50) NOT NULL,
@@ -72,6 +83,14 @@ CREATE TABLE IF NOT EXISTS `furniture_inventories` (
   `quantity` int NOT NULL,
   PRIMARY KEY (`userId`,`itemId`),
   CONSTRAINT `furniture_inventories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `global_challenges` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `challenge_id` int NOT NULL DEFAULT '0',
+  `set` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `igloo_inventories` (
