@@ -166,7 +166,7 @@ export default class Jira {
             if (type == 'BUG') {
                 const versions = await this.jira.getVersions(type)
                 if (!versions.some((v) => v.name == version)) {
-                    await this.jira.addVersion({
+                    await this.jira.createVersion({
                         project: type,
                         name: version,
                         description: 'Automatically created by a player-submitted issue',
