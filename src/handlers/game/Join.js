@@ -9,7 +9,7 @@ export default class Join extends Handler {
             'j#js': this.joinServer,
             'j#jr': this.joinRoom,
             'j#jsr': this.joinSoloRoom,
-            'j#jp': this.joinIgloo,
+            'j#jp': this.joinIgloo
         }
     }
 
@@ -65,7 +65,7 @@ export default class Join extends Handler {
                 flooring: 0,
                 music: 0,
                 location: 1,
-                furniture: [],
+                furniture: []
             }
             if (!igloo) return null
 

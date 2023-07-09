@@ -24,7 +24,7 @@ export default class IglooInventory {
         // Db query
         this.db.iglooInventories.create({
             userId: this.user.data.id,
-            iglooId: igloo,
+            iglooId: igloo
         })
         return true
     }

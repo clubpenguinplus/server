@@ -26,7 +26,7 @@ export default class Stamps {
         try {
             return await this.db.userStamps.create({
                 userId: this.user.data.id,
-                stampId: stamp,
+                stampId: stamp
             })
         } catch (error) {}
     }

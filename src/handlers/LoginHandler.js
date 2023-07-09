@@ -15,7 +15,7 @@ export default class LoginHandler extends BaseHandler {
 
         this.crumbs = {
             worlds: this.getCrumb('worlds'),
-            challenges: this.getCrumb('challenges'),
+            challenges: this.getCrumb('challenges')
         }
 
         this.updateWeeklyChallenges()
@@ -76,9 +76,12 @@ export default class LoginHandler extends BaseHandler {
     async updateWeeklyChallenges() {
         setTimeout(() => {
             this.setWeeklyChallenges()
-            setInterval(() => {
-                this.setWeeklyChallenges()
-            }, 7 * 24 * 60 * 60 * 1000)
+            setInterval(
+                () => {
+                    this.setWeeklyChallenges()
+                },
+                7 * 24 * 60 * 60 * 1000
+            )
         }, this.distanceToNextMonday)
 
         console.log(`Next weekly challenges in ${this.distanceToNextMonday / 1000 / 60 / 60} hours.`)
@@ -89,7 +92,7 @@ export default class LoginHandler extends BaseHandler {
         }
     }
 
-    async setWeeklyChallenges(){
+    async setWeeklyChallenges() {
         let possible = Object.keys(this.crumbs.challenges.global)
         let challenge1 = possible[Math.floor(Math.random() * possible.length)]
         let challenge2 = possible[Math.floor(Math.random() * possible.length)]

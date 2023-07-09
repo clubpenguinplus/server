@@ -7,7 +7,7 @@ export default class Moderation extends Handler {
             'o#m': this.mutePlayer,
             'o#k': this.kickPlayer,
             'o#sm': this.stealthMode,
-            'o#w': this.warnPlayer,
+            'o#w': this.warnPlayer
         }
     }
 
@@ -81,7 +81,7 @@ export default class Moderation extends Handler {
             userId: id,
             expires: expires,
             moderatorId: moderator.data.id,
-            message: message,
+            message: message
         })
 
         let userName = (await this.db.getUserById(id)).username

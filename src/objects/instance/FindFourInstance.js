@@ -18,7 +18,7 @@ export default class FindFourInstance extends WaddleInstance {
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0]
         ]
         this.turn = this.users[0].data.id
         this.sendXt('iff', `${this.users[0].data.id},${this.users[1].data.id}%${this.turn}`)
@@ -165,7 +165,7 @@ export default class FindFourInstance extends WaddleInstance {
             game: 'four',
             p1: [this.users[0].data.id, this.users[0].data.username],
             p2: [this.users[1].data.id, this.users[1].data.username],
-            map: this.map,
+            map: this.map
         })
         user.spectating = this
     }

@@ -5,7 +5,7 @@ export default class Ignore extends Handler {
         super(users, rooms)
         this.events = {
             'n#an': this.addIgnore,
-            'n#rn': this.removeIgnore,
+            'n#rn': this.removeIgnore
         }
     }
 
@@ -35,7 +35,7 @@ export default class Ignore extends Handler {
         user.ignore.removeIgnore(args[0])
 
         this.db.ignores.destroy({
-            where: {userId: user.data.id, ignoreId: args[0]},
+            where: {userId: user.data.id, ignoreId: args[0]}
         })
     }
 }

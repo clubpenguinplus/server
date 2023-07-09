@@ -38,7 +38,7 @@ export default class FurnitureInventory {
             this.db.furnitureInventories.create({
                 userId: this.user.data.id,
                 itemId: item,
-                quantity: 1,
+                quantity: 1
             })
         }
 

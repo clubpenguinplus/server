@@ -4,7 +4,7 @@ export default class Room extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {
-            'u#mc': this.mining,
+            'u#mc': this.mining
         }
     }
 

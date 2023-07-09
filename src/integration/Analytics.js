@@ -14,7 +14,7 @@ export default class Analytics {
             host: process.env.dbHost,
             port: process.env.dbPort,
             dialect: process.env.dbDialect,
-            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
+            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false
         })
 
         if (handler.id == 'Login') {
@@ -56,18 +56,18 @@ export default class Analytics {
                 id: {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 releaseDate: {
                     type: Sequelize.DATEONLY,
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 availability: {
                     type: Sequelize.INTEGER(1),
                     allowNull: false,
-                    defaultValue: 1,
-                },
+                    defaultValue: 1
+                }
             },
             {timestamps: false, tableName: 'items'}
         )
@@ -110,28 +110,28 @@ export default class Analytics {
                 userId: {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 username: {
                     type: Sequelize.STRING(50),
-                    allowNull: false,
+                    allowNull: false
                 },
                 ip: {
                     type: Sequelize.STRING(50),
-                    allowNull: false,
+                    allowNull: false
                 },
                 email: {
                     type: Sequelize.STRING(50),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 color: {
                     type: Sequelize.STRING(50),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'user_creation'}
         )
@@ -161,28 +161,28 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 message: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 room: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 filter: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: tableName}
         )
@@ -212,25 +212,25 @@ export default class Analytics {
                             type: Sequelize.INTEGER(11),
                             allowNull: false,
                             primaryKey: true,
-                            autoIncrement: true,
+                            autoIncrement: true
                         },
                         userId: {
                             type: Sequelize.INTEGER(11),
-                            allowNull: false,
+                            allowNull: false
                         },
                         message: {
                             type: Sequelize.STRING(500),
-                            allowNull: false,
+                            allowNull: false
                         },
                         date: {
                             type: Sequelize.DATE,
                             allowNull: false,
-                            defaultValue: Sequelize.NOW,
+                            defaultValue: Sequelize.NOW
                         },
                         room: {
                             type: Sequelize.INTEGER(11),
-                            allowNull: false,
-                        },
+                            allowNull: false
+                        }
                     },
                     {timestamps: false, tableName: tableName}
                 )
@@ -259,25 +259,25 @@ export default class Analytics {
                             type: Sequelize.INTEGER(11),
                             allowNull: false,
                             primaryKey: true,
-                            autoIncrement: true,
+                            autoIncrement: true
                         },
                         userId: {
                             type: Sequelize.INTEGER(11),
-                            allowNull: false,
+                            allowNull: false
                         },
                         message: {
                             type: Sequelize.STRING(500),
-                            allowNull: false,
+                            allowNull: false
                         },
                         date: {
                             type: Sequelize.DATE,
                             allowNull: false,
-                            defaultValue: Sequelize.NOW,
+                            defaultValue: Sequelize.NOW
                         },
                         room: {
                             type: Sequelize.INTEGER(11),
-                            allowNull: false,
-                        },
+                            allowNull: false
+                        }
                     },
                     {timestamps: false, tableName: tableName}
                 )
@@ -299,24 +299,24 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 moderatorId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 reason: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'kick'}
         )
@@ -351,28 +351,28 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 moderatorId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 reason: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
+                    allowNull: false
                 },
                 length: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'ban'}
         )
@@ -401,24 +401,24 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 moderatorId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 reason: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'warn'}
         )
@@ -447,28 +447,28 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 moderatorId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 reason: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
+                    allowNull: false
                 },
                 length: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'mute'}
         )
@@ -497,24 +497,24 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 loggedIn: {
                     type: Sequelize.DATE,
-                    allowNull: false,
+                    allowNull: false
                 },
                 ip: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
+                    allowNull: false
                 },
                 loggedOut: {
                     type: Sequelize.DATE,
-                    allowNull: true,
-                },
+                    allowNull: true
+                }
             },
             {timestamps: false, tableName: 'sessions'}
         )
@@ -558,24 +558,24 @@ export default class Analytics {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: true
                 },
                 userId: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 amount: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 reason: {
                     type: Sequelize.STRING(500),
-                    allowNull: false,
+                    allowNull: false
                 },
                 date: {
                     type: Sequelize.DATE,
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: tableName}
         )
@@ -652,21 +652,21 @@ export default class Analytics {
                 userId: {
                     type: Sequelize.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 date: {
                     type: Sequelize.DATEONLY,
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 coinsSpent: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 coinsEarned: {
                     type: Sequelize.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {timestamps: false, tableName: 'persistent_transactions'}
         )

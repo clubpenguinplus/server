@@ -122,7 +122,7 @@ export default class User {
         this.room.sendXt(this, 'up', `${this.data.id}%${item}%${slot}`, [])
 
         this.update({
-            [slot]: item,
+            [slot]: item
         })
     }
 
@@ -136,7 +136,7 @@ export default class User {
 
         this.data.coins += parseInt(coins)
         this.update({
-            coins: this.data.coins,
+            coins: this.data.coins
         })
     }
 
@@ -174,8 +174,8 @@ export default class User {
     update(query) {
         this.db.users.update(query, {
             where: {
-                id: this.data.id,
-            },
+                id: this.data.id
+            }
         })
     }
 
@@ -199,8 +199,8 @@ export default class User {
         if (!this.data) return setTimeout(() => this.setPuffleDecay(), 1000)
         let puffles = await this.db.userPuffles.findAll({
             where: {
-                userId: this.data.id,
-            },
+                userId: this.data.id
+            }
         })
         let loginLength = new Date().getTime() - new Date(this.data.last_login).getTime()
         let decay = Math.floor(Math.floor(loginLength / 1000 / 60 / 60 / 24) * 3.5)
@@ -215,8 +215,8 @@ export default class User {
             if (food < 0 || play + rest + clean < 0) {
                 await this.db.userPuffles.destroy({
                     where: {
-                        id: puffle.dataValues.id,
-                    },
+                        id: puffle.dataValues.id
+                    }
                 })
                 let postcard
                 switch (puffle.dataValues.color) {
@@ -264,7 +264,7 @@ export default class User {
                     userId: user.data.id,
                     id: postcard,
                     sender: 'Club Penguin Plus',
-                    details: puffle.dataValues.name,
+                    details: puffle.dataValues.name
                 })
                 if (postcardEntry) {
                     this.postcards = await this.db.getPostcards(this.data.id)
@@ -280,18 +280,18 @@ export default class User {
                     food: food,
                     play: play,
                     rest: rest,
-                    clean: clean,
+                    clean: clean
                 },
                 {
                     where: {
-                        id: puffle.dataValues.id,
-                    },
+                        id: puffle.dataValues.id
+                    }
                 }
             )
         }
         this.data.last_login = new Date()
         this.update({
-            last_login: this.data.last_login,
+            last_login: this.data.last_login
         })
     }
 
@@ -322,25 +322,14 @@ export default class User {
                 if (this.stamps.includes(parseInt(stamp))) ownedCategoryStamps.push(stamp)
             }
         }
-
-        let payoutFrequency = coins * 50
-        let unixTime = new Date().getTime()
-        if (this.lastPayout > unixTime - payoutFrequency) {
-            return this.sendXt('e', 11)
+        if (categoryStamps.length > 1 && ownedCategoryStamps.length === categoryStamps.length) {
+            coins = Math.round(coins * 2)
         }
-        if (coins < 15000) {
-            if (categoryStamps.length > 1 && ownedCategoryStamps.length === categoryStamps.length) {
-                coins = Math.round(coins * 2)
-            }
-            this.lastPayout = new Date().getTime()
-            this.updateCoins(coins)
-            this.sendXt('endas3', endroom)
-            this.sendXt('eg', `${this.data.coins}%${game}%${coins}`)
+        this.updateCoins(coins)
+        this.sendXt('endas3', endroom)
+        this.sendXt('eg', `${this.data.coins}%${game}%${coins}`)
 
-            this.handler.analytics.transaction(this.data.id, coins, game)
-        } else {
-            this.sendXt('e', 12)
-        }
+        this.handler.analytics.transaction(this.data.id, coins, game)
     }
 
     stampEarnedAS3(auth, stamp) {

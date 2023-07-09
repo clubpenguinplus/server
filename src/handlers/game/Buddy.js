@@ -14,7 +14,7 @@ export default class Friend extends Handler {
             'b#bf': this.friendFind,
             'b#sh': this.friendSearch,
             'b#gfo': this.friendGetOnline,
-            'b#bff': this.setBFF,
+            'b#bff': this.setBFF
         }
     }
 
@@ -133,12 +133,12 @@ export default class Friend extends Handler {
 
         let exact = await this.db.users.findOne({
             where: {username: args[0], username_approved: 1},
-            attributes: ['id', 'username'],
+            attributes: ['id', 'username']
         })
 
         let exactUnverified = await this.db.users.findOne({
             where: {id: args[0], username_approved: 0},
-            attributes: ['id'],
+            attributes: ['id']
         })
 
         let friend

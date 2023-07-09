@@ -6,7 +6,7 @@ export default class Chat extends Handler {
         this.events = {
             'm#sm': this.sendMessage,
             'u#ss': this.sendSafe,
-            'u#se': this.sendEmote,
+            'u#se': this.sendEmote
         }
 
         this.commands = {
@@ -18,7 +18,7 @@ export default class Chat extends Handler {
             aig: this.addIgloo,
             afl: this.addFlooring,
             al: this.addLocation,
-            addall: this.addAll,
+            addall: this.addAll
         }
 
         this.bindCommands()

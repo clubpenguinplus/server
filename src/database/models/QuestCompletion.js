@@ -10,28 +10,28 @@ export default class QuestCompletion extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 id: {
                     type: DataTypes.STRING(50),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 completion: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    defaultValue: 0,
+                    defaultValue: 0
                 },
                 info: {
                     type: DataTypes.TEXT,
-                    allowNull: true,
-                },
+                    allowNull: true
+                }
             },
             {
                 sequelize,
                 timestamps: false,
-                tableName: 'quest_completion',
+                tableName: 'quest_completion'
             }
         )
     }

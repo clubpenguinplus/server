@@ -15,7 +15,7 @@ export default class Database {
             host: process.env.dbHost,
             port: process.env.dbPort,
             dialect: process.env.dbDialect,
-            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false,
+            logging: process.env.dbDebug == 'true' ? this.handler.log.info : false
         })
 
         // Used to translate type id to string
@@ -97,24 +97,24 @@ export default class Database {
     async getUserByUsername(username) {
         return await this.findOne('users', {
             where: {
-                username: username,
-            },
+                username: username
+            }
         })
     }
 
     async getUserByEmail(email) {
         return await this.findOne('users', {
             where: {
-                email: email,
-            },
+                email: email
+            }
         })
     }
 
     async getUserById(userId) {
         return await this.findOne('users', {
             where: {
-                id: userId,
-            },
+                id: userId
+            }
         })
     }
 
@@ -122,8 +122,8 @@ export default class Database {
         return await this.findOne('authTokens', {
             where: {
                 userId: userId,
-                selector: selector,
-            },
+                selector: selector
+            }
         })
     }
 
@@ -133,9 +133,9 @@ export default class Database {
             where: {
                 userId: userId,
                 expires: {
-                    [Op.gt]: Date.now(),
-                },
-            },
+                    [Op.gt]: Date.now()
+                }
+            }
         })
         for (let x in bans) {
             if (!longestBan || bans[x].expires > longestBan.expires) {
@@ -148,8 +148,8 @@ export default class Database {
     async getBanCount(userId) {
         return await this.bans.count({
             where: {
-                userId: userId,
-            },
+                userId: userId
+            }
         })
     }
 
@@ -158,9 +158,9 @@ export default class Database {
             'buddies',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['buddyId', 'isBff'],
+                attributes: ['buddyId', 'isBff']
             },
             [],
             (result) => {
@@ -174,9 +174,9 @@ export default class Database {
             'ignores',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['ignoreId'],
+                attributes: ['ignoreId']
             },
             [],
             (result) => {
@@ -190,9 +190,9 @@ export default class Database {
             'inventories',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['itemId'],
+                attributes: ['itemId']
             },
             [],
             (result) => {
@@ -206,9 +206,9 @@ export default class Database {
             'userStamps',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['stampId'],
+                attributes: ['stampId']
             },
             [],
             (result) => {
@@ -222,9 +222,9 @@ export default class Database {
             'iglooInventories',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['iglooId'],
+                attributes: ['iglooId']
             },
             [],
             (result) => {
@@ -238,9 +238,9 @@ export default class Database {
             'flooringInventories',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['floorId'],
+                attributes: ['floorId']
             },
             [],
             (result) => {
@@ -254,9 +254,9 @@ export default class Database {
             'locationInventories',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
-                attributes: ['locationId'],
+                attributes: ['locationId']
             },
             [],
             (result) => {
@@ -270,10 +270,10 @@ export default class Database {
             'furnitureInventories',
             {
                 where: {
-                    userId: userId,
+                    userId: userId
                 },
                 attributes: ['itemId', 'quantity'],
-                raw: true,
+                raw: true
             },
             {},
             (result) => {
@@ -287,10 +287,10 @@ export default class Database {
         let c = await this.findOne('codes', {
             where: {
                 code: code,
-                active: 1,
+                active: 1
             },
             attributes: ['id', 'code', 'coins'],
-            raw: true,
+            raw: true
         })
         if (c) {
             return c
@@ -303,10 +303,10 @@ export default class Database {
         if (!code) return []
         return await this.findAll('codeItems', {
             where: {
-                codeId: code,
+                codeId: code
             },
             attributes: ['itemId'],
-            raw: true,
+            raw: true
         })
     }
 
@@ -315,10 +315,10 @@ export default class Database {
         return await this.findOne('usedCodes', {
             where: {
                 codeId: code,
-                userId: user,
+                userId: user
             },
             attributes: ['codeId'],
-            raw: true,
+            raw: true
         })
     }
 
@@ -333,9 +333,9 @@ export default class Database {
             {
                 where: {
                     userId: userId,
-                    iglooId: iglooId,
+                    iglooId: iglooId
                 },
-                raw: true,
+                raw: true
             },
             null,
             async (result) => {
@@ -353,9 +353,9 @@ export default class Database {
             {
                 where: {
                     userId: userId,
-                    iglooId: iglooId,
+                    iglooId: iglooId
                 },
-                raw: true,
+                raw: true
             },
             [],
             (result) => {
@@ -369,24 +369,24 @@ export default class Database {
         return await this.findAll('users', {
             where: {
                 username_approved: '0',
-                username_rejected: '0',
-            },
+                username_rejected: '0'
+            }
         })
     }
 
     async searchForUsers(username) {
         let exactMatch = await this.findOne('users', {
             where: {
-                username: username,
-            },
+                username: username
+            }
         })
 
         let closeMatch = await this.findAll('users', {
             where: {
                 username: {
-                    [Op.like]: '%' + username + '%',
-                },
-            },
+                    [Op.like]: '%' + username + '%'
+                }
+            }
         })
 
         if (!exactMatch) {
@@ -407,12 +407,12 @@ export default class Database {
 
         this.users.update(
             {
-                coins: parseInt(user.dataValues.coins) + parseInt(coins),
+                coins: parseInt(user.dataValues.coins) + parseInt(coins)
             },
             {
                 where: {
-                    id: userID,
-                },
+                    id: userID
+                }
             }
         )
     }
@@ -421,8 +421,8 @@ export default class Database {
         var inventory = await this.getInventory(userID)
         var checkItem = await this.findOne('items', {
             where: {
-                id: item,
-            },
+                id: item
+            }
         })
 
         // A user having 2 of the same items would probably cause some issues
@@ -439,7 +439,7 @@ export default class Database {
 
         this.inventories.create({
             userId: userID,
-            itemId: item,
+            itemId: item
         })
 
         return true
@@ -450,7 +450,7 @@ export default class Database {
             userId: userId,
             expires: banDuration,
             moderatorId: modId,
-            message: message,
+            message: message
         })
     }
 
@@ -463,12 +463,12 @@ export default class Database {
 
         this.users.update(
             {
-                username: newUsername,
+                username: newUsername
             },
             {
                 where: {
-                    id: userId,
-                },
+                    id: userId
+                }
             }
         )
 
@@ -481,12 +481,12 @@ export default class Database {
         let hash = await bcrypt.hash(password, 10)
         this.users.update(
             {
-                password: hash,
+                password: hash
             },
             {
                 where: {
-                    id: userId,
-                },
+                    id: userId
+                }
             }
         )
         return true
@@ -496,9 +496,9 @@ export default class Database {
         return await this.findOne('userPuffles', {
             where: {
                 id: puffleId,
-                userId: userId,
+                userId: userId
             },
-            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean', 'isBackyard'],
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean', 'isBackyard']
         })
     }
 
@@ -506,18 +506,18 @@ export default class Database {
         return await this.findAll('userPuffles', {
             where: {
                 userId: userId,
-                isBackyard: isBackyard,
+                isBackyard: isBackyard
             },
-            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean'],
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean']
         })
     }
 
     async getWellbeing(puffleId) {
         return await this.findOne('userPuffles', {
             where: {
-                id: puffleId,
+                id: puffleId
             },
-            attributes: ['food', 'play', 'rest', 'clean', 'name'],
+            attributes: ['food', 'play', 'rest', 'clean', 'name']
         })
     }
 
@@ -525,9 +525,9 @@ export default class Database {
         return (
             await this.findOne('userPuffles', {
                 where: {
-                    id: puffleId,
+                    id: puffleId
                 },
-                attributes: ['species'],
+                attributes: ['species']
             })
         ).species
     }
@@ -535,9 +535,9 @@ export default class Database {
     async getPuffleCount(userId) {
         let puffles = await this.findAll('userPuffles', {
             where: {
-                userId: userId,
+                userId: userId
             },
-            attributes: ['id'],
+            attributes: ['id']
         })
         return puffles.length
     }
@@ -549,7 +549,7 @@ export default class Database {
             userId: userId,
             species: type,
             name: name,
-            isBackyard: backyard,
+            isBackyard: backyard
         })
         return puffle
     }
@@ -558,9 +558,9 @@ export default class Database {
         let releasedItems = await this.findAll('items', {
             where: {
                 latestRelease: {
-                    [Op.gt]: new Date(user.data.joinTime),
-                },
-            },
+                    [Op.gt]: new Date(user.data.joinTime)
+                }
+            }
         })
         let releasedItemIDs = []
 
@@ -570,8 +570,8 @@ export default class Database {
 
         let obtainableItems = await this.findAll('items', {
             where: {
-                obtainable: 1,
-            },
+                obtainable: 1
+            }
         })
 
         for (var x in obtainableItems) {
@@ -587,10 +587,10 @@ export default class Database {
         let releasedPins = await this.findAll('items', {
             where: {
                 latestRelease: {
-                    [Op.gt]: user.data.joinTime,
+                    [Op.gt]: user.data.joinTime
                 },
-                type: 8,
-            },
+                type: 8
+            }
         })
 
         let releasedPinIDs = []
@@ -602,8 +602,8 @@ export default class Database {
         let obtainablePins = await this.findAll('items', {
             where: {
                 obtainable: 1,
-                type: 8,
-            },
+                type: 8
+            }
         })
 
         for (var x in obtainablePins) {
@@ -620,9 +620,9 @@ export default class Database {
             where: {
                 penguinId: userId,
                 party: 'PenguinGames0722',
-                info: 'team',
+                info: 'team'
             },
-            attributes: ['value'],
+            attributes: ['value']
         })
         if (team) return team.value
         return undefined
@@ -633,7 +633,7 @@ export default class Database {
             penguinId: userId,
             party: 'PenguinGames0722',
             info: 'team',
-            value: team,
+            value: team
         })
     }
 
@@ -641,9 +641,9 @@ export default class Database {
         let completion = await this.findAll('partyCompletion', {
             where: {
                 penguinId: userId,
-                party: party,
+                party: party
             },
-            attributes: ['info', 'value'],
+            attributes: ['info', 'value']
         })
         return this.arrayToObject(completion, 'info', 'value')
     }
@@ -653,7 +653,7 @@ export default class Database {
             'pendingBuddies',
             {
                 where: {recipient: userId},
-                attributes: ['sender'],
+                attributes: ['sender']
             },
             [],
             (result) => {
@@ -666,9 +666,9 @@ export default class Database {
                 'users',
                 {
                     where: {
-                        id: f[x],
+                        id: f[x]
                     },
-                    attributes: ['id', 'username', 'username_approved'],
+                    attributes: ['id', 'username', 'username_approved']
                 },
                 [],
                 (result) => {
@@ -683,9 +683,9 @@ export default class Database {
     async getPostcards(userId) {
         let postcards = await this.findAll('userPostcards', {
             where: {
-                userId: userId,
+                userId: userId
             },
-            attributes: ['id', 'userId', 'sender', 'time_sent', 'details'],
+            attributes: ['id', 'userId', 'sender', 'time_sent', 'details']
         })
         return postcards
     }
@@ -698,7 +698,7 @@ export default class Database {
             over13: over13,
             color: color,
             ip: ip,
-            activationKey: activationKey,
+            activationKey: activationKey
         })
         return user
     }
@@ -706,9 +706,9 @@ export default class Database {
     async validIp(ip) {
         let user = await this.users.findOne({
             where: {
-                ip: ip,
+                ip: ip
             },
-            attributes: ['joinTime'],
+            attributes: ['joinTime']
         })
 
         for (let x in user) {
@@ -723,9 +723,9 @@ export default class Database {
     async checkAllowedIp(user, ip) {
         let allowedIps = await this.findAll('twoFA', {
             where: {
-                userId: user,
+                userId: user
             },
-            attributes: ['ip', 'isAllowed'],
+            attributes: ['ip', 'isAllowed']
         })
         for (let x in allowedIps) {
             if (allowedIps[x].ip == ip) {
@@ -740,9 +740,9 @@ export default class Database {
             await this.findAll('iglooLikes', {
                 where: {
                     userId: user,
-                    iglooId: igloo,
+                    iglooId: igloo
                 },
-                attributes: ['likerId'],
+                attributes: ['likerId']
             })
         ).map((like) => {
             return like.dataValues.likerId
@@ -753,9 +753,9 @@ export default class Database {
         return await this.findOne('questCompletion', {
             where: {
                 user: userId,
-                id: quest,
+                id: quest
             },
-            attributes: ['completion', 'info'],
+            attributes: ['completion', 'info']
         })
     }
 
@@ -763,21 +763,21 @@ export default class Database {
         let questCompletion = await this.findOne('questCompletion', {
             where: {
                 user: userId,
-                id: quest,
+                id: quest
             },
-            attributes: ['completion'],
+            attributes: ['completion']
         })
         if (questCompletion) {
             this.questCompletion.update(
                 {
                     completion: completion,
-                    info: info,
+                    info: info
                 },
                 {
                     where: {
                         user: userId,
-                        id: quest,
-                    },
+                        id: quest
+                    }
                 }
             )
         } else {
@@ -785,23 +785,25 @@ export default class Database {
                 user: userId,
                 id: quest,
                 completion: completion,
-                info: info,
+                info: info
             })
         }
     }
 
     async getGlobalChallenges() {
-        return (await this.findAll('globalChallenges', {
-            attributes: ['id', 'challenge_id'],
-            where: {
-                expires : {
-                    [Op.gt]: new Date()
+        return (
+            await this.findAll('globalChallenges', {
+                attributes: ['id', 'challenge_id'],
+                where: {
+                    expires: {
+                        [Op.gt]: new Date()
+                    }
                 }
-            }
-        })).map((challenge) => {
+            })
+        ).map((challenge) => {
             return {
                 id: challenge.dataValues.id,
-                challenge_id: challenge.dataValues.challenge_id,
+                challenge_id: challenge.dataValues.challenge_id
             }
         })
     }
@@ -817,14 +819,14 @@ export default class Database {
         let challengeCompletion = await this.findOne('challenges', {
             where: {
                 global_id: challenge.id,
-                user_id: userId,
-            },
+                user_id: userId
+            }
         })
         if (challengeCompletion) return
         this.challenges.create({
             global_id: challenge.id,
             user_id: userId,
-            challenge_id: challenge.challenge_id,
+            challenge_id: challenge.challenge_id
         })
     }
 
@@ -832,8 +834,8 @@ export default class Database {
         let activeChallenges = await this.findAll('challenges', {
             where: {
                 user_id: userId,
-                complete: 0,
-            },
+                complete: 0
+            }
         })
         if (activeChallenges.length >= 3) return false
         for (let activeChallenge of activeChallenges) {
@@ -841,7 +843,7 @@ export default class Database {
         }
         this.challenges.create({
             user_id: userId,
-            challenge_id: challenge,
+            challenge_id: challenge
         })
     }
 
@@ -852,36 +854,36 @@ export default class Database {
             let challengeCompletion = await this.findOne('challenges', {
                 where: {
                     global_id: challenge.id,
-                    user_id: userId,
-                },
+                    user_id: userId
+                }
             })
-            if (challengeCompletion){
+            if (challengeCompletion) {
                 userGlobalChallenges.push(challengeCompletion.dataValues)
             }
         }
         return userGlobalChallenges
     }
 
-
-
     async getUserChallenges(userId) {
         let activeChallenges = await this.findAll('challenges', {
             where: {
                 user_id: userId,
                 complete: 0,
-                global_id: null,
-            },
+                global_id: null
+            }
         })
-        activeChallenges = activeChallenges.map((challenge) => {return challenge.dataValues})
+        activeChallenges = activeChallenges.map((challenge) => {
+            return challenge.dataValues
+        })
         let oneDayAgo = new Date(Date.now() - 86400000)
         let todayChallenge = await this.findOne('challenges', {
             where: {
                 user_id: userId,
                 set: {
-                    [Op.gt]: oneDayAgo,
+                    [Op.gt]: oneDayAgo
                 },
-                global_id: null,
-            },
+                global_id: null
+            }
         })
         if (todayChallenge) {
             todayChallenge = todayChallenge.dataValues
@@ -899,9 +901,9 @@ export default class Database {
         return await this.findOne('challenges', {
             where: {
                 user_id: userId,
-                id: id,
+                id: id
             },
-            attributes: ['completion'],
+            attributes: ['completion']
         })
     }
 
@@ -911,7 +913,6 @@ export default class Database {
             expires: expires
         })
     }
-
 
     /*========== Helper functions ==========*/
 

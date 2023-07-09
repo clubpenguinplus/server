@@ -15,7 +15,7 @@ export default class Panel extends Handler {
             'o#cn': this.changeUsername,
             'o#wt': this.wireTap,
             'o#tw': this.unWireTap,
-            'i#sa': this.setItemAvailable,
+            'i#sa': this.setItemAvailable
         }
     }
 
@@ -47,12 +47,12 @@ export default class Panel extends Handler {
         await this.db.users.update(
             {
                 username_approved: 1,
-                username_rejected: 0,
+                username_rejected: 0
             },
             {
                 where: {
-                    id: args[0],
-                },
+                    id: args[0]
+                }
             }
         )
 
@@ -68,12 +68,12 @@ export default class Panel extends Handler {
         await this.db.users.update(
             {
                 username_rejected: 1,
-                username_approved: 0,
+                username_approved: 0
             },
             {
                 where: {
-                    id: args[0],
-                },
+                    id: args[0]
+                }
             }
         )
 
@@ -126,7 +126,7 @@ export default class Panel extends Handler {
         let userName = (await this.db.getUserById(args[0])).username
 
         user.sendXt('error', {
-            error: 16,
+            error: 16
         })
 
         let recipient = this.usersById[args[0]]

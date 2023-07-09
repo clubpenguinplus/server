@@ -15,10 +15,10 @@ export default class Email {
             to: to,
             from: {
                 email: 'no-reply@clubpenguin.plus',
-                name: 'Club Penguin Plus',
+                name: 'Club Penguin Plus'
             },
             subject: subject,
-            html: template,
+            html: template
         }
 
         sgMail

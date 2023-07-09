@@ -58,7 +58,7 @@ export default class BaseHandler {
                 let popData = JSON.parse(
                     await (
                         await fetch(this.crumbs.worlds[env][world].address + '/getpopulation', {
-                            method: 'POST',
+                            method: 'POST'
                         })
                     ).text()
                 )

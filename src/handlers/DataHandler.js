@@ -34,7 +34,7 @@ export default class DataHandler extends BaseHandler {
             locations: this.getCrumb('locations'),
             mascots: this.getCrumb('mascots'),
             puffles: this.getCrumb('puffles'),
-            stamps: this.getCrumb('stamps'),
+            stamps: this.getCrumb('stamps')
         }
 
         this.rooms = await this.setRooms()

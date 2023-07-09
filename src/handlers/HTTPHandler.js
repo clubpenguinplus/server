@@ -13,11 +13,11 @@ export default class HTTPHandler {
             getissues: this.getIssues,
             getissue: this.getIssue,
             getissuecomments: this.getIssueComments,
-            createissue: this.createIssue,
+            createissue: this.createIssue
         }
 
         this.getEvents = {
-            getpopulation: this.getPopulation,
+            getpopulation: this.getPopulation
         }
 
         for (let event in this.postEvents) {

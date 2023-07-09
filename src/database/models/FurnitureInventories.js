@@ -10,18 +10,18 @@ export default class FurnitureInventories extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 itemId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 quantity: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {sequelize, timestamps: false, tableName: 'furniture_inventories'}
         )

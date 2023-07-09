@@ -5,7 +5,7 @@ export default class EPF extends Handler {
         super(users, rooms)
         this.events = {
             'epf#j': this.join,
-            'epf#gc': this.getChallenges,
+            'epf#gc': this.getChallenges
         }
     }
 
@@ -20,8 +20,12 @@ export default class EPF extends Handler {
         await this.db.assignGlobalChallenges(user.data.id)
         let challenges = await this.db.getUserChallenges(user.data.id)
         let globalChallenges = await this.db.getUserGlobalChallenges(user.data.id)
-        challenges = challenges.map(challenge => { return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`})
-        globalChallenges = globalChallenges.map(challenge => { return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`})
+        challenges = challenges.map((challenge) => {
+            return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`
+        })
+        globalChallenges = globalChallenges.map((challenge) => {
+            return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`
+        })
         user.sendXt('epfgc', `${challenges.join('|')}%${globalChallenges.join('|')}`)
     }
 }

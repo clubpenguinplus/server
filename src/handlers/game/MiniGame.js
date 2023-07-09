@@ -11,7 +11,7 @@ export default class MiniGame extends Handler {
             'mi#eg': this.endMinigame,
             'a#pc': this.placeCounter,
             'mi#spl': this.setCannonData,
-            'j#as3': this.joinAS3,
+            'j#as3': this.joinAS3
         }
 
         this.defaultScoreGames = [904, 905, 906, 912, 916, 917, 918, 919, 950, 952]

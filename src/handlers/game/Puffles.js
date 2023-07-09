@@ -10,7 +10,7 @@ export default class Puffles extends Handler {
             'p#pgs': this.getPuffleSpecies,
             'p#pw': this.walkPuffle,
             'p#pgc': this.getPuffleCount,
-            'p#tby': this.toggleBackyard,
+            'p#tby': this.toggleBackyard
         }
     }
 
@@ -63,7 +63,7 @@ export default class Puffles extends Handler {
                 food: wellbeing.food,
                 play: wellbeing.play,
                 rest: wellbeing.rest,
-                name: wellbeing.name,
+                name: wellbeing.name
             })
         }
     }
@@ -105,7 +105,7 @@ export default class Puffles extends Handler {
         let puffleCount = await this.db.getPuffleCount(user.data.id)
         if (puffleCount) {
             user.sendXt('get_puffle_count', {
-                count: puffleCount,
+                count: puffleCount
             })
         }
     }
