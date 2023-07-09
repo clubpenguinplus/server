@@ -206,6 +206,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `current_igloo` int NOT NULL DEFAULT '0',
   `epfStatus` int NOT NULL DEFAULT '0',
   `filter` int NOT NULL DEFAULT '0',
+  `medals` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

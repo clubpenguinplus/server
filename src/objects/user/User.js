@@ -42,11 +42,15 @@ export default class User {
 
         this.partyData = {}
 
+        this.challenges = []
+        this.globalChallenges = []
+        this.setChallenges()
+
         this.setPuffleDecay()
     }
 
     get string() {
-        const values = [this.data.id, this.data.username, this.data.color, this.data.head, this.data.face, this.data.neck, this.data.body, this.data.hand, this.data.feet, this.data.flag, this.data.photo, this.data.coins, this.x, this.y, this.frame, this.data.rank, this.data.stealthMode ? 1 : 0, this.data.username_approved ? 1 : 0, this.data.username_rejected ? 1 : 0, this.data.walking, this.data.epfStatus, new Date(this.data.joinTime).getTime()]
+        const values = [this.data.id, this.data.username, this.data.color, this.data.head, this.data.face, this.data.neck, this.data.body, this.data.hand, this.data.feet, this.data.flag, this.data.photo, this.data.coins, this.x, this.y, this.frame, this.data.rank, this.data.stealthMode ? 1 : 0, this.data.username_approved ? 1 : 0, this.data.username_rejected ? 1 : 0, this.data.walking, this.data.epfStatus, new Date(this.data.joinTime).getTime(), this.data.medals]
         return values.join('|')
     }
 
@@ -137,6 +141,20 @@ export default class User {
         this.data.coins += parseInt(coins)
         this.update({
             coins: this.data.coins
+        })
+    }
+
+    updateMedals(medals) {
+        if (!medals) {
+            return
+        }
+        if (!this.data.medals || this.data.medals < 0) {
+            this.data.medals = 0
+        }
+
+        this.data.medals += parseInt(medals)
+        this.update({
+            medals: this.data.medals
         })
     }
 
@@ -261,7 +279,7 @@ export default class User {
                         break
                 }
                 let postcardEntry = await this.db.userPostcards.create({
-                    userId: user.data.id,
+                    userId: this.data.id,
                     id: postcard,
                     sender: 'Club Penguin Plus',
                     details: puffle.dataValues.name
@@ -329,6 +347,8 @@ export default class User {
         this.sendXt('endas3', endroom)
         this.sendXt('eg', `${this.data.coins}%${game}%${coins}`)
 
+        this.updateChallengeCompletions('coinsearned', game, coins)
+
         this.handler.analytics.transaction(this.data.id, coins, game)
     }
 
@@ -338,5 +358,72 @@ export default class User {
 
         this.stamps.add(stamp)
         this.sendXt('sse', stamp)
+    }
+
+    async setChallenges() {
+        if (!this.data) return setTimeout(() => this.setChallenges(), 1000)
+        if (this.data.epfStatus != 1) return
+
+        await this.db.assignGlobalChallenges(this.data.id)
+        this.challenges = await this.db.getUserChallenges(this.data.id)
+        this.globalChallenges = await this.db.getUserGlobalChallenges(this.data.id)
+
+        if (this.challenges.length == 3) return
+
+        const challengeIds = this.challenges.map((challenge) => challenge.challenge_id)
+        const lastSetDate = this.challenges.reduce((latestDate, challenge) => (new Date(challenge.set_date).getTime() > latestDate ? new Date(challenge.set_date).getTime() : latestDate), null)
+
+        if (!lastSetDate || new Date().getTime() - new Date(lastSetDate).getTime() < 1000 * 60 * 60 * 24) {
+            const challenges = Object.keys(this.crumbs.challenges.daily)
+            let challenge
+            do {
+                challenge = challenges[Math.floor(Math.random() * challenges.length)]
+            } while (challengeIds.includes(challenge))
+            await this.db.assignChallenge(this.data.id, challenge)
+        }
+
+        this.challenges = await this.db.getUserChallenges(this.data.id)
+
+        this.challenge
+    }
+
+    async updateChallengeCompletions(check, checkType, amount) {
+        console.log(check, checkType, amount)
+        for (let chalData of this.challenges) {
+            let challenge = this.crumbs.challenges.daily[chalData.challenge_id]
+            console.log(challenge.check, challenge.checktype, challenge.check == check, challenge.checktype == checkType)
+            if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
+                let complete = chalData.completion + amount >= challenge.completion
+                await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
+            }
+        }
+
+        for (let chalData of this.globalChallenges) {
+            let challenge = this.crumbs.challenges.global[chalData.challenge_id]
+            if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
+                let complete = chalData.completion + amount >= challenge.completion
+                await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
+            }
+        }
+
+        await this.setChallenges()
+    }
+
+    async updateChallengeCompletion(id, amount, isComplete, reward = 0) {
+        await this.db.challenges.update(
+            {
+                completion: isComplete ? 0 : this.db.sequelize.literal(`completion + ${amount}`),
+                complete: isComplete ? 1 : 0
+            },
+            {
+                where: {
+                    id: id
+                }
+            }
+        )
+
+        if (isComplete) {
+            this.updateMedals(reward)
+        }
     }
 }

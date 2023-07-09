@@ -29,6 +29,8 @@ export default class MiniGame extends Handler {
         user.updateCoins(args[0])
         user.sendXt('eg', `${user.data.coins}%${args[1]}%${args[0]}`)
 
+        user.updateChallengeCompletions('coinsearned', args[1], args[0])
+
         this.handler.analytics.transaction(user.data.id, args[0], args[1])
     }
 

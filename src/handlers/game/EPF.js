@@ -17,13 +17,10 @@ export default class EPF extends Handler {
     }
 
     async getChallenges(args, user) {
-        await this.db.assignGlobalChallenges(user.data.id)
-        let challenges = await this.db.getUserChallenges(user.data.id)
-        let globalChallenges = await this.db.getUserGlobalChallenges(user.data.id)
-        challenges = challenges.map((challenge) => {
+        let challenges = user.challenges.map((challenge) => {
             return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`
         })
-        globalChallenges = globalChallenges.map((challenge) => {
+        let globalChallenges = user.globalChallenges.map((challenge) => {
             return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`
         })
         user.sendXt('epfgc', `${challenges.join('|')}%${globalChallenges.join('|')}`)

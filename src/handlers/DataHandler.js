@@ -27,6 +27,7 @@ export default class DataHandler extends BaseHandler {
 
     async init() {
         this.crumbs = {
+            challenges: this.getCrumb('challenges'),
             floorings: this.getCrumb('floorings'),
             furnitures: this.getCrumb('furnitures'),
             igloos: this.getCrumb('igloos'),

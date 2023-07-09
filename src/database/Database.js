@@ -839,7 +839,7 @@ export default class Database {
         })
         if (activeChallenges.length >= 3) return false
         for (let activeChallenge of activeChallenges) {
-            if (activeChallenge.dataValue.challenge_id == challenge) return true
+            if (activeChallenge.dataValues.challenge_id == challenge) return true
         }
         this.challenges.create({
             user_id: userId,
