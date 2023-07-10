@@ -92,39 +92,43 @@ export default class DataHandler extends BaseHandler {
     }
 
     close(user) {
-        if (!user) {
-            return
+        try {
+            if (!user) {
+                return
+            }
+
+            if (user.data) this.analytics.logout(user.data.id)
+
+            setTimeout(() => {
+                if (user.room) {
+                    user.room.remove(user)
+                }
+
+                if (user.friend) {
+                    user.friend.sendOffline()
+                }
+
+                if (user.waddle) {
+                    user.waddle.remove(user)
+                }
+
+                if (user.sessionId && user.sessionId in this.usersBySessionId) {
+                    delete this.usersBySessionId[user.sessionId]
+                }
+
+                if (user.data && user.data.id && user.data.id in this.usersById) {
+                    delete this.usersById[user.data.id]
+                }
+
+                if (user.data && user.data.id) {
+                    this.openIgloos.remove(user)
+                }
+
+                delete this.users[user.socket.id]
+            }, 2500)
+        } catch (error) {
+            this.log.error(`[${this.id}] Error: ${error}`)
         }
-
-        if (user.data) this.analytics.logout(user.data.id)
-
-        setTimeout(() => {
-            if (user.room) {
-                user.room.remove(user)
-            }
-
-            if (user.friend) {
-                user.friend.sendOffline()
-            }
-
-            if (user.waddle) {
-                user.waddle.remove(user)
-            }
-
-            if (user.sessionId && user.sessionId in this.usersBySessionId) {
-                delete this.usersBySessionId[user.sessionId]
-            }
-
-            if (user.data && user.data.id && user.data.id in this.usersById) {
-                delete this.usersById[user.data.id]
-            }
-
-            if (user.data && user.data.id) {
-                this.openIgloos.remove(user)
-            }
-
-            delete this.users[user.socket.id]
-        }, 2500)
     }
 
     broadcast(message) {

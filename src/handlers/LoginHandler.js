@@ -36,7 +36,11 @@ export default class LoginHandler extends BaseHandler {
     }
 
     close(user) {
-        delete this.users[user.socket.id]
+        try {
+            delete this.users[user.socket.id]
+        } catch (error) {
+            this.log.error(`[${this.id}] Error: ${error}`)
+        }
     }
 
     get dateInPST() {
