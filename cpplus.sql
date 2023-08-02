@@ -256,6 +256,7 @@ CREATE TABLE IF NOT EXISTS `user_puffles` (
   `rest` int NOT NULL DEFAULT '100',
   `clean` int NOT NULL DEFAULT '100',
   `isBackyard` int NOT NULL DEFAULT '0',
+	`dateAdopted` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `user_puffles_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

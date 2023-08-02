@@ -50,6 +50,11 @@ export default class UserPuffles extends Sequelize.Model {
                     type: DataTypes.INTEGER(1),
                     allowNull: false,
                     defaultValue: 0
+                },
+                dateAdopted: {
+                    type: DataTypes.DATE,
+                    allowNull: false,
+                    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
                 }
             },
             {

@@ -34,8 +34,12 @@ export default class DataHandler extends BaseHandler {
             items: this.getCrumb('items'),
             locations: this.getCrumb('locations'),
             mascots: this.getCrumb('mascots'),
+            puffle_dig_pool: this.getCrumb('puffle_dig_pool'),
             puffles: this.getCrumb('puffles'),
-            stamps: this.getCrumb('stamps')
+            rooms: this.getCrumb('rooms'),
+            stamps: this.getCrumb('stamps'),
+            waddles: this.getCrumb('waddles'),
+            worlds: this.getCrumb('worlds')
         }
 
         this.rooms = await this.setRooms()
@@ -48,20 +52,16 @@ export default class DataHandler extends BaseHandler {
     }
 
     async setWaddles() {
-        let waddles = this.getCrumb('waddles')
-
-        for (let w in waddles) {
-            let waddle = waddles[w]
+        for (let w in this.crumbs.waddles) {
+            let waddle = this.crumbs.waddles[w]
             this.rooms[waddle.roomId].waddles[w] = new WaddleRoom(waddle, w)
         }
     }
 
     async setRooms() {
-        let roomsData = this.getCrumb('rooms')
-        fs.writeFileSync('./crumbs/rooms.json', JSON.stringify(roomsData))
         let rooms = {}
 
-        for (let data of roomsData) {
+        for (let data of this.crumbs.rooms) {
             rooms[data.id] = new Room(data, this)
         }
 

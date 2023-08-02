@@ -10,7 +10,9 @@ export default class Puffles extends Handler {
             'p#pgs': this.getPuffleSpecies,
             'p#pw': this.walkPuffle,
             'p#pgc': this.getPuffleCount,
-            'p#tby': this.toggleBackyard
+            'p#tby': this.toggleBackyard,
+            'p#dig': this.puffleDig,
+            'p#playanim': this.playPuffleAnimation
         }
     }
 
@@ -125,5 +127,71 @@ export default class Puffles extends Handler {
             this.db.userPuffles.update({isBackyard: args[1]}, {where: {id: puffle.dataValues.id}})
             user.sendXt('tby', `${args[0]}%${args[1]}%${puffle.dataValues.id}|${puffle.dataValues.species}|${puffle.dataValues.name}|${puffle.dataValues.food}|${puffle.dataValues.play}|${puffle.dataValues.rest}|${puffle.dataValues.clean}`)
         }
+    }
+
+    async puffleDig(args, user) {
+        const treasureTypes = ['coins', 'items', 'furniture' /*, 'puffle_items'*/, 'none']
+
+        let walkingPuffle = await this.db.getPuffle(user.data.id, user.data.walking)
+
+        let puffleAge = Math.floor((Date.now() - new Date(walkingPuffle.dataValues.dateAdopted).getTime()) / 1000 / 60 / 60 / 24)
+        let puffleHealth = walkingPuffle.dataValues.food + walkingPuffle.dataValues.play + walkingPuffle.dataValues.rest + walkingPuffle.dataValues.clean
+
+        let agePercent = puffleAge / 365
+        let healthPercent = puffleHealth / 400
+
+        let overallPercent = (agePercent + healthPercent * 2) / 3
+
+        if (overallPercent < Math.random() && !args[0]) {
+            return user.sendXt('pdig', 'none')
+        }
+
+        let treasureType = args[0] ? 'coins' : treasureTypes[Math.floor(Math.random() * treasureTypes.length)]
+
+        if (treasureType == 'coins') {
+            return this.digForCoins(user)
+        }
+
+        let treasurePool = this.crumbs.puffle_dig_pool[treasureType]
+        switch (treasureType) {
+            case 'items':
+                let unownedItems = treasurePool.filter((item) => {
+                    return !user.inventory.includes(item)
+                })
+
+                if (unownedItems.length == 0) {
+                    return this.digForCoins(user)
+                }
+
+                let randomItem = unownedItems[Math.floor(Math.random() * unownedItems.length)]
+                user.inventory.add(randomItem)
+                user.sendXt('pdig', `item%${randomItem}`)
+                break
+
+            case 'furniture':
+                let randomFurniture = treasurePool[Math.floor(Math.random() * treasurePool.length)]
+                user.furnitureInventory.add(randomFurniture)
+                user.sendXt('pdig', `furniture%${randomFurniture}`)
+                break
+
+            case 'puffle_items':
+                break
+
+            default:
+                user.sendXt('pdig', 'none')
+        }
+    }
+
+    digForCoins(user) {
+        let min = 10
+        let max = 250
+        let randomNum = Math.floor(Math.random() * (max - min + 1)) + min
+        user.updateCoins(randomNum)
+        this.handler.analytics.transaction(user.data.id, randomNum, `puffle dig`)
+        user.sendXt('pdig', `coins%${randomNum}`)
+    }
+
+    async playPuffleAnimation(args, user) {
+        user.room.sendXt(user, 'pplayanim', `${user.data.id}%${args[0]}`, [], true)
     }
 }

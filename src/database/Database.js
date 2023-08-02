@@ -498,7 +498,7 @@ export default class Database {
                 id: puffleId,
                 userId: userId
             },
-            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean', 'isBackyard']
+            attributes: ['id', 'species', 'name', 'food', 'play', 'rest', 'clean', 'isBackyard', 'dateAdopted']
         })
     }
 

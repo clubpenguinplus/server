@@ -197,11 +197,6 @@ export default class Login extends Handler {
             return this.responses.notActive
         }
 
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
-        }
-
         let twoFA = user.dataValues.has2FA == 1
         if (twoFA) {
             let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
@@ -239,11 +234,6 @@ export default class Login extends Handler {
         let active = this.checkActive(user)
         if (!active) {
             return this.responses.notActive
-        }
-
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
         }
 
         let twoFA = user.dataValues.has2FA == 1
