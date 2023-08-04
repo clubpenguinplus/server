@@ -531,6 +531,7 @@ export default class Analytics {
         if (!this.enabled) return
         if (!this.tables['sessions']) await this.initLoginTable()
         let logins = await this.tables['sessions'].findAll({where: {userId: userId, loggedOut: null}})
+        logins = logins.sort((a, b) => a.loggedIn - b.loggedIn)
         if (logins.length > 0) {
             let mostRecentLogin = logins[0]
             for (let i = 1; i < logins.length; i++) {
