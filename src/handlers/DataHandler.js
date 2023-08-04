@@ -27,14 +27,19 @@ export default class DataHandler extends BaseHandler {
 
     async init() {
         this.crumbs = {
+            challenges: this.getCrumb('challenges'),
             floorings: this.getCrumb('floorings'),
             furnitures: this.getCrumb('furnitures'),
             igloos: this.getCrumb('igloos'),
             items: this.getCrumb('items'),
             locations: this.getCrumb('locations'),
             mascots: this.getCrumb('mascots'),
+            puffle_dig_pool: this.getCrumb('puffle_dig_pool'),
             puffles: this.getCrumb('puffles'),
+            rooms: this.getCrumb('rooms'),
             stamps: this.getCrumb('stamps'),
+            waddles: this.getCrumb('waddles'),
+            worlds: this.getCrumb('worlds')
         }
 
         this.rooms = await this.setRooms()
@@ -47,20 +52,16 @@ export default class DataHandler extends BaseHandler {
     }
 
     async setWaddles() {
-        let waddles = this.getCrumb('waddles')
-
-        for (let w in waddles) {
-            let waddle = waddles[w]
+        for (let w in this.crumbs.waddles) {
+            let waddle = this.crumbs.waddles[w]
             this.rooms[waddle.roomId].waddles[w] = new WaddleRoom(waddle, w)
         }
     }
 
     async setRooms() {
-        let roomsData = this.getCrumb('rooms')
-        fs.writeFileSync('./crumbs/rooms.json', JSON.stringify(roomsData))
         let rooms = {}
 
-        for (let data of roomsData) {
+        for (let data of this.crumbs.rooms) {
             rooms[data.id] = new Room(data, this)
         }
 
@@ -91,39 +92,43 @@ export default class DataHandler extends BaseHandler {
     }
 
     close(user) {
-        if (!user) {
-            return
+        try {
+            if (!user) {
+                return
+            }
+
+            if (user.data) this.analytics.logout(user.data.id)
+
+            setTimeout(() => {
+                if (user.room) {
+                    user.room.remove(user)
+                }
+
+                if (user.friend) {
+                    user.friend.sendOffline()
+                }
+
+                if (user.waddle) {
+                    user.waddle.remove(user)
+                }
+
+                if (user.sessionId && user.sessionId in this.usersBySessionId) {
+                    delete this.usersBySessionId[user.sessionId]
+                }
+
+                if (user.data && user.data.id && user.data.id in this.usersById) {
+                    delete this.usersById[user.data.id]
+                }
+
+                if (user.data && user.data.id) {
+                    this.openIgloos.remove(user)
+                }
+
+                delete this.users[user.socket.id]
+            }, 2500)
+        } catch (error) {
+            this.log.error(`[${this.id}] Error: ${error}`)
         }
-
-        if (user.data) this.analytics.logout(user.data.id)
-
-        setTimeout(() => {
-            if (user.room) {
-                user.room.remove(user)
-            }
-
-            if (user.friend) {
-                user.friend.sendOffline()
-            }
-
-            if (user.waddle) {
-                user.waddle.remove(user)
-            }
-
-            if (user.sessionId && user.sessionId in this.usersBySessionId) {
-                delete this.usersBySessionId[user.sessionId]
-            }
-
-            if (user.data && user.data.id && user.data.id in this.usersById) {
-                delete this.usersById[user.data.id]
-            }
-
-            if (user.data && user.data.id) {
-                this.openIgloos.remove(user)
-            }
-
-            delete this.users[user.socket.id]
-        }, 2500)
     }
 
     broadcast(message) {

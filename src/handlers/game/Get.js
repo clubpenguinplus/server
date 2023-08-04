@@ -15,7 +15,7 @@ export default class Get extends Handler {
             's#gb': this.getStampbook,
             'ma#g': this.getMascots,
             'i#gi': this.getItemInfo,
-            'i#gc': this.getCost,
+            'i#gc': this.getCost
         }
     }
 

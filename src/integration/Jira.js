@@ -12,7 +12,7 @@ export default class Jira {
                 username: process.env.jiraUsername,
                 password: process.env.jiraAPIToken,
                 apiVersion: '2',
-                strictSSL: true,
+                strictSSL: true
             })
             setTimeout(() => refreshJira(), 1000 * 60) // Refreshes the Jira API instance every minute
         }
@@ -81,7 +81,7 @@ export default class Jira {
             priority: issue.fields.priority.name,
             created: issue.fields.created,
             updated: issue.fields.updated,
-            duplicates: duplicates,
+            duplicates: duplicates
         }
     }
 
@@ -132,7 +132,7 @@ export default class Jira {
                     author: comment.author.displayName,
                     body: comment.body,
                     created: comment.created,
-                    updated: comment.updated,
+                    updated: comment.updated
                 }
             })
         } catch (error) {
@@ -148,36 +148,36 @@ export default class Jira {
         const issueTypes = {
             BUG: 'Bug',
             SGN: 'New Feature',
-            RPT: 'Task',
+            RPT: 'Task'
         }
 
         try {
             let fields = {
                 project: {
-                    key: type,
+                    key: type
                 },
                 summary: summary,
                 description: description + `\n\nReporter = ${reporter}`,
                 issuetype: {
-                    name: issueTypes[type],
-                },
+                    name: issueTypes[type]
+                }
             }
 
             if (type == 'BUG') {
                 const versions = await this.jira.getVersions(type)
                 if (!versions.some((v) => v.name == version)) {
-                    await this.jira.addVersion({
+                    await this.jira.createVersion({
                         project: type,
                         name: version,
                         description: 'Automatically created by a player-submitted issue',
                         released: true,
-                        releaseDate: new Date().toISOString().split('T')[0],
+                        releaseDate: new Date().toISOString().split('T')[0]
                     })
                 }
                 fields.versions = [{name: version}]
             }
             const issue = await this.jira.addNewIssue({
-                fields: fields,
+                fields: fields
             })
             return issue.key
         } catch (error) {

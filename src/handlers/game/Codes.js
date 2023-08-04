@@ -10,7 +10,7 @@ export default class Codes extends Handler {
             'i#aci': this.addCodeItem,
             'c#gca': this.getCodeAttrs,
             'c#gci': this.getCodeItems,
-            'c#rc': this.reedemCode,
+            'c#rc': this.reedemCode
         }
         this.items = this.crumbs.items
     }

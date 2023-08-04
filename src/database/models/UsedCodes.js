@@ -7,16 +7,16 @@ export default class UsedCodes extends Sequelize.Model {
                 codeId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 userId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
-                },
+                        key: 'id'
+                    }
+                }
             },
             {sequelize, timestamps: false, tableName: 'used_codes'}
         )

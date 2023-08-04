@@ -6,7 +6,7 @@ export default class Chat extends Handler {
         this.events = {
             'm#sm': this.sendMessage,
             'u#ss': this.sendSafe,
-            'u#se': this.sendEmote,
+            'u#se': this.sendEmote
         }
 
         this.commands = {
@@ -18,7 +18,7 @@ export default class Chat extends Handler {
             aig: this.addIgloo,
             afl: this.addFlooring,
             al: this.addLocation,
-            addall: this.addAll,
+            addall: this.addAll
         }
 
         this.bindCommands()
@@ -186,6 +186,17 @@ export default class Chat extends Handler {
 
             if (user.flooringInventory.add(i)) {
                 user.sendXt('afl', `${i}%${user.data.coins}`)
+            }
+        }
+
+        for (let i of Object.keys(this.crumbs.locations)) {
+            let item = await user.validatePurchase.location(i, true)
+            if (!item) {
+                continue
+            }
+
+            if (user.locationInventory.add(i)) {
+                user.sendXt('al', `${i}%${user.data.coins}`)
             }
         }
     }

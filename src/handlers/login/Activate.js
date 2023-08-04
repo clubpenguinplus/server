@@ -5,7 +5,7 @@ export default class Activate extends Handler {
         super(users, rooms)
         this.events = {
             activate: this.activate,
-            register: this.register,
+            register: this.register
         }
     }
 

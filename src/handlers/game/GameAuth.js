@@ -11,7 +11,7 @@ export default class GameAuth extends Handler {
         this.events = {
             'auth#g': this.gameAuth,
             'auth#m': this.modAuth,
-            'auth#u': this.unlockAuth,
+            'auth#u': this.unlockAuth
         }
     }
 

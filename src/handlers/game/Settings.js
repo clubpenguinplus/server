@@ -8,7 +8,7 @@ export default class Settings extends Handler {
             'sett#getsettings': this.getSettingsInfo,
             'sett#enable2fa': this.enable2FA,
             'sett#disable2fa': this.disable2FA,
-            'sett#changepass': this.changePassword,
+            'sett#changepass': this.changePassword
         }
     }
 

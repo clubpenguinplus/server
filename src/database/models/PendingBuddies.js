@@ -10,8 +10,8 @@ export default class PendingBuddies extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 recipient: {
                     type: DataTypes.INTEGER(11),
@@ -19,9 +19,9 @@ export default class PendingBuddies extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
-                },
+                        key: 'id'
+                    }
+                }
             },
             {sequelize, timestamps: false, tableName: 'pending_buddies'}
         )

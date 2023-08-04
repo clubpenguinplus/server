@@ -10,8 +10,8 @@ export default class Buddies extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 buddyId: {
                     type: DataTypes.INTEGER(11),
@@ -19,14 +19,14 @@ export default class Buddies extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 isBff: {
                     type: DataTypes.INTEGER(1),
                     allowNull: false,
-                    defaultValue: 0,
-                },
+                    defaultValue: 0
+                }
             },
             {sequelize, timestamps: false, tableName: 'buddies'}
         )

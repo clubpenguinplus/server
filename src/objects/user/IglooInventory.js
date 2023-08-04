@@ -18,12 +18,14 @@ export default class IglooInventory {
     }
 
     add(igloo) {
+        if (this.includes(igloo)) return false
         this.list.push(igloo)
 
         // Db query
         this.db.iglooInventories.create({
             userId: this.user.data.id,
-            iglooId: igloo,
+            iglooId: igloo
         })
+        return true
     }
 }

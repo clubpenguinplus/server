@@ -1,1 +1,42 @@
-{}
+{
+    "1":{
+       "name":"Default",
+       "cost":0,
+       "patched":0
+    },
+    "2":{
+       "name":"Beach",
+       "cost":2800,
+       "patched":0
+    },
+    "3":{
+        "name":"Forest",
+        "cost":2700,
+        "patched":0
+    },
+    "4":{
+        "name":"Mountain",
+        "cost":2800,
+        "patched":0
+    },
+    "5":{
+        "name":"Age of Dinosaurs",
+        "cost":0,
+        "patched":0
+    },
+    "6":{
+        "name":"Distant Planet",
+        "cost":1800,
+        "patched":0
+    },
+    "7":{
+        "name":"Soccer Pitch",
+        "cost":1800,
+        "patched":0
+    },
+    "8":{
+        "name":"Undersea",
+        "cost":1800,
+        "patched":0
+    }
+ }

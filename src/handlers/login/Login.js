@@ -12,7 +12,7 @@ export default class Login extends Handler {
         this.events = {
             verChk: this.checkVersion,
             login: this.login,
-            token_login: this.tokenLogin,
+            token_login: this.tokenLogin
         }
 
         this.check = this.createValidator()
@@ -20,28 +20,28 @@ export default class Login extends Handler {
         this.responses = {
             notFound: {
                 success: false,
-                message: 28,
+                message: 28
             },
             wrongPassword: {
                 success: false,
-                message: 29,
+                message: 29
             },
             permaBan: {
                 success: false,
-                message: 30,
+                message: 30
             },
             notActive: {
                 success: false,
-                message: 31,
+                message: 31
             },
             noBeta: {
                 success: false,
-                message: 43,
+                message: 43
             },
             twoFA: {
                 success: false,
-                message: 49,
-            },
+                message: 49
+            }
         }
     }
 
@@ -58,8 +58,8 @@ export default class Login extends Handler {
                 messages: {
                     stringEmpty: 32,
                     stringMin: 34,
-                    stringMax: 35,
-                },
+                    stringMax: 35
+                }
             },
             password: {
                 empty: false,
@@ -70,9 +70,9 @@ export default class Login extends Handler {
                 messages: {
                     stringEmpty: 33,
                     stringMin: 36,
-                    stringMax: 37,
-                },
-            },
+                    stringMax: 37
+                }
+            }
         }
 
         return validator.compile(schema)
@@ -97,7 +97,7 @@ export default class Login extends Handler {
 
         let check = this.check({
             username: username,
-            password: password,
+            password: password
         })
 
         if (check != true) {
@@ -118,7 +118,7 @@ export default class Login extends Handler {
                     this.db.authTokens.create({
                         userId: response.dataValues.id,
                         selector: token.split(':')[0],
-                        validator: token.split(':')[1],
+                        validator: token.split(':')[1]
                     })
                     user.sendXt('at', `${response.dataValues.username.toLowerCase()}%${token}`)
                 }
@@ -148,7 +148,7 @@ export default class Login extends Handler {
                 this.db.authTokens.create({
                     userId: response.dataValues.id,
                     selector: token.split(':')[0],
-                    validator: token.split(':')[1],
+                    validator: token.split(':')[1]
                 })
                 user.sendXt('at', `${response.dataValues.username.toLowerCase()}%${token}`)
             }
@@ -197,11 +197,6 @@ export default class Login extends Handler {
             return this.responses.notActive
         }
 
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
-        }
-
         let twoFA = user.dataValues.has2FA == 1
         if (twoFA) {
             let validIP = await this.db.checkAllowedIp(user.dataValues.id, u.address)
@@ -241,11 +236,6 @@ export default class Login extends Handler {
             return this.responses.notActive
         }
 
-        let isBeta = user.dataValues.rank >= 2
-        if (!isBeta) {
-            return this.responses.noBeta
-        }
-
         let twoFA = user.dataValues.has2FA == 1
         if (twoFA) {
             let validIP = await this.db.checkAllowedIp(id, u.address)
@@ -258,8 +248,8 @@ export default class Login extends Handler {
         this.db.authTokens.destroy({
             where: {
                 userId: id,
-                selector: selector,
-            },
+                selector: selector
+            }
         })
 
         return await this.onLoginSuccess(socket, user)
@@ -278,7 +268,7 @@ export default class Login extends Handler {
         let hours = Math.round((activeBan.expires - Date.now()) / 60 / 60 / 1000)
         return {
             success: false,
-            message: [38, hours],
+            message: [38, hours]
         }
     }
 
@@ -305,7 +295,7 @@ export default class Login extends Handler {
             key: randomKey,
             populations: populations,
             isMod: user.dataValues.rank >= 3 ? '1' : '0',
-            dataValues: user.dataValues,
+            dataValues: user.dataValues
         }
     }
 
@@ -319,7 +309,7 @@ export default class Login extends Handler {
         // JWT to be stored on database
         return jwt.sign(
             {
-                hash: hash,
+                hash: hash
             },
             process.env.cryptoSecret,
             {expiresIn: parseInt(process.env.loginKeyExpiry)}
@@ -343,7 +333,7 @@ export default class Login extends Handler {
             let popData = JSON.parse(
                 await (
                     await fetch(this.crumbs.worlds[process.env.environment || 'production'][world].address + '/getpopulation', {
-                        method: 'POST',
+                        method: 'POST'
                     })
                 ).text()
             )
@@ -370,9 +360,9 @@ export default class Login extends Handler {
         let exist = await this.db.twoFA.findOne({
             where: {
                 userId: user.dataValues.id,
-                ip: u.address,
+                ip: u.address
             },
-            attributes: ['code'],
+            attributes: ['code']
         })
         if (!exist) {
             code = crypto.randomBytes(16).toString('hex')
@@ -380,7 +370,7 @@ export default class Login extends Handler {
             this.db.twoFA.create({
                 userId: user.dataValues.id,
                 code: code,
-                ip: u.address,
+                ip: u.address
             })
         } else {
             code = exist.code
@@ -391,7 +381,7 @@ export default class Login extends Handler {
         let templateReplacers = [
             ['2FA_LINK', `https://play.cpplus.pw/en/?twofa=${user.dataValues.id}&${code}`],
             ['PENGUIN_NAME', user.dataValues.username],
-            ['PENGUIN_EMAIL', user.dataValues.email],
+            ['PENGUIN_EMAIL', user.dataValues.email]
         ]
 
         this.handler.email.send(user.dataValues.email, 'Login from new device', template, templateReplacers)

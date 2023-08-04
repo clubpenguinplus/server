@@ -7,8 +7,8 @@ export default class AuthTokens extends Sequelize.Model {
                 key: {
                     type: DataTypes.STRING(50),
                     allowNull: false,
-                    primaryKey: true,
-                },
+                    primaryKey: true
+                }
             },
             {sequelize, timestamps: false, tableName: 'beta_keys'}
         )

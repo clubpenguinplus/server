@@ -18,12 +18,14 @@ export default class IglooInventory {
     }
 
     add(flooring) {
+        if (this.includes(flooring)) return false
         this.list.push(flooring)
 
         // Db query
         this.db.flooringInventories.create({
             userId: this.user.data.id,
-            floorId: flooring,
+            floorId: flooring
         })
+        return true
     }
 }

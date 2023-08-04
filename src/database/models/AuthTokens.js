@@ -10,23 +10,23 @@ export default class AuthTokens extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 selector: {
                     type: DataTypes.STRING(36),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 validator: {
                     type: DataTypes.STRING(60),
-                    allowNull: false,
+                    allowNull: false
                 },
                 timestamp: {
                     type: Sequelize.DATE,
                     allowNull: false,
-                    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
-                },
+                    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+                }
             },
             {sequelize, timestamps: false, tableName: 'auth_tokens'}
         )

@@ -9,7 +9,7 @@ export default class Join extends Handler {
             'j#js': this.joinServer,
             'j#jr': this.joinRoom,
             'j#jsr': this.joinSoloRoom,
-            'j#jp': this.joinIgloo,
+            'j#jp': this.joinIgloo
         }
     }
 
@@ -20,7 +20,7 @@ export default class Join extends Handler {
 
         let friends = user.friend.list.map((friend) => `${friend.id}|${friend.username}|${friend.online ? 1 : 0}|${friend.isBff ? 1 : 0}`)
 
-        user.sendXt('lp', `${user.string}%${user.room.id}%${user.data.joinTime}%${user.data.stampbookClasp}%${user.data.stampbookColor}%${user.data.stampbookPattern}%${user.data.customStamps}%${user.data.cannon_data}%${friends}%${user.ignore.users}%${user.inventory.flat}%${user.iglooInventory.flat}%${user.furnitureInventory.flat}%${user.stamps.flat}%${user.postcards}%${await this.db.getPendingFriends(user.data.id)}%${user.flooringInventory.flat}%${user.locationInventory.flat}%${user.sessionId}`)
+        user.sendXt('lp', `${user.string}%${user.room.id}%${user.data.stampbookClasp}%${user.data.stampbookColor}%${user.data.stampbookPattern}%${user.data.customStamps}%${user.data.cannon_data}%${friends}%${user.ignore.users}%${user.inventory.flat}%${user.iglooInventory.flat}%${user.furnitureInventory.flat}%${user.stamps.flat}%${user.postcards}%${await this.db.getPendingFriends(user.data.id)}%${user.flooringInventory.flat}%${user.locationInventory.flat}%${user.sessionId}`)
     }
 
     joinServer(args, user) {
@@ -65,7 +65,7 @@ export default class Join extends Handler {
                 flooring: 0,
                 music: 0,
                 location: 1,
-                furniture: [],
+                furniture: []
             }
             if (!igloo) return null
 

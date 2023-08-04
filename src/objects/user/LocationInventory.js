@@ -18,12 +18,14 @@ export default class IglooInventory {
     }
 
     add(location) {
+        if (this.includes(location)) return false
         this.list.push(location)
 
         // Db query
         this.db.locationInventories.create({
             userId: this.user.data.id,
-            locationId: location,
+            locationId: location
         })
+        return true
     }
 }
