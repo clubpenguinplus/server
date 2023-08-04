@@ -27,7 +27,7 @@
     "babel-watch": "^7.8.1"
   },
   "dependencies": {
-    "@logtail/node": "^0.4.2",
+    "@logtail/node": "^0.4.5",
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.0",
     "crypto-js": "^4.1.1",
@@ -39,10 +39,10 @@
     "jsonwebtoken": "^9.0.1",
     "mysql2": "^3.5.2",
     "node-fetch": "^2.6.12",
-    "profane-words": "^1.5.9",
-    "rate-limiter-flexible": "^2.4.1",
+    "profane-words": "^1.5.10",
+    "rate-limiter-flexible": "^2.4.2",
     "sequelize": "^6.32.1",
-    "socket.io": "^4.7.1",
+    "socket.io": "^4.7.2",
     "uuid": "^9.0.0"
   },
   "optionalDependencies": {
