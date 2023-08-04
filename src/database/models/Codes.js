@@ -7,21 +7,21 @@ export default class Codes extends Sequelize.Model {
                 id: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 code: {
                     type: DataTypes.STRING(50),
-                    allowNull: false,
+                    allowNull: false
                 },
                 coins: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 active: {
                     type: DataTypes.BOOLEAN,
                     allowNull: false,
-                    defaultValue: false,
-                },
+                    defaultValue: false
+                }
             },
             {sequelize, timestamps: false, tableName: 'codes'}
         )

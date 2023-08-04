@@ -9,7 +9,7 @@ export default class Manage extends Handler {
         this.resetKeys = {}
         this.events = {
             requestReset: this.requestReset,
-            reset: this.resetPassword,
+            reset: this.resetPassword
         }
     }
 
@@ -29,7 +29,7 @@ export default class Manage extends Handler {
         let templateReplacers = [
             ['PENGUIN_NAME', account.dataValues.username],
             ['RESET_LINK', `https://play.cpplus.pw/en/?reset=${resetKey}`],
-            ['PENGUIN_EMAIL', account.dataValues.email],
+            ['PENGUIN_EMAIL', account.dataValues.email]
         ]
 
         await this.handler.email.send(account.dataValues.email, 'Reset your password', template, templateReplacers)

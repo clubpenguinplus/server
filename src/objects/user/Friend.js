@@ -26,7 +26,7 @@ export default class Friend {
                 id: user.id,
                 username: this.filterUsername(user),
                 online: online,
-                isBff: friend[1],
+                isBff: friend[1]
             })
 
             // Send online status to friend

@@ -4,7 +4,7 @@ export default class TwoFA extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {
-            '2fa': this.allow2FA,
+            '2fa': this.allow2FA
         }
     }
 
@@ -20,8 +20,8 @@ export default class TwoFA extends Handler {
         let twoFA = await this.db.twoFA.findOne({
             where: {
                 userId: acc.id,
-                code: code,
-            },
+                code: code
+            }
         })
 
         if (!twoFA) {
@@ -31,13 +31,13 @@ export default class TwoFA extends Handler {
         this.db.twoFA
             .update(
                 {
-                    isAllowed: 1,
+                    isAllowed: 1
                 },
                 {
                     where: {
                         userId: acc.id,
-                        code: code,
-                    },
+                        code: code
+                    }
                 }
             )
             .then(() => {

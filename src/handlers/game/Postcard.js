@@ -5,7 +5,7 @@ export default class Postcard extends Handler {
         super(network)
         this.events = {
             'l#md': this.updatePostcards,
-            'l#ms': this.sendPostcard,
+            'l#ms': this.sendPostcard
         }
     }
 
@@ -16,7 +16,7 @@ export default class Postcard extends Handler {
                 userId: user.data.id,
                 id: postcard.id,
                 sender: postcard.sender,
-                time_sent: postcard.time_sent,
+                time_sent: postcard.time_sent
             })
         }
     }
@@ -38,7 +38,7 @@ export default class Postcard extends Handler {
         await user.db.userPostcards.create({
             userId: recipientId,
             id: args[0],
-            sender: user.data.username,
+            sender: user.data.username
         })
         let recipient = this.usersById[recipientId]
         if (recipient) {

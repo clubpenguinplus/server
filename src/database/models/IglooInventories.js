@@ -10,14 +10,14 @@ export default class IglooInventories extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 iglooId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
-                },
+                    primaryKey: true
+                }
             },
             {sequelize, timestamps: false, tableName: 'igloo_inventories'}
         )

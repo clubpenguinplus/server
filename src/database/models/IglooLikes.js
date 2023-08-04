@@ -10,13 +10,13 @@ export default class IglooLikes extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 iglooId: {
                     type: DataTypes.INTEGER(1),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 likerId: {
                     type: DataTypes.INTEGER(11),
@@ -24,9 +24,9 @@ export default class IglooLikes extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
-                },
+                        key: 'id'
+                    }
+                }
             },
             {sequelize, timestamps: false, tableName: 'igloo_likes'}
         )

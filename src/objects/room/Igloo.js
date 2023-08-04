@@ -53,7 +53,7 @@ export default class Igloo extends Room {
                 flooring: 0,
                 music: 0,
                 location: 1,
-                locked: 1,
+                locked: 1
             })
         }
 
@@ -77,7 +77,7 @@ export default class Igloo extends Room {
                 flooring: 0,
                 music: 0,
                 location: 1,
-                locked: 1,
+                locked: 1
             })
             igloo.furniture = []
         }

@@ -18,7 +18,7 @@ export default class Igloo extends Handler {
             'g#io': this.getIglooOpen,
             'g#li': this.likeIgloo,
             'g#ci': this.changeIgloo,
-            'g#il': this.getIglooLikes,
+            'g#il': this.getIglooLikes
         }
     }
 
@@ -181,7 +181,7 @@ export default class Igloo extends Handler {
             music: 0,
             location: 1,
             furniture: [],
-            likes: 0,
+            likes: 0
         }
         let furniture = igloo.furniture.map((f) => `${f.id}|${f.furnitureId}|${f.x}|${f.y}|${f.frame}|${f.rotation}`).join(',')
 

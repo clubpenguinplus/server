@@ -6,7 +6,7 @@ export default class Item extends Handler {
         this.events = {
             's#up': this.updatePlayer,
             'i#ai': this.addItem,
-            's#upr': this.removeItem,
+            's#upr': this.removeItem
         }
 
         this.items = this.crumbs.items

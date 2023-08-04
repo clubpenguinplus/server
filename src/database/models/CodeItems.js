@@ -7,12 +7,12 @@ export default class CodeItems extends Sequelize.Model {
                 codeId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 itemId: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {sequelize, timestamps: false, tableName: 'code_items'}
         )

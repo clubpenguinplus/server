@@ -10,34 +10,34 @@ export default class UserIgloos extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 iglooId: {
                     type: DataTypes.INTEGER(1),
                     allowNull: false,
-                    primaryKey: true,
+                    primaryKey: true
                 },
                 type: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 flooring: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 music: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 location: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 locked: {
                     type: DataTypes.BOOLEAN,
-                    allowNull: false,
-                },
+                    allowNull: false
+                }
             },
             {sequelize, timestamps: false, tableName: 'user_igloos'}
         )

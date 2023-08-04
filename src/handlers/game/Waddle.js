@@ -6,7 +6,7 @@ export default class Waddle extends Handler {
         this.events = {
             'a#gt': this.getWaddles,
             'a#jt': this.joinWaddle,
-            'a#lt': this.leaveWaddle,
+            'a#lt': this.leaveWaddle
         }
     }
 

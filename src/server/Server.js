@@ -28,15 +28,15 @@ export default class Server {
         let io = this.createIo({
             cors: {
                 origin: process.env.corsOrigin || '*',
-                methods: ['GET', 'POST'],
+                methods: ['GET', 'POST']
             },
-            path: '/socket/',
+            path: '/socket/'
         })
 
         this.rateLimiter = new RateLimiterFlexible.RateLimiterMemory({
             // 20 events allowed per second
             points: 20,
-            duration: 1,
+            duration: 1
         })
 
         io.on('connection', this.connectionMade.bind(this))

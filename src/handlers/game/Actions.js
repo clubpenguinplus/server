@@ -8,8 +8,7 @@ export default class Actions extends Handler {
             'u#sf': this.sendFrame,
             'u#sb': this.snowball,
             'st#sse': this.stampEarned,
-            'st#sv': this.saveStampbook,
-            'epf#j': this.epfJoin,
+            'st#sv': this.saveStampbook
         }
     }
 
@@ -57,14 +56,7 @@ export default class Actions extends Handler {
             stampbookColor: user.data.stampbookColor,
             stampbookClasp: user.data.stampbookClasp,
             stampbookPattern: user.data.stampbookPattern,
-            customStamps: user.data.customStamps,
+            customStamps: user.data.customStamps
         })
-    }
-
-    epfJoin(args, user) {
-        if (user.data.epfStatus == 0) {
-            user.data.epfStatus = 1
-            user.update({epfStatus: 1})
-        }
     }
 }

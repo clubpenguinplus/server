@@ -10,26 +10,26 @@ export default class UserPostcards extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 id: {
                     type: DataTypes.INTEGER(11),
-                    allowNull: false,
+                    allowNull: false
                 },
                 sender: {
                     type: DataTypes.STRING(50),
-                    allowNull: false,
+                    allowNull: false
                 },
                 time_sent: {
                     type: DataTypes.DATE,
                     allowNull: false,
-                    defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+                    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
                 },
                 details: {
                     type: DataTypes.STRING(50),
-                    allowNull: true,
-                },
+                    allowNull: true
+                }
             },
             {sequelize, timestamps: false, tableName: 'user_postcards'}
         )

@@ -10,7 +10,7 @@ export default class Create extends Handler {
         this.events = {
             check_username: this.checkUsername,
             check_email: this.checkEmail,
-            signup: this.signup,
+            signup: this.signup
         }
     }
 
@@ -115,7 +115,7 @@ export default class Create extends Handler {
             userId: acc.id,
             ip: user.address,
             code: code,
-            isAllowed: 1,
+            isAllowed: 1
         })
 
         let template = fs.readFileSync('templates/email/activate/en.html').toString()
@@ -124,7 +124,7 @@ export default class Create extends Handler {
             ['ACTIVATE_LINK', 'https://play.cpplus.pw/en/?activate='],
             ['ACTIVATE_CODE', activationKey],
             ['PENGUIN_NAME', username],
-            ['PENGUIN_EMAIL', email],
+            ['PENGUIN_EMAIL', email]
         ]
 
         await this.handler.email.send(email, 'Verify your email', template, templateReplacers)

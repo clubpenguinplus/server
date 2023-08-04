@@ -11,7 +11,7 @@ export default class MiniGame extends Handler {
             'mi#eg': this.endMinigame,
             'a#pc': this.placeCounter,
             'mi#spl': this.setCannonData,
-            'j#as3': this.joinAS3,
+            'j#as3': this.joinAS3
         }
 
         this.defaultScoreGames = [904, 905, 906, 912, 916, 917, 918, 919, 950, 952]
@@ -28,6 +28,8 @@ export default class MiniGame extends Handler {
 
         user.updateCoins(args[0])
         user.sendXt('eg', `${user.data.coins}%${args[1]}%${args[0]}`)
+
+        user.updateChallengeCompletions('coinsearned', args[1], args[0])
 
         this.handler.analytics.transaction(user.data.id, args[0], args[1])
     }

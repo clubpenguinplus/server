@@ -10,14 +10,14 @@ export default class FlooringInventories extends Sequelize.Model {
                     primaryKey: true,
                     references: {
                         model: 'users',
-                        key: 'id',
-                    },
+                        key: 'id'
+                    }
                 },
                 floorId: {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
-                    primaryKey: true,
-                },
+                    primaryKey: true
+                }
             },
             {sequelize, timestamps: false, tableName: 'flooring_inventories'}
         )

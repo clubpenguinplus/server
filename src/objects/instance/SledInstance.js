@@ -22,7 +22,7 @@ export default class SledInstance extends WaddleInstance {
             return {
                 username: user.data.username,
                 color: user.data.color,
-                hand: user.data.hand,
+                hand: user.data.hand
             }
         })
 

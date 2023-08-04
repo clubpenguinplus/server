@@ -6,7 +6,7 @@ export default class Quest extends Handler {
         this.events = {
             'q#gc': this.getQuestCompletion,
             'q#sc': this.setQuestCompletion,
-            'q#gp': this.getQuestProgress,
+            'q#gp': this.getQuestProgress
         }
 
         this.handler.partyData.party = null
