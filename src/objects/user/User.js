@@ -204,7 +204,7 @@ export default class User {
 
     sendXt(action, args = '') {
         let packet = `%xt%${action}%${args}%`
-        console.log(`[Server] Sent: ${packet} to ${this.address}`)
+        this.handler.log.info(`[Server] Sent: ${packet} to ${this.address}`)
         let payload = AES.encrypt(packet, this.encryptionKey).toString()
         this.socket.emit('message', payload)
     }
