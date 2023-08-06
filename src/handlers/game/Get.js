@@ -20,7 +20,8 @@ export default class Get extends Handler {
     }
 
     getString(user) {
-        return `${user.dataValues.id}|${user.dataValues.username}|${user.dataValues.color}|${user.dataValues.head}|${user.dataValues.face}|${user.dataValues.neck}|${user.dataValues.body}|${user.dataValues.hand}|${user.dataValues.feet}|${user.dataValues.flag}|${user.dataValues.photo}|${user.dataValues.coins}||||${user.dataValues.rank}|${user.dataValues.stealthMode ? 1 : 0}|${user.dataValues.username_approved ? 1 : 0}|${user.dataValues.username_rejected ? 1 : 0}|${user.dataValues.walking}|${user.dataValues.epfStatus}|${new Date(user.dataValues.joinTime).getTime()}`
+        const values = [user.dataValues.id, user.dataValues.username_approved ? user.dataValues.username : `P${user.dataValues.id}`, user.dataValues.color, user.dataValues.head, user.dataValues.face, user.dataValues.neck, user.dataValues.body, user.dataValues.hand, user.dataValues.feet, user.dataValues.flag, user.dataValues.photo]
+        return values.join('|')
     }
 
     async getPlayer(args, user) {
@@ -29,7 +30,7 @@ export default class Get extends Handler {
         }
 
         if (args[0] in this.usersById) {
-            user.sendXt('gp', this.usersById[args[0]].string)
+            user.sendXt('gp', this.usersById[args[0]].shortString)
             return
         }
 
@@ -46,7 +47,7 @@ export default class Get extends Handler {
         }
 
         if (args[0] in this.usersById) {
-            user.sendXt('gb', this.usersById[args[0]].string)
+            user.sendXt('gb', this.usersById[args[0]].shortString)
             return
         }
 

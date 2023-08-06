@@ -24,7 +24,7 @@ export default class Friend {
             // further requests should use isOnline to stay updated.
             this.list.push({
                 id: user.id,
-                username: this.filterUsername(user),
+                username: this.filterUsername(user.dataValues),
                 online: online,
                 isBff: friend[1]
             })
@@ -59,8 +59,11 @@ export default class Friend {
         this.user.sendXt('rq', `${id}%${username}`)
     }
 
-    addFriend(id, username, requester = false) {
+    async addFriend(id, username, requester = false) {
         let online = this.isOnline(id)
+
+        let user = await this.db.getUserById(id)
+        username = this.filterUsername(user.dataValues)
 
         this.list.push({id: id, username: username, online: online})
         this.user.sendXt('arq', `${id}%${username}%${requester}%${online}`)
@@ -84,7 +87,7 @@ export default class Friend {
     sendOnline(id) {
         let user = this.usersById[id]
 
-        user.sendXt('fo', this.user.string)
+        user.sendXt('fo', this.user.shortString)
     }
 
     sendOffline() {
