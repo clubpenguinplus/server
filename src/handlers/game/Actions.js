@@ -5,6 +5,7 @@ export default class Actions extends Handler {
         super(users, rooms)
         this.events = {
             'u#sp': this.sendPosition,
+            'u#tsp': this.sendTeleportPosition,
             'u#sf': this.sendFrame,
             'u#sb': this.snowball,
             'st#sse': this.stampEarned,
@@ -18,6 +19,14 @@ export default class Actions extends Handler {
         user.frame = 1
 
         user.room.sendXt(user, 'sp', `${user.data.id}%${args[0]}%${args[1]}`, [])
+    }
+
+    sendTeleportPosition(args, user) {
+        user.x = args[0]
+        user.y = args[1]
+        user.frame = 1
+
+        user.room.sendXt(user, 'tsp', `${user.data.id}%${args[0]}%${args[1]}`, [])
     }
 
     sendFrame(args, user) {
