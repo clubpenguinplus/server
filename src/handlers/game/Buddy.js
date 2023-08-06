@@ -68,11 +68,11 @@ export default class Friend extends Handler {
         if (!requester) return
 
         // Add to recipient friend list
-        user.friend.addFriend(args[0], requester.dataValues.username)
+        await user.friend.addFriend(args[0], requester.dataValues.username)
 
         // Add to requester friend list
         if (this.usersById[requester.dataValues.id]) {
-            this.usersById[requester.dataValues.id].friend.addFriend(user.data.id, user.data.username, true)
+            await this.usersById[requester.dataValues.id].friend.addFriend(user.data.id, user.data.username, true)
         }
 
         // Db queries
@@ -168,7 +168,7 @@ export default class Friend extends Handler {
     async friendGetOnline(args, user) {
         args[0] = parseInt(args[0])
         if (this.handler.usersById[args[0]]) {
-            user.sendXt('fo', this.handler.usersById[args[0]].string)
+            user.sendXt('fo', this.handler.usersById[args[0]].shortString)
         }
     }
 
