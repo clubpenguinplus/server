@@ -163,8 +163,10 @@ export default class User {
             return
         }
 
-        if (room.isFull) {
-            return this.sendXt('e', 3)
+        if (room.isFull && !this.isModerator) {
+            this.sendXt('e', 3)
+            this.sendXt('jr', `${this.room.id}%${this.room.strings.join()}`)
+            return
         }
 
         this.room.remove(this)
