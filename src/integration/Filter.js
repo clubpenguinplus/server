@@ -8,6 +8,8 @@ export default class Filter {
         const en = fs.readFileSync('./filterlist/en.txt', {encoding: 'utf8', flag: 'r'})
 
         this.wordlist = en.split('\r\n')
+
+        this.handler.log.info(`[Filter] Loaded ${this.wordlist.length} words.`)
     }
 
     checkWhitelistFilter(message) {
