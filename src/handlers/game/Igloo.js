@@ -100,7 +100,6 @@ export default class Igloo extends Handler {
             item = {furnitureId: item[0], x: item[1], y: item[2], rotation: item[3], frame: item[4]}
             let id = item.furnitureId
             if (!item || !user.furnitureInventory.includes(id)) {
-                console.log('invalid furniture')
                 continue
             }
 
@@ -109,7 +108,6 @@ export default class Igloo extends Handler {
 
             // Validate quantity
             if (quantities[id] > user.furnitureInventory.list[id]) {
-                console.log('invalid quantity')
                 continue
             }
 

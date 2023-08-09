@@ -88,7 +88,7 @@ export default class LoginHandler extends BaseHandler {
             )
         }, this.distanceToNextMonday)
 
-        console.log(`Next weekly challenges in ${this.distanceToNextMonday / 1000 / 60 / 60} hours.`)
+        this.log.info(`Next weekly challenges in ${this.distanceToNextMonday / 1000 / 60 / 60} hours.`)
 
         let currentChallenges = await this.db.getGlobalChallenges()
         if (currentChallenges.length == 0) {
@@ -103,7 +103,7 @@ export default class LoginHandler extends BaseHandler {
         while (challenge2 == challenge1) {
             challenge2 = possible[Math.floor(Math.random() * possible.length)]
         }
-        console.log(`Setting weekly challenges: ${challenge1}, ${challenge2}`)
+        this.log.info(`Setting weekly challenges: ${challenge1}, ${challenge2}`)
         this.db.setGlobalChallenge(challenge1, Date.now() + this.distanceToNextMonday)
         this.db.setGlobalChallenge(challenge2, Date.now() + this.distanceToNextMonday)
     }

@@ -206,7 +206,7 @@ export default class User {
 
     sendXt(action, args = '') {
         let packet = `%xt%${action}%${args}%`
-        this.handler.log.info(`[Server] Sent: ${packet} to ${this.address}`)
+        if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Sent: ${packet} to ${this.address}`)
         let payload = AES.encrypt(packet, this.encryptionKey).toString()
         this.socket.emit('message', payload)
     }
@@ -390,10 +390,8 @@ export default class User {
     }
 
     async updateChallengeCompletions(check, checkType, amount) {
-        console.log(check, checkType, amount)
         for (let chalData of this.challenges) {
             let challenge = this.crumbs.challenges.daily[chalData.challenge_id]
-            console.log(challenge.check, challenge.checktype, challenge.check == check, challenge.checktype == checkType)
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
                 let complete = chalData.completion + amount >= challenge.completion
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
