@@ -83,6 +83,7 @@ export default class Get extends Handler {
         } else {
             username = 'P' + target.dataValues.id
         }
+        let color = target.dataValues.color
 
         let pins = []
         for (let i = 0; i < inventory.length; i++) {
@@ -91,7 +92,7 @@ export default class Get extends Handler {
             }
         }
 
-        user.sendXt('gsb', `${username}%${stamps.join('|')}%${target.dataValues.stampbookColor}%${target.dataValues.stampbookClasp}%${target.dataValues.stampbookPattern}%${pins.join('|')}%${target.dataValues.customStamps}`)
+        user.sendXt('gsb', `${username}%${color}%${stamps.join('|')}%${target.dataValues.stampbookColor}%${target.dataValues.stampbookClasp}%${target.dataValues.stampbookPattern}%${pins.join('|')}%${target.dataValues.customStamps}`)
     }
 
     async getMascots(args, user) {
