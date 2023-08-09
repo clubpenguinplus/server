@@ -10,6 +10,7 @@ export default class Filter {
         this.wordlist = en.split('\r\n')
 
         this.handler.log.info(`[Filter] Loaded ${this.wordlist.length} words.`)
+        this.handler.log.info(this.wordlist)
     }
 
     checkWhitelistFilter(message) {
