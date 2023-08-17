@@ -20,7 +20,7 @@ export default class Server {
         http.createServer(this.app)
 
         this.httpServer = this.app.listen(parseInt(process.env.startingPort) + iteration, () => {
-            this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
+            if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
         })
 
         this.httpHandler = new HTTPHandler(this.app, this.handler, this.jira)
@@ -90,7 +90,7 @@ export default class Server {
 
         this.users[socket.id] = user
 
-        this.handler.log.info(`[Server] Connection from: ${socket.id} ${user.address}`)
+        if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Connection from: ${socket.id} ${user.address}`)
 
         socket.on('message', (message) => this.messageReceived(message, user))
         socket.on('disconnect', () => this.connectionLost(user))
@@ -102,7 +102,7 @@ export default class Server {
             .consume(user.address)
             .then(() => {
                 let payload = AES.decrypt(message, user.decryptionKey)
-                this.handler.log.info(`[Server] Received: ${payload.toString(enc)} from ${user.address}`)
+                if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Received: ${payload.toString(enc)} from ${user.address}`)
                 this.handler.handle(payload.toString(enc), user)
             })
             .catch(() => {
@@ -115,7 +115,7 @@ export default class Server {
     }
 
     connectionLost(user) {
-        this.handler.log.info(`[Server] Disconnect from: ${user.socket.id} ${user.address}`)
+        if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Disconnect from: ${user.socket.id} ${user.address}`)
         this.handler.close(user)
     }
 }

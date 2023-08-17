@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Dev",
@@ -20,16 +20,16 @@
   },
   "homepage": "https://www.cpplus.pw",
   "devDependencies": {
-    "@babel/cli": "^7.22.9",
-    "@babel/core": "^7.22.9",
-    "@babel/node": "^7.22.6",
-    "@babel/preset-env": "^7.22.9",
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/node": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "babel-watch": "^7.8.1"
   },
   "dependencies": {
-    "@logtail/node": "^0.4.5",
+    "@logtail/node": "^0.4.6",
     "@sendgrid/mail": "^7.7.0",
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.1.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -37,7 +37,7 @@
     "jira-client": "^8.2.2",
     "jsdom": "^22.1.0",
     "jsonwebtoken": "^9.0.1",
-    "mysql2": "^3.5.2",
+    "mysql2": "^3.6.0",
     "node-fetch": "^2.6.12",
     "profane-words": "^1.5.10",
     "rate-limiter-flexible": "^2.4.2",

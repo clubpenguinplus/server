@@ -8,7 +8,7 @@ export default class Database {
     constructor() {
         this.handler = new Object()
         this.handler.log = new Object()
-        this.handler.log.info = console.log
+        this.handler.log.info = console.info
         this.handler.log.error = console.error
 
         this.sequelize = new Sequelize(process.env.dbName, process.env.dbUser, process.env.dbPassword, {

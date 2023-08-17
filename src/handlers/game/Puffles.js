@@ -12,7 +12,8 @@ export default class Puffles extends Handler {
             'p#pgc': this.getPuffleCount,
             'p#tby': this.toggleBackyard,
             'p#dig': this.puffleDig,
-            'p#playanim': this.playPuffleAnimation
+            'p#playanim': this.playPuffleAnimation,
+            'p#phs': this.setWellbeing
         }
     }
 
@@ -59,14 +60,7 @@ export default class Puffles extends Handler {
         let puffleId = args[0]
         let wellbeing = await this.db.getWellbeing(puffleId)
         if (wellbeing) {
-            user.sendXt('get_wellbeing', {
-                puffleId: puffleId,
-                clean: wellbeing.clean,
-                food: wellbeing.food,
-                play: wellbeing.play,
-                rest: wellbeing.rest,
-                name: wellbeing.name
-            })
+            user.sendXt('phg', `${puffleId}%${wellbeing.clean}%${wellbeing.food}%${wellbeing.play}%${wellbeing.rest}%${wellbeing.name}`)
         }
     }
 
@@ -193,5 +187,12 @@ export default class Puffles extends Handler {
 
     async playPuffleAnimation(args, user) {
         user.room.sendXt(user, 'pplayanim', `${user.data.id}%${args[0]}`, [], true)
+    }
+
+    async setWellbeing(args, user) {
+        let puffle = await this.db.getPuffle(user.data.id, args[0])
+        if (puffle) {
+            this.db.userPuffles.update({food: args[1], play: args[2], rest: args[3], clean: args[4]}, {where: {id: puffle.dataValues.id}})
+        }
     }
 }
