@@ -1,3 +1,13 @@
+import {CIDR} from 'sequelize'
+
+const {Translate} = require('@google-cloud/translate').v2
+const projectId = 'clubpenguinplus'
+const tlate = new Translate({projectId, key: 'AIzaSyDICJHx-loC6mJKgLGBywBh3p33cU-YDxc'})
+const translate = async (input, lang) => {
+    var translated = await tlate.translate(input, lang.to)
+    return translated[0]
+}
+
 export default class Room {
     constructor(data, handler) {
         Object.assign(this, data)
@@ -67,16 +77,47 @@ export default class Room {
         }
     }
 
-    sendChat(user, message, filterLevel) {
+    async sendChat(user, message, filterLevel) {
         // Filter levels:
         // 0 - Blacklist filter (only sent to mods)
         // 1 - Whitelist filter (sent to everyone who has lenient filter turned on)
         // 2 - No filter (sent to everyone who's not on safe-chat only)
         // 3 - Safe-chat bypass (sent to everyone in the room, including those on safe-chat only mode. Only mods can send these by prefacing their message with SCBYPASS)
-        for (let u of this.userValues) {
-            if (u.ignore.includes(user.data.id)) continue
+        if (filterLevel > 0 && process.env.translateChat) {
+            let languages = [user.currentLanguage]
+            let translation = {[user.currentLanguage]: message}
 
-            u.sendXt('sm', `${user.data.id}%${message}%${filterLevel}`)
+            for (let u of this.userValues) {
+                if (u.ignore.includes(user.data.id)) continue
+
+                if (!languages.includes(u.currentLanguage)) languages.push(u.currentLanguage)
+            }
+
+            for (let lang of languages) {
+                if (lang == user.currentLanguage) continue
+
+                //let translated = await translate(message, {to: lang})
+                translation[lang] = /* translated /*/ message
+
+                this.handler.translation[`${lang}Chars`] += translation[lang].length
+                this.handler.translation[`${lang}Messages`]++
+            }
+
+            for (let u of this.userValues) {
+                if (u.ignore.includes(user.data.id)) continue
+
+                let msg = translation[u.currentLanguage]
+
+                u.sendXt('sm', `${user.data.id}%${msg}%${filterLevel}`)
+            }
+
+            console.log(this.handler.translation)
+        } else {
+            for (let u of this.userValues) {
+                if (u.ignore.includes(user.data.id)) continue
+
+                u.sendXt('sm', `${user.data.id}%${message}%${filterLevel}`)
+            }
         }
 
         for (let w of this.wiretapMods) {

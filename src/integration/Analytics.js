@@ -19,6 +19,8 @@ export default class Analytics {
 
         if (handler.id == 'Login') {
             this.dailyMaintenance()
+        } else {
+            setTimeout(() => this.hourlyMaintenance(), this.distanceToNextHour)
         }
     }
 
@@ -43,6 +45,12 @@ export default class Analytics {
         let midnight = new Date(this.yearInPST, this.monthInPST, this.dayInPST + 1).getTime()
         let now = this.dateInPST
         return midnight - now
+    }
+
+    get distanceToNextHour() {
+        let nextHour = new Date(this.yearInPST, this.monthInPST, this.dayInPST, new Date().getHours() + 1).getTime()
+        let now = this.dateInPST
+        return nextHour - now
     }
 
     // Functions to track:
@@ -599,6 +607,13 @@ export default class Analytics {
         setTimeout(() => this.dailyMaintenance(), this.distanceToMidnight)
     }
 
+    async hourlyMaintenance() {
+        if (!this.enabled) return
+        this.handler.log.info('[Analytics] Performing hourly maintenance')
+        await this.updateTranslations()
+        setTimeout(() => this.hourlyMaintenance(), this.distanceToNextHour)
+    }
+
     // - Remove chat messages older than 30 days
     async removeOldChatMessages() {
         if (!this.enabled) return
@@ -729,5 +744,63 @@ export default class Analytics {
         query = query.substring(0, query.length - 7) // Remove last 'UNION '
         query += ';' // Add semicolon
         await this.sequelize.query(query)
+    }
+
+    async initTranslationTable() {
+        this.tables['translation'] = await this.sequelize.define(
+            'translation',
+            {
+                id: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
+                enChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                enMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                ptChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                ptMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                esChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                esMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                time: {
+                    type: Sequelize.DATE,
+                    allowNull: false
+                }
+            },
+            {timestamps: false, tableName: 'translation'}
+        )
+        await this.tables['translation'].sync()
+    }
+
+    async updateTranslations() {
+        if (!this.enabled) return
+        if (!this.tables['translation']) await this.initTranslationTable()
+        this.tables['translation'].create({enChars: this.handler.translation.enChars, enMessages: this.handler.translation.enMessages, ptChars: this.handler.translation.ptChars, ptMessages: this.handler.translation.ptMessages, esChars: this.handler.translation.esChars, esMessages: this.handler.translation.esMessages, time: this.dateInPST})
+        this.handler.translation = {
+            enChars: 0,
+            enMessages: 0,
+            ptChars: 0,
+            ptMessages: 0,
+            esChars: 0,
+            esMessages: 0
+        }
     }
 }

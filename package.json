@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.1.8",
+  "version": "1.0.0",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Dev",
@@ -43,7 +43,8 @@
     "rate-limiter-flexible": "^2.4.2",
     "sequelize": "^6.32.1",
     "socket.io": "^4.7.2",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "@google-cloud/translate": "^8.0.1"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.7",

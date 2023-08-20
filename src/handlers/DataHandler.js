@@ -22,6 +22,15 @@ export default class DataHandler extends BaseHandler {
 
         this.dir = `${__dirname}/game`
 
+        this.translation = {
+            enChars: 0,
+            enMessages: 0,
+            ptChars: 0,
+            ptMessages: 0,
+            esChars: 0,
+            esMessages: 0
+        }
+
         this.init()
     }
 

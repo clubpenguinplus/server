@@ -62,6 +62,8 @@ export default class GameAuth extends Handler {
         user.setStamps(await user.db.getStamps(user.data.id))
         user.setPostcards(await user.db.getPostcards(user.data.id))
 
+        user.currentLanguage = args[4]
+
         // Send response
         let serverKey = crypto.randomBytes(32).toString('hex')
         let clientKey = crypto.randomBytes(32).toString('hex')
