@@ -14,18 +14,21 @@ export default class HTTPHandler {
             getissue: this.getIssue,
             getissuecomments: this.getIssueComments,
             createissue: this.createIssue,
-            panellogin: this.getPanelLogin
+            getnewcost: this.getNewCost,
+            'manager/login': this.panelLogin
         }
 
         this.getEvents = {
             getpopulation: this.getPopulation,
-            panellogin: this.getPanelLogin
+            'manager/login': this.getPanelLogin,
+            manager: this.panel,
+            'manager/items': this.getPanelItems
         }
 
         for (let event in this.postEvents) {
             const eventFunction = this.postEvents[event].bind(this)
             this.app.post(`/${event}`, (req, res) => {
-                if (Object.keys(req.body)[0]) req.body = JSON.parse(Object.keys(req.body)[0])
+                if (Object.keys(req.body)[0] && typeof req.body != 'object') req.body = JSON.parse(Object.keys(req.body)[0])
                 eventFunction(req, res)
             })
         }
@@ -33,7 +36,7 @@ export default class HTTPHandler {
         for (let event in this.getEvents) {
             const eventFunction = this.getEvents[event].bind(this)
             this.app.get(`/${event}`, (req, res) => {
-                if (Object.keys(req.body)[0]) req.body = JSON.parse(Object.keys(req.body)[0])
+                if (Object.keys(req.body)[0] && typeof req.body != 'object') req.body = JSON.parse(Object.keys(req.body)[0])
                 eventFunction(req, res)
             })
         }
@@ -55,6 +58,10 @@ export default class HTTPHandler {
 
     async getPopulation(req, res) {
         res.send({population: Object.entries(this.handler.users).length || 0, maxUsers: process.env.maxUsers})
+    }
+
+    async getNewCost(req, res) {
+        this.handler.crumbs.items[req.body.item] = await this.handler.analytics.getItemCost(req.body.item)
     }
 
     // Issue tracker
@@ -125,5 +132,21 @@ export default class HTTPHandler {
         }
 
         this.handler.panel.login(req, res)
+    }
+
+    async panel(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getMainPage(req, res)
+    }
+
+    async getPanelItems(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getItemsPage(req, res)
     }
 }

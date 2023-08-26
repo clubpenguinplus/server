@@ -142,6 +142,7 @@ export default class Get extends Handler {
         } else {
             for (let i of args[1].split('|')) {
                 let item = this.crumbs[args[0]][i]
+                item.cost = (await this.handler.analytics.getItemCost(i)) || item.cost
                 items.push(`${i}:${item.cost}`)
             }
         }

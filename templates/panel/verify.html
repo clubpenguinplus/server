@@ -30,12 +30,8 @@
                 </ul>
             </div>
         </nav>
-        {% if success_message != '' %}
-        <div class="alert alert-success" role="alert">{{ success_message }}</div>
-        {% endif %}
-        {% if error_message != '' %}
-        <div class="alert alert-danger" role="alert">{{ error_message }}</div>
-        {% endif %}
+        <div class="alert alert-success" role="alert" style="display: none;">{{ success_message }}</div>
+        <div class="alert alert-danger" role="alert" style="display: none;">{{ error_message }}</div>
         <br>
         <h3 class="text-center" style='height: 9vh;'>
             Verify Players:
@@ -56,38 +52,6 @@
 
                 </div>
         <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                {% if language == 'en' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/en" role="tab" aria-controls="nav-verify" aria-selected="true">English</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/en" role="tab" aria-selected="false">English</a>
-                {% endif %}
-                {% if language == 'de' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/de" role="tab" aria-controls="nav-verify" aria-selected="true">German</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/de" role="tab" aria-selected="false">German</a>
-                {% endif %}
-                {% if language == 'es' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/es" role="tab" aria-controls="nav-verify" aria-selected="true">Spanish</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/es" role="tab" aria-selected="false">Spanish</a>
-                {% endif %}
-                {% if language == 'fr' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/fr" role="tab" aria-controls="nav-verify" aria-selected="true">French</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/fr" role="tab" aria-selected="false">French</a>
-                {% endif %}
-                {% if language == 'pt' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/pt" role="tab" aria-controls="nav-verify" aria-selected="true">Portuguese</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/pt" role="tab" aria-selected="false">Portuguese</a>
-                {% endif %}
-                {% if language == 'ru' %}
-                <a class="nav-item nav-link show active" id="nav-verify-tab" data-toggle="tab" href="/manager/verify/ru" role="tab" aria-controls="nav-verify" aria-selected="true">Russian</a>
-                {% else %}
-                <a class="nav-item nav-link" href="/manager/verify/ru" role="tab" aria-selected="false">Russian</a>
-                {% endif %}
-            </div>
         </nav>
         <div class="container text-center d-flex justify-content-center">
             <div class="tab-content" id="nav-tabContent">

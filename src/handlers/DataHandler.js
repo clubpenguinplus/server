@@ -51,6 +51,8 @@ export default class DataHandler extends BaseHandler {
             worlds: this.getCrumb('worlds')
         }
 
+        this.updateCosts()
+
         this.rooms = await this.setRooms()
 
         await this.setWaddles()

@@ -74,6 +74,10 @@ export default class Analytics {
                     allowNull: false,
                     primaryKey: true
                 },
+                cost: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
                 releaseDate: {
                     type: Sequelize.DATEONLY,
                     allowNull: false,
@@ -87,7 +91,7 @@ export default class Analytics {
             },
             {timestamps: false, tableName: 'items'}
         )
-        await items.sync()
+        await this.tables['items'].sync()
     }
 
     // - Get item availability
@@ -103,7 +107,7 @@ export default class Analytics {
     }
 
     // - Set item availability
-    async setItemAvailability(id, availability) {
+    async setItemAvailability(id, availability, cost) {
         if (!this.tables['items']) await this.initItemTable()
         await this.tables['items'].create({id: id, availability: availability, releaseDate: this.timeInPST})
     }
@@ -113,6 +117,17 @@ export default class Analytics {
         if (!this.tables['items']) await this.initItemTable()
         const releases = await this.tables['items'].findAll({where: {id: id}})
         return releases
+    }
+
+    async getItemCost(id) {
+        if (!this.tables['items']) await this.initItemTable()
+        const releases = await this.tables['items'].findAll({where: {id: id}})
+        if (releases.length == 0) return false
+        let latestRelease
+        for (let release of releases) {
+            if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
+        }
+        return latestRelease.cost
     }
 
     // Analytic functions:

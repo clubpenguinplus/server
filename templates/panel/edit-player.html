@@ -30,12 +30,8 @@
                 </ul>
             </div>
         </nav>
-        {% if success_message != '' %}
-        <div class="alert alert-success" role="alert">{{ success_message }}</div>
-        {% endif %}
-        {% if error_message != '' %}
-        <div class="alert alert-danger" role="alert">{{ error_message }}</div>
-        {% endif %}
+        <div class="alert alert-success" role="alert" style="display: none;">{{ success_message }}</div>
+        <div class="alert alert-danger" role="alert" style="display: none;">{{ error_message }}</div>
         <br>
         <div class="container">
             <div class="row">

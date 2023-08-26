@@ -17,8 +17,11 @@ export default class LoginHandler extends BaseHandler {
 
         this.crumbs = {
             worlds: this.getCrumb('worlds'),
-            challenges: this.getCrumb('challenges')
+            challenges: this.getCrumb('challenges'),
+            items: this.getCrumb('items')
         }
+
+        this.updateCosts()
 
         this.updateWeeklyChallenges()
 

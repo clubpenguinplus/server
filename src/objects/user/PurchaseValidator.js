@@ -36,16 +36,16 @@ export default class PurchaseValidator {
         } else if (includes.includes(id)) {
             this.user.sendXt('e', 1)
             return false
-        } /* else if (this.user.data.rank >= 4) {
+        } else if (this.user.data.rank >= 4) {
             // Admins bypass unavailable items
             return item
-        }  else if (item.patched) {
+        } else if (item.patched) {
             this.user.sendXt('e', 2)
             return false
-        } else if (type == 'items' && !(await this.analytics.getItemAvailability(id))) {
+        } else if (type == 'items' && !item.avaliable) {
             this.user.sendXt('e', 2)
             return false
-        }  */ else {
+        } else {
             return item
         }
     }
