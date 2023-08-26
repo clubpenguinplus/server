@@ -1,10 +1,17 @@
 import bodyParser from 'body-parser'
+import {EventEmitter} from 'events'
+
 export default class HTTPHandler {
     constructor(app, handler, jira) {
         this.jira = jira
         this.handler = handler
         this.app = app
         this.app.use(bodyParser.urlencoded({extended: true}))
+
+        this.events = new EventEmitter({captureRejections: true})
+        this.events.on('error', (error) => {
+            this.handler.log.error(`[HTTP] Event error: ${error.stack}`)
+        })
 
         this.postEvents = {
             endgame: this.endGame,
@@ -15,30 +22,48 @@ export default class HTTPHandler {
             getissuecomments: this.getIssueComments,
             createissue: this.createIssue,
             getnewcost: this.getNewCost,
-            'manager/login': this.panelLogin
+            getavaliability: this.getAvaliability,
+            'manager/login': this.panelLogin,
+            'manager/updateavailablity': this.updateAvailablity,
+            'manager/updatecost': this.updateCost
         }
 
         this.getEvents = {
             getpopulation: this.getPopulation,
             'manager/login': this.getPanelLogin,
             manager: this.panel,
-            'manager/items': this.getPanelItems
+            'manager/items': this.getPanelItems,
+            'manager/item': this.getPanelItem
         }
 
         for (let event in this.postEvents) {
             const eventFunction = this.postEvents[event].bind(this)
+
             this.app.post(`/${event}`, (req, res) => {
-                if (Object.keys(req.body)[0] && typeof req.body != 'object') req.body = JSON.parse(Object.keys(req.body)[0])
-                eventFunction(req, res)
+                if (Object.keys(req.body)[0] && Object.keys(req.body)[0].startsWith('{')) req.body = JSON.parse(Object.keys(req.body)[0])
+                this.events.emit(`GET_${event}`, req, res)
             })
+
+            try {
+                this.events.on(`GET_${event}`, eventFunction)
+            } catch (error) {
+                this.handler.log.error(`[HTTP] Event error: ${error.stack}`)
+            }
         }
 
         for (let event in this.getEvents) {
             const eventFunction = this.getEvents[event].bind(this)
+
             this.app.get(`/${event}`, (req, res) => {
-                if (Object.keys(req.body)[0] && typeof req.body != 'object') req.body = JSON.parse(Object.keys(req.body)[0])
-                eventFunction(req, res)
+                if (Object.keys(req.body)[0] && Object.keys(req.body)[0].startsWith('{')) req.body = JSON.parse(Object.keys(req.body)[0])
+                this.events.emit(`POST_${event}`, req, res)
             })
+
+            try {
+                this.events.on(`POST_${event}`, eventFunction)
+            } catch (error) {
+                this.handler.log.error(`[HTTP] Event error: ${error.stack}`)
+            }
         }
     }
 
@@ -61,7 +86,13 @@ export default class HTTPHandler {
     }
 
     async getNewCost(req, res) {
-        this.handler.crumbs.items[req.body.item] = await this.handler.analytics.getItemCost(req.body.item)
+        this.handler.crumbs.items[req.body.item].cost = await this.handler.analytics.getItemCost(req.body.item)
+        res.send('OK')
+    }
+
+    async getAvaliability(req, res) {
+        this.handler.crumbs.items[req.body.item].available = await this.handler.analytics.getItemAvailability(req.body.item)
+        res.send('OK')
     }
 
     // Issue tracker
@@ -148,5 +179,29 @@ export default class HTTPHandler {
         }
 
         this.handler.panel.getItemsPage(req, res)
+    }
+
+    async getPanelItem(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getItemPage(req, res)
+    }
+
+    async updateAvailablity(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.updateAvailablity(req, res)
+    }
+
+    async updateCost(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.updateCost(req, res)
     }
 }

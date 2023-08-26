@@ -273,7 +273,7 @@ export default class Chat extends Handler {
         if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
-        let item = await user.validatePurchase.floorinf(args[0], true)
+        let item = await user.validatePurchase.flooring(args[0], true)
         if (!item) {
             return
         }

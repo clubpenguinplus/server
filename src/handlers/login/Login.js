@@ -176,7 +176,7 @@ export default class Login extends Handler {
 
     // Functions
 
-    async comparePasswords(username, password, socket, u) {
+    async comparePasswords(username, password, socket, u, isPanel = false) {
         let user = await this.db.getUserByUsername(username)
         if (!user) {
             return this.responses.notFound
@@ -203,6 +203,10 @@ export default class Login extends Handler {
             if (!validIP) {
                 return await this.generate2FAToken(user, u)
             }
+        }
+
+        if (isPanel) {
+            return true
         }
 
         return await this.onLoginSuccess(socket, user)

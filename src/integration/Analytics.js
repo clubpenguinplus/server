@@ -79,7 +79,7 @@ export default class Analytics {
                     allowNull: false
                 },
                 releaseDate: {
-                    type: Sequelize.DATEONLY,
+                    type: Sequelize.DATE,
                     allowNull: false,
                     primaryKey: true
                 },
@@ -103,13 +103,14 @@ export default class Analytics {
         for (let release of releases) {
             if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
         }
-        return latestRelease.availability
+        return latestRelease.availability == 1 ? true : false
     }
 
     // - Set item availability
     async setItemAvailability(id, availability, cost) {
         if (!this.tables['items']) await this.initItemTable()
-        await this.tables['items'].create({id: id, availability: availability, releaseDate: this.timeInPST})
+        if (!cost) cost = (await this.getItemCost(id)) || this.handler.crumbs.items[id].cost
+        await this.tables['items'].create({id: id, availability: availability, releaseDate: this.dateInPST, cost: cost})
     }
 
     // - Get item releases
@@ -128,6 +129,21 @@ export default class Analytics {
             if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
         }
         return latestRelease.cost
+    }
+
+    async setItemCost(id, cost) {
+        if (!this.tables['items']) await this.initItemTable()
+        const releases = await this.tables['items'].findAll({where: {id: id}})
+        if (releases.length == 0) {
+            await this.tables['items'].create({id: id, releaseDate: this.dateInPST, cost: cost, availability: 0})
+            return
+        }
+        let latestRelease
+        for (let release of releases) {
+            if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
+        }
+        latestRelease.cost = cost
+        await latestRelease.save()
     }
 
     // Analytic functions:

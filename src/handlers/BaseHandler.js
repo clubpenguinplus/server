@@ -18,6 +18,8 @@ export default class BaseHandler {
         })
 
         this.analytics = new Analytics(this)
+
+        this.handlers = {}
     }
 
     getCrumb(type) {
@@ -33,6 +35,8 @@ export default class BaseHandler {
         fs.readdirSync(this.dir).forEach((handler) => {
             let handlerImport = require(path.join(this.dir, handler)).default
             let handlerObject = new handlerImport(this)
+
+            this.handlers[handler] = handlerObject
 
             this.loadEvents(handlerObject)
         })
@@ -81,7 +85,7 @@ export default class BaseHandler {
     async updateCosts() {
         for (let item of Object.keys(this.crumbs.items)) {
             this.crumbs.items[item].cost = (await this.analytics.getItemCost(item)) || this.crumbs.items[item].cost
-            this.crumbs.items[item].available = (await this.analytics.getItemAvailability(item)) || false
+            this.crumbs.items[item].available = (await this.analytics.getItemAvailability(item)) ? true : false
         }
         this.log.info(`[${this.id}] Loaded ${Object.keys(this.crumbs.items).length} items`)
     }

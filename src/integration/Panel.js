@@ -1,6 +1,3 @@
-import {log} from 'console'
-import {get} from 'http'
-
 const fs = require('fs')
 
 export default class Panel {
@@ -11,7 +8,6 @@ export default class Panel {
 
     getUserFromCookie(cookie) {
         let sessionKey = this.getSessionKeyFromCookie(cookie)
-        console.log(sessionKey, this.sessionKeys)
         for (let user in this.sessionKeys) {
             if (this.sessionKeys[user] == sessionKey) return user
         }
@@ -30,7 +26,8 @@ export default class Panel {
     async login(req, res) {
         let page = this.getTemplatePage('login')
 
-        let loginSuccessful = true
+        let userAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+        let loginSuccessful = (await this.handler.handlers['Login.js'].comparePasswords(req.body.username, req.body.password, {}, {address: userAddress}, true)) === true
         this.sessionKeys[req.body.username] = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 
         if (loginSuccessful) {
@@ -85,15 +82,11 @@ export default class Panel {
         res.send(page)
     }
 
-    /*
-    await fetch(this.crumbs.worlds[process.env.environment || 'production'][world].address + '/getnewcost', {
-        method: 'POST'
-    })
-    */
-
     async getItemsPage(req, res) {
         let page = this.getTemplatePage('items')
         let user = this.getUserFromCookie(req.headers.cookie)
+
+        let searchQuery = req.url.split('?')[1]
 
         if (!user) {
             return res.send('<script>window.location.href = "/manager/login"</script>')
@@ -101,12 +94,27 @@ export default class Panel {
 
         page = page.replaceAll('{{ penguin.username }}', user)
 
+        let ITEMS = this.handler.crumbs.items
+
+        if (searchQuery) {
+            let searchResults = []
+            for (let item in ITEMS) {
+                if (item.includes(searchQuery) || (ITEMS[item].name && ITEMS[item].name.toLowerCase().includes(searchQuery.toLowerCase()))) {
+                    searchResults.push(item)
+                }
+            }
+            ITEMS = {}
+            for (let item of searchResults) {
+                ITEMS[item] = this.handler.crumbs.items[item]
+            }
+        }
+
         let itemTablePages = []
-        for (let i = 0; i < Object.keys(this.handler.crumbs.items).length / 100; i++) {
+        for (let i = 0; i < Object.keys(ITEMS).length / 100; i++) {
             let itemTable = ''
-            for (let j of Object.keys(this.handler.crumbs.items).slice(i * 100, i * 100 + 100 > Object.keys(this.handler.crumbs.items).length ? Object.keys(this.handler.crumbs.items).length : i * 100 + 100)) {
+            for (let j of Object.keys(ITEMS).slice(i * 100, i * 100 + 100 > Object.keys(ITEMS).length ? Object.keys(ITEMS).length : i * 100 + 100)) {
                 let item = this.handler.crumbs.items[j]
-                itemTable += `<tr><th scope="row" style="font-size: 90%;"><img src="https://media.cpplus.pw/client/media/clothing/icon/${j}.webp" style="height:5vh"/></th><th scope="row" style="font-size: 90%;">${j}</th><th scope="row" style="font-size: 90%;">${item.name}</th><th scope="row" style="font-size: 90%;">${item.cost}</th></tr>`
+                itemTable += `<tr><th scope="row" style="font-size: 90%;"><img src="https://media.cpplus.pw/client/media/clothing/icon/${j}.webp" style="height:5vh"/></th><th scope="row" style="font-size: 90%;">${j}</th><th scope="row" style="font-size: 90%;"><a href="/manager/item?${j}">${item.name}</a></th><th scope="row" style="font-size: 90%;">${item.cost}</th></tr>`
             }
             itemTablePages.push(itemTable)
         }
@@ -128,5 +136,96 @@ export default class Panel {
         page = page.replace('{{ pageNumbers }}', pageNumbers)
 
         res.send(page)
+    }
+
+    async getItemPage(req, res) {
+        let item = req.url.split('?')[1]
+        let page = this.getTemplatePage('item')
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        if (!item) {
+            return res.send('<script>window.location.href = "/manager/items"</script>')
+        }
+
+        page = page.replaceAll('{{ penguin.username }}', user)
+        page = page.replaceAll('{{ item.image }}', `<img src="https://media.cpplus.pw/client/media/clothing/icon/${item}.webp"/>`)
+        page = page.replaceAll('{{ item.id }}', item)
+        page = page.replaceAll('{{ item.name }}', this.handler.crumbs.items[item].name)
+        page = page.replaceAll('{{ item.cost }}', this.handler.crumbs.items[item].cost)
+        page = page.replaceAll('{{ item.available }}', this.handler.crumbs.items[item].available)
+
+        let setAvaliable = ''
+        if (this.handler.crumbs.items[item].available) {
+            setAvaliable = `<button class="btn btn-danger" style='font-size: 2vh;'type="submit">Make unavailable</button>`
+        } else {
+            setAvaliable = `<button class="btn btn-success" style='font-size: 2vh;'type="submit">Make available</button>`
+        }
+
+        page = page.replaceAll('{{ item.setAvailable }}', setAvaliable)
+
+        res.send(page)
+    }
+
+    async updateAvailablity(req, res) {
+        let item = req.body.item
+        let available = req.body.available == 'true' ? false : true
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        if (!item || available == undefined) {
+            return res.send('Missing item or available')
+        }
+
+        this.handler.crumbs.items[item].available = available
+        this.handler.analytics.setItemAvailability(item, available)
+
+        this.sendMessageToWorldServers('getavaliability', {item})
+
+        res.send(`<script>window.location.href = "/manager/item?${item}"</script>`)
+    }
+
+    async updateCost(req, res) {
+        let item = req.body.item
+        let cost = req.body.coins
+
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        if (!item || !cost) {
+            return res.send('Missing item or cost')
+        }
+
+        this.handler.crumbs.items[item].cost = cost
+        await this.handler.analytics.setItemCost(item, cost)
+
+        this.sendMessageToWorldServers('getnewcost', {item})
+
+        res.send(`<script>window.location.href = "/manager/item?${item}"</script>`)
+    }
+
+    async sendMessageToWorldServers(endpoint, message) {
+        for (let world in this.handler.crumbs.worlds[process.env.environment || 'production']) {
+            try {
+                await fetch(this.handler.crumbs.worlds[process.env.environment || 'production'][world].address + `/${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: JSON.stringify(message)
+                })
+            } catch (error) {
+                this.handler.log.error(`[HTTP] Error sending message to world ${world}: ${error.stack}`)
+            }
+        }
     }
 }

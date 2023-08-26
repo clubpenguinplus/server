@@ -110,8 +110,6 @@ export default class Room {
 
                 u.sendXt('sm', `${user.data.id}%${msg}%${filterLevel}`)
             }
-
-            console.log(this.handler.translation)
         } else {
             for (let u of this.userValues) {
                 if (u.ignore.includes(user.data.id)) continue

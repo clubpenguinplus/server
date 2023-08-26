@@ -42,7 +42,7 @@ export default class PurchaseValidator {
         } else if (item.patched) {
             this.user.sendXt('e', 2)
             return false
-        } else if (type == 'items' && !item.avaliable) {
+        } else if (type == 'items' && !item.available) {
             this.user.sendXt('e', 2)
             return false
         } else {

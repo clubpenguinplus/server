@@ -113,21 +113,21 @@ export default class Get extends Handler {
     async getItemInfo(args, user) {
         let item = this.crumbs[args[0]] ? this.crumbs[args[0]][args[1]] : null
         if (item) {
-            let avaliable
+            let available
             let releases = []
             if (item.bait == 1) {
-                avaliable = false
+                available = false
             } else if (args[0] != 'items') {
-                avaliable = true
+                available = true
             } else {
-                avaliable = await this.handler.analytics.getItemAvailability(args[1])
+                available = this.crumbs.items[args[1]].available
                 releases = await this.handler.analytics.getItemReleases(args[1])
                 releases = releases.map((j) => {
                     return JSON.stringify(j)
                 })
             }
 
-            user.sendXt('gii', `${args[0]}%${args[1]}%${item.name}%${item.cost}%${avaliable}%[${releases.join(',')}]`)
+            user.sendXt('gii', `${args[0]}%${args[1]}%${item.name}%${item.cost}%${available}%[${releases.join(',')}]`)
         }
     }
 
