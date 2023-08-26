@@ -13,11 +13,13 @@ export default class HTTPHandler {
             getissues: this.getIssues,
             getissue: this.getIssue,
             getissuecomments: this.getIssueComments,
-            createissue: this.createIssue
+            createissue: this.createIssue,
+            panellogin: this.getPanelLogin
         }
 
         this.getEvents = {
-            getpopulation: this.getPopulation
+            getpopulation: this.getPopulation,
+            panellogin: this.getPanelLogin
         }
 
         for (let event in this.postEvents) {
@@ -105,5 +107,23 @@ export default class HTTPHandler {
         }
 
         this.jira.createIssue(req.body.type, req.body.title, req.body.body, req.body.version, userId)
+    }
+
+    // Panel
+
+    async getPanelLogin(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getLoginPage(req, res)
+    }
+
+    async panelLogin(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.login(req, res)
     }
 }

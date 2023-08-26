@@ -24,31 +24,39 @@ export default class Analytics {
         }
     }
 
+    get PSTDateObject() {
+        return new Date(Date.now() - 8 * 60 * 60 * 1000)
+    }
+
     get dateInPST() {
         // The offset from UTC to PST is -8 hours. If we run getUTCx() on this date, we get the correct time in PST.
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getTime()
+        return this.PSTDateObject.getTime()
+    }
+
+    get hourInPST() {
+        return this.PSTDateObject.getUTCHours()
     }
 
     get dayInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCDate()
+        return this.PSTDateObject.getUTCDate()
     }
 
     get monthInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCMonth()
+        return this.PSTDateObject.getUTCMonth()
     }
 
     get yearInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCFullYear()
+        return this.PSTDateObject.getUTCFullYear()
     }
 
     get distanceToMidnight() {
-        let midnight = new Date(this.yearInPST, this.monthInPST, this.dayInPST + 1).getTime()
+        let midnight = new Date(this.PSTDateObject.getFullYear(), this.PSTDateObject.getMonth(), this.PSTDateObject.getDate() + 1).getTime()
         let now = this.dateInPST
         return midnight - now
     }
 
     get distanceToNextHour() {
-        let nextHour = new Date(this.yearInPST, this.monthInPST, this.dayInPST, new Date().getHours() + 1).getTime()
+        let nextHour = new Date(this.PSTDateObject.getFullYear(), this.PSTDateObject.getMonth(), this.PSTDateObject.getDate(), this.PSTDateObject.getHours() + 1).getTime()
         let now = this.dateInPST
         return nextHour - now
     }
