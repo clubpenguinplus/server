@@ -373,14 +373,21 @@ export default class User {
         if (this.challenges.length == 3) return
 
         const challengeIds = this.challenges.map((challenge) => challenge.challenge_id)
-        const lastSetDate = this.challenges.reduce((latestDate, challenge) => (new Date(challenge.set_date).getTime() > latestDate ? new Date(challenge.set_date).getTime() : latestDate), null)
 
-        if (!lastSetDate || new Date().getTime() - new Date(lastSetDate).getTime() < 1000 * 60 * 60 * 24) {
+        let lastSetDate = null
+        for (let challenge of this.challenges) {
+            if (!lastSetDate || new Date(challenge.set).getTime() > new Date(lastSetDate).getTime()) {
+                lastSetDate = challenge.set
+            }
+        }
+
+        if (!lastSetDate || new Date().getTime() - new Date(lastSetDate).getTime() > 1000 * 60 * 60 * 24) {
             const challenges = Object.keys(this.crumbs.challenges.daily)
             let challenge
             do {
                 challenge = challenges[Math.floor(Math.random() * challenges.length)]
             } while (challengeIds.includes(challenge))
+            console.log(challenge)
             await this.db.assignChallenge(this.data.id, challenge)
         }
 
@@ -393,7 +400,7 @@ export default class User {
         for (let chalData of this.challenges) {
             let challenge = this.crumbs.challenges.daily[chalData.challenge_id]
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
-                let complete = chalData.completion + amount >= challenge.completion
+                let complete = challenge.completion + amount >= chalData.completion
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
             }
         }
@@ -401,7 +408,7 @@ export default class User {
         for (let chalData of this.globalChallenges) {
             let challenge = this.crumbs.challenges.global[chalData.challenge_id]
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
-                let complete = chalData.completion + amount >= challenge.completion
+                let complete = challenge.completion + amount >= chalData.completion
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
             }
         }
