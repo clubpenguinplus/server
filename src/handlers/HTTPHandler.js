@@ -33,7 +33,8 @@ export default class HTTPHandler {
             'manager/login': this.getPanelLogin,
             manager: this.panel,
             'manager/items': this.getPanelItems,
-            'manager/item': this.getPanelItem
+            'manager/item': this.getPanelItem,
+            'manager/logout': this.panelLogout
         }
 
         for (let event in this.postEvents) {
@@ -203,5 +204,13 @@ export default class HTTPHandler {
         }
 
         this.handler.panel.updateCost(req, res)
+    }
+
+    async panelLogout(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.logout(req, res)
     }
 }

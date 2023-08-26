@@ -32,8 +32,7 @@ export default class Panel {
 
         if (loginSuccessful) {
             // Make the success alert visible
-            page = page.replace(/(<div class="alert alert-success" role="alert" style=")display: none;(">){{ success_message }}<\/div>/g, '$1display: block;$2{{ success_message }}</div>')
-            page = page.replace('{{ success_message }}', 'Login successful')
+            page = page.replace(/(<div class="alert alert-success" role="alert" style=")display: none;(">){{ success_message }}<\/div>/g, '$1display: block;$2Login successful</div>')
             page = page.replace('{{ session_key }}', this.sessionKeys[req.body.username])
         } else {
             // Make the danger alert visible
@@ -86,7 +85,7 @@ export default class Panel {
         let page = this.getTemplatePage('items')
         let user = this.getUserFromCookie(req.headers.cookie)
 
-        let searchQuery = req.url.split('?')[1]
+        let searchQuery = req.url.split('?')[1] ? req.url.split('?')[1].replace('%20', ' ') : undefined
 
         if (!user) {
             return res.send('<script>window.location.href = "/manager/login"</script>')
@@ -227,5 +226,20 @@ export default class Panel {
                 this.handler.log.error(`[HTTP] Error sending message to world ${world}: ${error.stack}`)
             }
         }
+    }
+
+    async logout(req, res) {
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        delete this.sessionKeys[user]
+
+        let page = this.getTemplatePage('login')
+        page = page.replace(/(<div class="alert alert-danger" role="alert" style=")display: none;(">){{ error_message }}<\/div>/g, '$1display: block;$2You are now logged out</div>')
+
+        res.send(page)
     }
 }
