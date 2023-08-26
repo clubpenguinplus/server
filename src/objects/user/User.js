@@ -156,6 +156,8 @@ export default class User {
         this.update({
             medals: this.data.medals
         })
+
+        this.sendXt('sepfm', this.data.medals)
     }
 
     joinRoom(room, x = 0, y = 0) {
@@ -397,10 +399,12 @@ export default class User {
     }
 
     async updateChallengeCompletions(check, checkType, amount) {
+        amount = parseInt(amount)
         for (let chalData of this.challenges) {
             let challenge = this.crumbs.challenges.daily[chalData.challenge_id]
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
-                let complete = challenge.completion + amount >= chalData.completion
+                console.log(chalData.completion, amount, challenge.completion)
+                let complete = chalData.completion + amount >= challenge.completion ? 1 : 0
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
             }
         }
@@ -408,7 +412,7 @@ export default class User {
         for (let chalData of this.globalChallenges) {
             let challenge = this.crumbs.challenges.global[chalData.challenge_id]
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
-                let complete = challenge.completion + amount >= chalData.completion
+                let complete = chalData.completion + amount >= challenge.completion ? 1 : 0
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
             }
         }
