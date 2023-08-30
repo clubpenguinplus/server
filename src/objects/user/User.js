@@ -389,7 +389,6 @@ export default class User {
             do {
                 challenge = challenges[Math.floor(Math.random() * challenges.length)]
             } while (challengeIds.includes(challenge))
-            console.log(challenge)
             await this.db.assignChallenge(this.data.id, challenge)
         }
 
@@ -403,7 +402,6 @@ export default class User {
         for (let chalData of this.challenges) {
             let challenge = this.crumbs.challenges.daily[chalData.challenge_id]
             if (challenge.check == check && challenge.checktype.toLowerCase() == checkType.toLowerCase()) {
-                console.log(chalData.completion, amount, challenge.completion)
                 let complete = chalData.completion + amount >= challenge.completion ? 1 : 0
                 await this.updateChallengeCompletion(chalData.id, amount, complete, challenge.reward)
             }

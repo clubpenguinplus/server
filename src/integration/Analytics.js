@@ -22,6 +22,8 @@ export default class Analytics {
         } else {
             setTimeout(() => this.hourlyMaintenance(), this.distanceToNextHour)
         }
+
+        this.availabilityCache = {}
     }
 
     get PSTDateObject() {
@@ -108,8 +110,13 @@ export default class Analytics {
 
     // - Set item availability
     async setItemAvailability(id, availability, cost) {
+        if (this.availabilityCache[id] && this.availabilityCache[id].expires > this.dateInPST) return
+        this.availabilityCache[id] = {
+            availability: availability,
+            expires: this.dateInPST + 10000
+        }
         if (!this.tables['items']) await this.initItemTable()
-        if (!cost) cost = (await this.getItemCost(id)) || this.handler.crumbs.items[id].cost
+        if (!cost) cost = (await this.getItemCost(id)) || this.handler.crumbs.items[id].cost || 0
         await this.tables['items'].create({id: id, availability: availability, releaseDate: this.dateInPST, cost: cost})
     }
 

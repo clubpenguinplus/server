@@ -158,20 +158,20 @@ export default class Panel {
         page = page.replaceAll('{{ item.cost }}', this.handler.crumbs.items[item].cost)
         page = page.replaceAll('{{ item.available }}', this.handler.crumbs.items[item].available)
 
-        let setAvaliable = ''
+        let setavailable = ''
         if (this.handler.crumbs.items[item].available) {
-            setAvaliable = `<button class="btn btn-danger" style='font-size: 2vh;'type="submit">Make unavailable</button>`
+            setavailable = `<button class="btn btn-danger" style='font-size: 2vh;'type="submit">Make unavailable</button>`
         } else {
-            setAvaliable = `<button class="btn btn-success" style='font-size: 2vh;'type="submit">Make available</button>`
+            setavailable = `<button class="btn btn-success" style='font-size: 2vh;'type="submit">Make available</button>`
         }
 
-        page = page.replaceAll('{{ item.setAvailable }}', setAvaliable)
+        page = page.replaceAll('{{ item.setAvailable }}', setavailable)
 
         res.send(page)
     }
 
     async updateAvailablity(req, res) {
-        let item = req.body.item
+        let item = parseInt(req.body.item)
         let available = req.body.available == 'true' ? false : true
         let user = this.getUserFromCookie(req.headers.cookie)
 
@@ -186,7 +186,7 @@ export default class Panel {
         this.handler.crumbs.items[item].available = available
         this.handler.analytics.setItemAvailability(item, available)
 
-        this.sendMessageToWorldServers('getavaliability', {item})
+        this.sendMessageToWorldServers('getavailability', {item})
 
         res.send(`<script>window.location.href = "/manager/item?${item}"</script>`)
     }
