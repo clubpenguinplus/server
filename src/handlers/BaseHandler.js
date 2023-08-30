@@ -85,7 +85,7 @@ export default class BaseHandler {
     async updateCosts() {
         for (let item of Object.keys(this.crumbs.items)) {
             this.crumbs.items[item].cost = (await this.analytics.getItemCost(item)) || this.crumbs.items[item].cost
-            this.crumbs.items[item].available = (await this.analytics.getItemAvailability(item)) ? true : false
+            this.crumbs.items[item].available = (await this.analytics.getItemAvailability(item)) || false
         }
         this.log.info(`[${this.id}] Loaded ${Object.keys(this.crumbs.items).length} items`)
     }

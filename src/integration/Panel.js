@@ -1,4 +1,5 @@
 const fs = require('fs')
+const fetch = require('node-fetch')
 
 export default class Panel {
     constructor(handler) {
