@@ -22,7 +22,7 @@ export default class HTTPHandler {
             getissuecomments: this.getIssueComments,
             createissue: this.createIssue,
             getnewcost: this.getNewCost,
-            getavailability: this.getavailability,
+            getavailability: this.getAvailability,
             'manager/login': this.panelLogin,
             'manager/updateavailablity': this.updateAvailablity,
             'manager/updatecost': this.updateCost
@@ -91,7 +91,7 @@ export default class HTTPHandler {
         res.send('OK')
     }
 
-    async getavailability(req, res) {
+    async getAvailability(req, res) {
         this.handler.crumbs.items[req.body.item].available = await this.handler.analytics.getItemAvailability(req.body.item)
         res.send('OK')
     }

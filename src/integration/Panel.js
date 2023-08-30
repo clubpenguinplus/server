@@ -158,14 +158,14 @@ export default class Panel {
         page = page.replaceAll('{{ item.cost }}', this.handler.crumbs.items[item].cost)
         page = page.replaceAll('{{ item.available }}', this.handler.crumbs.items[item].available)
 
-        let setavailable = ''
+        let setAvailable = ''
         if (this.handler.crumbs.items[item].available) {
-            setavailable = `<button class="btn btn-danger" style='font-size: 2vh;'type="submit">Make unavailable</button>`
+            setAvailable = `<button class="btn btn-danger" style='font-size: 2vh;'type="submit">Make unavailable</button>`
         } else {
-            setavailable = `<button class="btn btn-success" style='font-size: 2vh;'type="submit">Make available</button>`
+            setAvailable = `<button class="btn btn-success" style='font-size: 2vh;'type="submit">Make available</button>`
         }
 
-        page = page.replaceAll('{{ item.setAvailable }}', setavailable)
+        page = page.replaceAll('{{ item.setAvailable }}', setAvailable)
 
         res.send(page)
     }
