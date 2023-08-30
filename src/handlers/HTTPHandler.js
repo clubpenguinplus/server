@@ -42,11 +42,11 @@ export default class HTTPHandler {
 
             this.app.post(`/${event}`, (req, res) => {
                 if (Object.keys(req.body)[0] && Object.keys(req.body)[0].startsWith('{')) req.body = JSON.parse(Object.keys(req.body)[0])
-                this.events.emit(`GET_${event}`, req, res)
+                this.events.emit(`POST_${event}`, req, res)
             })
 
             try {
-                this.events.on(`GET_${event}`, eventFunction)
+                this.events.on(`POST_${event}`, eventFunction)
             } catch (error) {
                 this.handler.log.error(`[HTTP] Event error: ${error.stack}`)
             }
@@ -57,11 +57,11 @@ export default class HTTPHandler {
 
             this.app.get(`/${event}`, (req, res) => {
                 if (Object.keys(req.body)[0] && Object.keys(req.body)[0].startsWith('{')) req.body = JSON.parse(Object.keys(req.body)[0])
-                this.events.emit(`POST_${event}`, req, res)
+                this.events.emit(`GET_${event}`, req, res)
             })
 
             try {
-                this.events.on(`POST_${event}`, eventFunction)
+                this.events.on(`GET_${event}`, eventFunction)
             } catch (error) {
                 this.handler.log.error(`[HTTP] Event error: ${error.stack}`)
             }
