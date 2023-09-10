@@ -40,7 +40,7 @@
     "mysql2": "^3.6.0",
     "node-fetch": "^2.6.12",
     "profane-words": "^1.5.11",
-    "rate-limiter-flexible": "^2.4.2",
+    "rate-limiter-flexible": "^3.0.0",
     "sequelize": "^6.32.1",
     "socket.io": "^4.7.2",
     "uuid": "^9.0.0",
