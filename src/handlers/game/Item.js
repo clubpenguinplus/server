@@ -6,7 +6,8 @@ export default class Item extends Handler {
         this.events = {
             's#up': this.updatePlayer,
             'i#ai': this.addItem,
-            's#upr': this.removeItem
+            's#upr': this.removeItem,
+            'i#aim': this.addItemWithMedals
         }
 
         this.items = this.crumbs.items
@@ -36,6 +37,22 @@ export default class Item extends Handler {
         user.updateCoins(-item.cost)
         user.sendXt('ai', `${args[0]}%${item.name}%${slot}%${user.data.coins}`)
         this.handler.analytics.transaction(user.data.id, -item.cost, `purchase of item ${args[0]} : ${item.name}`)
+    }
+
+    async addItemWithMedals(args, user) {
+        args[0] = parseInt(args[0])
+
+        let item = await user.validatePurchase.medals(args[0])
+        if (!item) {
+            return
+        }
+
+        let slot = this.items.slots[item.type - 1]
+        user.inventory.add(args[0])
+
+        user.updateMedals(-item.medals)
+        user.sendXt('aim', `${args[0]}%${item.name}%${slot}%${user.data.medals}`)
+        this.handler.analytics.transaction(user.data.id, 0, `purchase of item ${args[0]} : ${item.name} with ${item.medals} medals`)
     }
 
     removeItem(args, user) {

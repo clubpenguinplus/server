@@ -6,6 +6,9 @@ export default class Igloo extends Handler {
         this.events = {
             'g#ai': this.addIgloo,
             'g#af': this.addFurniture,
+            'g#bg': this.addFlooring,
+            'g#bi': this.addIgloo,
+            'g#bl': this.addLocation,
             'g#au': this.updateIgloo,
             'g#al': this.updateLocation,
             'g#ur': this.updateFurniture,
@@ -30,23 +33,54 @@ export default class Igloo extends Handler {
             return
         }
 
+        igloo = this.crumbs.igloos[args[0]]
+
         user.iglooInventory.add(args[0])
 
         user.updateCoins(-igloo.cost)
         user.sendXt('aig', `${args[0]}%${user.data.coins}`)
     }
 
-    addFurniture(args, user) {
+    async addLocation(args, user) {
+        let location = user.validatePurchase.location(args[0])
+        if (!location) {
+            return
+        }
+
+        location = this.crumbs.locations[args[0]]
+
+        user.locationInventory.add(args[0])
+
+        user.updateCoins(-location.cost)
+        user.sendXt('al', `${args[0]}%${user.data.coins}`)
+    }
+
+    async addFlooring(args, user) {
+        let flooring = user.validatePurchase.flooring(args[0])
+        if (!flooring) {
+            return
+        }
+
+        flooring = this.crumbs.floorings[args[0]]
+
+        user.flooringInventory.add(args[0])
+
+        user.updateCoins(-flooring.cost)
+        user.sendXt('afl', `${args[0]}%${user.data.coins}`)
+    }
+
+    async addFurniture(args, user) {
         let furniture = user.validatePurchase.furniture(args[0])
         if (!furniture) {
             return
         }
 
-        // If furniture added successfuly
-        if (user.furnitureInventory.add(args[0])) {
-            user.updateCoins(-furniture.cost)
-            user.sendXt('af', `${args[0]}%${user.data.coins}`)
-        }
+        furniture = this.crumbs.furnitures[args[0]]
+
+        user.furnitureInventory.add(args[0])
+
+        user.updateCoins(-furniture.cost)
+        user.sendXt('af', `${args[0]}%${user.data.coins}`)
     }
 
     async updateIgloo(args, user) {

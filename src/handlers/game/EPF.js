@@ -17,6 +17,9 @@ export default class EPF extends Handler {
     }
 
     async getChallenges(args, user) {
+        user.challenges = await this.db.getUserChallenges(user.data.id)
+        user.globalChallenges = await this.db.getUserGlobalChallenges(user.data.id)
+
         let challenges = user.challenges.map((challenge) => {
             return `${challenge.challenge_id}:${challenge.complete}:${challenge.completion}`
         })

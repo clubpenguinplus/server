@@ -81,7 +81,7 @@
       "name":"Sensei Gray",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15":{
       "name":"Aqua",
@@ -99,7 +99,7 @@
       "name":"Dot Lavender",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "101":{
       "name":"Black Sunglasses",
@@ -189,7 +189,7 @@
       "name":"Gary's Glasses",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "116":{
       "name":"Snowflake Mask",
@@ -273,7 +273,7 @@
       "name":"Earring",
       "type":3,
       "cost":75,
-      "bait":1
+      "bait":0
    },
    "131":{
       "name":"Green Snorkel",
@@ -333,13 +333,13 @@
       "name":"Rockhoppers Eyebrows",
       "type":3,
       "cost":65535,
-      "bait":1
+      "bait":0
    },
    "161":{
       "name":"Rockhoppers Beard",
       "type":4,
       "cost":65535,
-      "bait":1
+      "bait":0
    },
    "162":{
       "name":"Santa Beard",
@@ -453,7 +453,7 @@
       "name":"Bling Bling Medallion",
       "type":4,
       "cost":600,
-      "bait":1
+      "bait":0
    },
    "184":{
       "name":"Star Necklace",
@@ -729,7 +729,7 @@
       "name":"Orange Jumper",
       "type":5,
       "cost":450,
-      "bait":1
+      "bait":0
    },
    "231":{
       "name":"Pirate Belt",
@@ -1449,7 +1449,7 @@
       "name":"Cement Shoes",
       "type":7,
       "cost":5,
-      "bait":1
+      "bait":0
    },
    "357":{
       "name":"Blue Sneakers",
@@ -1539,7 +1539,7 @@
       "name":"Skateboard",
       "type":7,
       "cost":320,
-      "bait":1
+      "bait":0
    },
    "372":{
       "name":"Hiking Boots",
@@ -1887,7 +1887,7 @@
       "name":"Rockhopper's Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "443":{
       "name":"Wizard Hat",
@@ -2025,7 +2025,7 @@
       "name":"Angel Halo",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "467":{
       "name":"Pink Pom Pom Toque",
@@ -2421,7 +2421,7 @@
       "name":"Antarctica",
       "type":8,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "533":{
       "name":"Argentina",
@@ -4605,25 +4605,25 @@
       "name":"Franky's Cowboy Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1001":{
       "name":"G Billy's Cowboy Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1002":{
       "name":"Stompin Bob's Cowboy Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1003":{
       "name":"Petey K's Old Cowboy Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1004":{
       "name":"Denim Hip Hop Hat",
@@ -4791,19 +4791,19 @@
       "name":"Cadence Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1033":{
       "name":"Cadence Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1034":{
       "name":"Cadence's Wristbands",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1035":{
       "name":"Mini Sombrero",
@@ -4863,7 +4863,7 @@
       "name":"Aunt Arctic's Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1045":{
       "name":"Pink Visor",
@@ -5007,7 +5007,7 @@
       "name":"Sensei's Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1069":{
       "name":"Green Headphones",
@@ -5211,7 +5211,7 @@
       "name":"The Glimmer",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1110":{
       "name":"The Vintage",
@@ -5403,19 +5403,19 @@
       "name":"EPF Earpiece",
       "type":2,
       "cost":2,
-      "bait":1
+      "bait":0
    },
    "1149":{
       "name":"Delta Fedora",
       "type":2,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "1150":{
       "name":"The Alpha",
       "type":2,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "1151":{
       "name":"The Bonny Curls",
@@ -5523,13 +5523,13 @@
       "name":"Alpha Headset",
       "type":2,
       "cost":2,
-      "bait":1
+      "bait":0
    },
    "1171":{
       "name":"Delta Headset",
       "type":2,
       "cost":2,
-      "bait":1
+      "bait":0
    },
    "1172":{
       "name":"Red Mohawk",
@@ -5679,7 +5679,7 @@
       "name":"Comm Helmet",
       "type":2,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "1202":{
       "name":"Elf Pigtails",
@@ -5763,7 +5763,7 @@
       "name":"Optic Headset",
       "type":2,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "1218":{
       "name":"The Tuned In",
@@ -5859,7 +5859,7 @@
       "name":"Cadence's Puffle",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1236":{
       "name":"Purple Propeller Hat",
@@ -5967,7 +5967,7 @@
       "name":"Rookies Hat",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1258":{
       "name":"The Daydream",
@@ -6051,19 +6051,19 @@
       "name":"Petey K Toque and Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1274":{
       "name":"Stompin' Bob Fowhawk Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1275":{
       "name":"G Billy Hair and Bandana",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1276":{
       "name":"The Shipshape",
@@ -6645,7 +6645,7 @@
       "name":"PH Hat/Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1385":{
       "name":"The Tresses",
@@ -7017,25 +7017,25 @@
       "name":"Rocky's Hair",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1459":{
       "name":"CeCe's Hair",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1460":{
       "name":"Cadence's 2012 Hair",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1476":{
       "name":"Rockhopper's Hat Aug 2012",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1478":{
       "name":"The Delight",
@@ -7263,7 +7263,7 @@
       "name":"Rockhopper's Santa Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1522":{
       "name":"The Right On",
@@ -7491,7 +7491,7 @@
       "name":"Aunt Arctic's Hat Feb 2013",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1563":{
       "name":"The Electric Shock",
@@ -7851,7 +7851,7 @@
       "name":"Sensei 2013 CJ Snow Player Card",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1623":{
       "name":"Pink Monster Fins",
@@ -8025,7 +8025,7 @@
       "name":"Darth Herbert's Costume",
       "type":1,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1655":{
       "name":"The Electric Tunage",
@@ -8133,13 +8133,13 @@
       "name":"Brady",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1683":{
       "name":"McKenzie",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1684":{
       "name":"The Maiden",
@@ -8193,7 +8193,7 @@
       "name":"RH's Jacket Player Card",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1693":{
       "name":"Epic Knight Helmet",
@@ -8229,7 +8229,7 @@
       "name":"Cadence's Aug 2013 Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1702":{
       "name":"Swamp Monster Mask",
@@ -8319,7 +8319,7 @@
       "name":"Rookie's Hat Oct 2013",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1721":{
       "name":"The Gretel",
@@ -8403,13 +8403,13 @@
       "name":"PH's Hat (Golden Puffle)",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1737":{
       "name":"Herbert Mascot Card Nov 2013",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1738":{
       "name":"The Snow Day",
@@ -8475,7 +8475,7 @@
       "name":"Rockhopper's Santa Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1754":{
       "name":"Sea Foam Earmuffs",
@@ -8577,7 +8577,7 @@
       "name":"Tour Guide Headband",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1771":{
       "name":"Dino Horns",
@@ -8649,7 +8649,7 @@
       "name":"Rookie's Hat New 2014 Player Card",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1784":{
       "name":"The Jetsetter",
@@ -8775,7 +8775,7 @@
       "name":"Kermit's Mascot Player Card",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1806":{
       "name":"AA",
@@ -9177,7 +9177,7 @@
       "name":"Gary 3000 Helmet (Robo Party)",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1876":{
       "name":"The Fan Fro",
@@ -9393,37 +9393,37 @@
       "name":"Sam",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "1918":{
       "name":"Franky's Playercard 2014",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1919":{
       "name":"G Billy's Playercard 2014",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1920":{
       "name":"Stompin' Bob Playercard 2014",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1921":{
       "name":"Pete K's Playercard 2014",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1924":{
       "name":"Gary's Glasses (evergreen)",
       "type":3,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1925":{
       "name":"The Shadow Tail",
@@ -9561,7 +9561,7 @@
       "name":"PH Wild Puffle Playercard",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1948":{
       "name":"The Washed-Up",
@@ -9663,7 +9663,7 @@
       "name":"Merry Walrus",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1965":{
       "name":"The Ezra",
@@ -9723,7 +9723,7 @@
       "name":"PH puffle wild player card",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1975":{
       "name":"Minister Tua's Helmet",
@@ -9741,13 +9741,13 @@
       "name":"StormtrooperBOT",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1978":{
       "name":"KananBOT",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "1979":{
       "name":"The Party Style",
@@ -9867,13 +9867,13 @@
       "name":"Remove Head Item",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2000":{
       "name":"Petey K's Old Sunglasses",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2001":{
       "name":"Green Giant Sunglasses",
@@ -9903,13 +9903,13 @@
       "name":"Aunt Arctic's Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2009":{
       "name":"Senseis Beard",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2010":{
       "name":"Gold Sunglasses",
@@ -9975,13 +9975,13 @@
       "name":"Delta Shades",
       "type":3,
       "cost":5,
-      "bait":1
+      "bait":0
    },
    "2022":{
       "name":"Alpha Shades",
       "type":3,
       "cost":5,
-      "bait":1
+      "bait":0
    },
    "2023":{
       "name":"Adventure Face Paint",
@@ -10023,7 +10023,7 @@
       "name":"Rookies Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2031":{
       "name":"Petey K Shades",
@@ -10041,7 +10041,7 @@
       "name":"Petey K Shades",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2035":{
       "name":"Castaway Face Paint",
@@ -10299,7 +10299,7 @@
       "name":"Gary's Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2088":{
       "name":"Skull Mask",
@@ -10377,7 +10377,7 @@
       "name":"Gary's Glasses (Prehistoric Party)",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2103":{
       "name":"Prehistoric Tusks",
@@ -10443,7 +10443,7 @@
       "name":"Gary's Glasses Feb 2013",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "2114":{
       "name":"Black Mask",
@@ -10515,7 +10515,7 @@
       "name":"Gary's Glasses (sept 2013 PC)",
       "type":3,
       "cost":9000,
-      "bait":1
+      "bait":0
    },
    "2129":{
       "name":"Countess Makeup",
@@ -10845,7 +10845,7 @@
       "name":"Remove Face Item",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3000":{
       "name":"Beaded Necklace",
@@ -10911,7 +10911,7 @@
       "name":"Cadence Scarf",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3012":{
       "name":"Blue Striped Scarf",
@@ -10941,7 +10941,7 @@
       "name":"Petey's Accordian",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3018":{
       "name":"Green Trendy Scarf",
@@ -11151,7 +11151,7 @@
       "name":"H2O Pack",
       "type":4,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "3056":{
       "name":"Magician's Cloak",
@@ -11169,7 +11169,7 @@
       "name":"Sat-Pack",
       "type":4,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "3062":{
       "name":"Santa's Present Bag",
@@ -11181,7 +11181,7 @@
       "name":"Tech Satchel",
       "type":4,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "3064":{
       "name":"Popcorn Tray",
@@ -11289,7 +11289,7 @@
       "name":"Petey K Accordion",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3083":{
       "name":"Tundra Board",
@@ -11571,13 +11571,13 @@
       "name":"Rocky's Necklace",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3131":{
       "name":"CeCe Necklace",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3133":{
       "name":"Green Butterfly Wings",
@@ -11901,7 +11901,7 @@
       "name":"Rockhopper's Holiday 2013 Beard",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "3195":{
       "name":"Stone Necklace",
@@ -12255,7 +12255,7 @@
       "name":"Remove Neck Item",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4000":{
       "name":"Glacier Suit",
@@ -12393,7 +12393,7 @@
       "name":"Garys Coat",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4023":{
       "name":"Green Vest",
@@ -13095,7 +13095,7 @@
       "name":"Sensei's Fire Suit",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4149":{
       "name":"Cozy Winter Coat",
@@ -13107,13 +13107,13 @@
       "name":"Beta Hat T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4155":{
       "name":"Blue-Sky Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4156":{
       "name":"Custom T-shirt",
@@ -13461,13 +13461,13 @@
       "name":"Delta Suit",
       "type":5,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "4224":{
       "name":"Alpha Suit",
       "type":5,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "4225":{
       "name":"Seafarer's Gown",
@@ -13659,7 +13659,7 @@
       "name":"Tactical Gear",
       "type":5,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "4259":{
       "name":"Yellow Hoodie",
@@ -13773,13 +13773,13 @@
       "name":"Sensei's Water Suit",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4282":{
       "name":"Comm Gear",
       "type":5,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "4283":{
       "name":"Blue Snow Jacket",
@@ -13887,7 +13887,7 @@
       "name":"Tech Coat",
       "type":5,
       "cost":20,
-      "bait":1
+      "bait":0
    },
    "4301":{
       "name":"I Heart My Red Puffle T-Shirt",
@@ -14229,13 +14229,13 @@
       "name":"Rookies Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4366":{
       "name":"Rookies Cardboard Box",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4367":{
       "name":"Canister Camouflage",
@@ -14307,25 +14307,25 @@
       "name":"Petey K Black Vest and Jeans",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4382":{
       "name":"Franky Jacket and Jeans",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4383":{
       "name":"Stompin' Bob Black T-Shirt and Jeans",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4384":{
       "name":"G Billy Plaid Shirt and Jeans",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4385":{
       "name":"Crow's Nest Vest",
@@ -15183,7 +15183,7 @@
       "name":"PH Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4556":{
       "name":"Purple Shirt n' Skirt",
@@ -15783,19 +15783,19 @@
       "name":"Rocky Outfit",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4691":{
       "name":"Cece Outfit",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4712":{
       "name":"Rockhopper's Belt",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4715":{
       "name":"Purple Wheeler",
@@ -15975,7 +15975,7 @@
       "name":"Herberts Eyebrows",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4753":{
       "name":"Striking Red Jacket",
@@ -16311,7 +16311,7 @@
       "name":"Aunt Arctic's Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4815":{
       "name":"Teleportation Suit",
@@ -16731,7 +16731,7 @@
       "name":"Sensei's Epic Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4886":{
       "name":"C-3PO Costume",
@@ -16995,7 +16995,7 @@
       "name":"Rockhopper's Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4947":{
       "name":"Epic Knight Armor",
@@ -17037,7 +17037,7 @@
       "name":"Cadence's Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "4956":{
       "name":"Swamp Monster Costume",
@@ -17109,7 +17109,7 @@
       "name":"Rookie's Halloween Shirt",
       "type":5,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "4970":{
       "name":"Blue Off The Shoulder",
@@ -17265,13 +17265,13 @@
       "name":"Remove Body Item",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5000":{
       "name":"G Billy's Silver Drumsticks",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5001":{
       "name":"Mixed Bracelets",
@@ -17385,7 +17385,7 @@
       "name":"Yarr",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5021":{
       "name":"Toboggan",
@@ -17403,19 +17403,19 @@
       "name":"Cadence's Boombox",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5024":{
       "name":"Franky's Guitar",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5025":{
       "name":"Bob's Bass Guitar",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5027":{
       "name":"Gardening Rake",
@@ -17613,7 +17613,7 @@
       "name":"EPF Puffle",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5061":{
       "name":"Pirate Arm Bands",
@@ -17703,7 +17703,7 @@
       "name":"Range Finder",
       "type":6,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "5076":{
       "name":"Green Balloon",
@@ -17769,7 +17769,7 @@
       "name":"Tech-book 3000",
       "type":6,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "5090":{
       "name":"Pink MP3000",
@@ -17865,19 +17865,19 @@
       "name":"Stompin' Bob Electric Bass",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5106":{
       "name":"Stompin' Bob Cuff",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5107":{
       "name":"G Billy Drum Sticks",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5108":{
       "name":"Telescope",
@@ -18195,13 +18195,13 @@
       "name":"Rocky's Bracelet",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5169":{
       "name":"CeCe's Bracelet",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "5176":{
       "name":"Lime Laptop",
@@ -19965,13 +19965,13 @@
       "name":"Remove Hand Item",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6000":{
       "name":"Frankys Red Sneakers",
       "type":7,
       "cost":54,
-      "bait":1
+      "bait":0
    },
    "6001":{
       "name":"Sunset Dress Shoes",
@@ -20187,13 +20187,13 @@
       "name":"Delta Sneaks",
       "type":7,
       "cost":15,
-      "bait":1
+      "bait":0
    },
    "6043":{
       "name":"Alpha Pumps",
       "type":7,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "6044":{
       "name":"Nautical Boots",
@@ -20223,7 +20223,7 @@
       "name":"Tactical Boots",
       "type":7,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "6050":{
       "name":"Orange Checkered Shoes",
@@ -20253,7 +20253,7 @@
       "name":"Comm Boots",
       "type":7,
       "cost":10,
-      "bait":1
+      "bait":0
    },
    "6058":{
       "name":"Snowboard Boots",
@@ -20343,19 +20343,19 @@
       "name":"Petey K's Shoes",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6079":{
       "name":"Franky Purple Kicks",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6080":{
       "name":"G Billy Cowboy Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6081":{
       "name":"Peak Boots",
@@ -20613,13 +20613,13 @@
       "name":"Rocky's Shoes",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6128":{
       "name":"CeCe's Shoes",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6134":{
       "name":"Squeak-Proof Shoes",
@@ -20877,7 +20877,7 @@
       "name":"Sensei's Epic Sandals",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "6179":{
       "name":"Rebel Boots",
@@ -21525,7 +21525,7 @@
       "name":"Remove Feet Item",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "7000":{
       "name":"101 Days Of Fun",
@@ -25149,13 +25149,13 @@
       "name":"Black Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10105":{
       "name":"Eye Patch",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10106":{
       "name":"Mask",
@@ -25167,55 +25167,55 @@
       "name":"Blue Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10110":{
       "name":"Red Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10113":{
       "name":"Black Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10120":{
       "name":"Alien Mask",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10121":{
       "name":"Green Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10123":{
       "name":"Blue Superhero Mask",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10124":{
       "name":"Pink Superhero Mask",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10125":{
       "name":"Aviator Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10132":{
       "name":"Blue Snorkel",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10133":{
       "name":"Red Face Paint",
@@ -25227,7 +25227,7 @@
       "name":"Blue Face Paint",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10136":{
       "name":"Ski Goggles",
@@ -25239,13 +25239,13 @@
       "name":"White Beard",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10180":{
       "name":"Snare Drum",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10181":{
       "name":"Pearl Necklace",
@@ -25257,97 +25257,97 @@
       "name":"Pendant",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10186":{
       "name":"Ruffle Collar",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10194":{
       "name":"Whistle",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10195":{
       "name":"Reporter Camera",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10205":{
       "name":"I Love My Puffle T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10207":{
       "name":"Snowflake T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10210":{
       "name":"Star T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10213":{
       "name":"Orange Snowsuit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10214":{
       "name":"Black Bowtie",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10217":{
       "name":"Cowboy Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10220":{
       "name":"Hockey Stick",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10227":{
       "name":"Bee Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10228":{
       "name":"Princess Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10233":{
       "name":"Red Electric Guitar",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10236":{
       "name":"Poncho",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10237":{
       "name":"Red Suede Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10239":{
       "name":"Wetsuit",
@@ -25359,19 +25359,19 @@
       "name":"Ghost Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10245":{
       "name":"Orange Space Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10246":{
       "name":"Skeleton Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10247":{
       "name":"Clown Suit",
@@ -25383,37 +25383,37 @@
       "name":"Red Cheerleader Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10255":{
       "name":"Blue Cheerleader Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10256":{
       "name":"Ballerina",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10259":{
       "name":"Shamrock Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10260":{
       "name":"Seafoam Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10261":{
       "name":"Black Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10262":{
       "name":"Coffee Apron",
@@ -25425,25 +25425,25 @@
       "name":"Pizza Apron",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10265":{
       "name":"Fishing Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10266":{
       "name":"Alien Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10267":{
       "name":"Red Shorts",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10268":{
       "name":"Astronaut Suit",
@@ -25461,43 +25461,43 @@
       "name":"Red Hockey Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10278":{
       "name":"Blue Hockey Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10282":{
       "name":"Lighthouse Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10284":{
       "name":"Elf Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10286":{
       "name":"Flamenco Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10289":{
       "name":"Long Johns",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10291":{
       "name":"Leprechaun Tuxedo",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10295":{
       "name":"Captain's Coat",
@@ -25509,25 +25509,25 @@
       "name":"Red Letterman Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10297":{
       "name":"Lifeguard Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10298":{
       "name":"Sport Life Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10299":{
       "name":"Firefighter Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10301":{
       "name":"Red Cape",
@@ -25539,7 +25539,7 @@
       "name":"Blue Cape",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10306":{
       "name":"Red Backpack",
@@ -25551,7 +25551,7 @@
       "name":"Messenger Bag",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10308":{
       "name":"Scuba Tank",
@@ -25563,25 +25563,25 @@
       "name":"Bee Wings",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10310":{
       "name":"Fairy Wings",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10313":{
       "name":"Hiking Backpack",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10315":{
       "name":"Pink Cape",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10316":{
       "name":"Supply Bag",
@@ -25593,73 +25593,73 @@
       "name":"Silver Watch",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10327":{
       "name":"Lasso",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10330":{
       "name":"Red Pompom",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10331":{
       "name":"Pumpkin Basket",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10332":{
       "name":"Magic Wand",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10333":{
       "name":"Blue Pompoms",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10334":{
       "name":"Cane",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10335":{
       "name":"Pair of Maracas",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10338":{
       "name":"Black Electric Guitar",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10340":{
       "name":"Drumsticks",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10344":{
       "name":"Life Ring",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10346":{
       "name":"Fishing Rod",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10347":{
       "name":"Flashlight",
@@ -25671,73 +25671,73 @@
       "name":"Black Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10353":{
       "name":"Ballet Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10357":{
       "name":"Blue Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10358":{
       "name":"Black Dress Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10364":{
       "name":"Blue Flippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10366":{
       "name":"Bunny Slippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10367":{
       "name":"Yellow Flippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10368":{
       "name":"Cowboy Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10370":{
       "name":"Elf Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10372":{
       "name":"Hiking Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10373":{
       "name":"Rubber Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10374":{
       "name":"Pirate Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10376":{
       "name":"Brown Sandals",
@@ -25749,7 +25749,7 @@
       "name":"Fuzzy Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10385":{
       "name":"Soccer Cleats",
@@ -25761,61 +25761,61 @@
       "name":"Orange Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10401":{
       "name":"Sombrero",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10403":{
       "name":"Hard Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10404":{
       "name":"Tan Cowboy Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10407":{
       "name":"Red Propeller Cap",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10409":{
       "name":"Graduation Cap",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10412":{
       "name":"Tiara",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10414":{
       "name":"Santa Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10424":{
       "name":"Chef Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10425":{
       "name":"Shamrock Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10429":{
       "name":"Miners Helmet",
@@ -25827,13 +25827,13 @@
       "name":"Safari Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10435":{
       "name":"Red Ball Cap",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10436":{
       "name":"Blue Ball Cap",
@@ -25845,97 +25845,97 @@
       "name":"Park Ranger Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10446":{
       "name":"Fishing Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10449":{
       "name":"Fruit Headdress",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10452":{
       "name":"Viking Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10458":{
       "name":"Space Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10460":{
       "name":"Gold Viking Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10461":{
       "name":"Hockey Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10462":{
       "name":"Red Football Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10463":{
       "name":"Blue Football Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10464":{
       "name":"Snowboard Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10465":{
       "name":"Firefighter Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10471":{
       "name":"Reindeer Antlers",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10472":{
       "name":"Bee Antennae",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10473":{
       "name":"Winged Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10476":{
       "name":"Bard Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10477":{
       "name":"Court Jester Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10478":{
       "name":"Coral Crown",
@@ -25947,25 +25947,25 @@
       "name":"Headphones",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10482":{
       "name":"Stocking Cap",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10487":{
       "name":"Princess Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10488":{
       "name":"Head Band",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10493":{
       "name":"Tricorn Hat",
@@ -25983,157 +25983,157 @@
       "name":"Marching Band Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10498":{
       "name":"Puffle Bandana",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10499":{
       "name":"Flower Headdress",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10651":{
       "name":"The Spikester",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10653":{
       "name":"The Funster",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10655":{
       "name":"The Sportster",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10656":{
       "name":"The Sunstriker",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10658":{
       "name":"The Sidetied",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10660":{
       "name":"Cocoa Bunny Ears",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10662":{
       "name":"The Surf Knot",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10666":{
       "name":"Pharaoh Headdress",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10667":{
       "name":"King's Crown",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10668":{
       "name":"Knight Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10670":{
       "name":"The Firestriker",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10671":{
       "name":"The Sidetied Too",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10715":{
       "name":"Gold Bracelets",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10717":{
       "name":"Baseball Glove",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10718":{
       "name":"Crystal Staff",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10719":{
       "name":"Basketball",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10720":{
       "name":"Blue Football Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10721":{
       "name":"Red Football Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10722":{
       "name":"Referee Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10724":{
       "name":"Orange Shield",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10726":{
       "name":"Football",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10727":{
       "name":"Soccer Ball",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10728":{
       "name":"Spikester Cuffs",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10729":{
       "name":"Blue Electric Bass",
@@ -26145,103 +26145,103 @@
       "name":"Bard Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10762":{
       "name":"Court Jester",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10763":{
       "name":"Fish Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10765":{
       "name":"Shadow Guy Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10766":{
       "name":"Gamma Gal Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10767":{
       "name":"Squidzoid Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10768":{
       "name":"Mermaid Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10770":{
       "name":"Safety Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10773":{
       "name":"Penguin Band Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10775":{
       "name":"Red Soccer Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10778":{
       "name":"Blue Soccer Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10782":{
       "name":"Cocoa Bunny Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10785":{
       "name":"Ski Patrol Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10787":{
       "name":"Beige Explorer Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10788":{
       "name":"Pharaoh Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10789":{
       "name":"Mummy Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10791":{
       "name":"Red Baseball Uniform",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10792":{
       "name":"Blue Baseball Uniform",
@@ -26253,55 +26253,55 @@
       "name":"Royal Robe",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10794":{
       "name":"Knight's Armor",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10795":{
       "name":"Dragon Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10799":{
       "name":"Squire Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10830":{
       "name":"Sport Bikini",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10836":{
       "name":"Red Basketball Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10837":{
       "name":"Blue Basketball Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10839":{
       "name":"Pop Music Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10840":{
       "name":"Orange Rocker Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "10842":{
       "name":"Dazzle Dress",
@@ -26319,85 +26319,85 @@
       "name":"The Movie Star",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11013":{
       "name":"Frankenpenguin Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11014":{
       "name":"Faery Wig",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11015":{
       "name":"Rad Scientist Wig",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11017":{
       "name":"Brown Skater Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11018":{
       "name":"Pink Skater Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11020":{
       "name":"Chullo Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11026":{
       "name":"Snowman Head",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11031":{
       "name":"Kitty Kat Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11040":{
       "name":"Blue Top Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11042":{
       "name":"The Sidewinder",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11053":{
       "name":"Amethyst Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11070":{
       "name":"Burgundy Beanie",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11071":{
       "name":"Canvas Rocker Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11075":{
       "name":"Green Propeller Cap",
@@ -26409,49 +26409,49 @@
       "name":"Ring Master Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11089":{
       "name":"The Carefree",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11090":{
       "name":"Blue Skater Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11091":{
       "name":"Snow Fairy Hair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11093":{
       "name":"Blizzard Wizard Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11094":{
       "name":"Ladybug Antennae",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11105":{
       "name":"Reindeer Head",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11108":{
       "name":"The Tussle",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11115":{
       "name":"The Phoenix Hair",
@@ -26463,61 +26463,61 @@
       "name":"Cumberband Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11128":{
       "name":"Green Skater Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11133":{
       "name":"Green Hard Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11134":{
       "name":"Straw Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11137":{
       "name":"White Cocoa Bunny Ears",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11139":{
       "name":"The Trend",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11140":{
       "name":"The Strawberry Chill",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11141":{
       "name":"The Buttercup",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11143":{
       "name":"The Damsel",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11146":{
       "name":"Iron Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11153":{
       "name":"Striped Pirate Bandana",
@@ -26535,31 +26535,31 @@
       "name":"The Rustic",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11166":{
       "name":"Blue Striped Fedora",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11172":{
       "name":"Red Mohawk",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11181":{
       "name":"Aqua Hipster Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11182":{
       "name":"The Sunny",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11191":{
       "name":"Purple Bat Wings R",
@@ -26571,13 +26571,13 @@
       "name":"Pink and Yellow Chullo",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11198":{
       "name":"Green Pom Pom Toque",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11203":{
       "name":"Blue Goggles",
@@ -26589,13 +26589,13 @@
       "name":"The Short and Snappy",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11224":{
       "name":"The Firey Flare",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11225":{
       "name":"Blue Puffle Hat R",
@@ -26619,25 +26619,25 @@
       "name":"The Scenester",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11244":{
       "name":"The Brilliant",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11254":{
       "name":"The Raven",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11255":{
       "name":"The Jammin'",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11302":{
       "name":"The Sundae Surprise",
@@ -26655,31 +26655,31 @@
       "name":"Zebra Tails",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11311":{
       "name":"Freaky Tiki Headdress",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11312":{
       "name":"Armored Viking Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11313":{
       "name":"The Nocturnal",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11314":{
       "name":"Nutcracker Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11331":{
       "name":"Springy Santa Hat R",
@@ -26703,67 +26703,67 @@
       "name":"Country Jester Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11344":{
       "name":"The Highlander",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11345":{
       "name":"The Curly Lochs",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11346":{
       "name":"The Ocean Sunset",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11347":{
       "name":"The Corsair",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11348":{
       "name":"The Blue Shipshape",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11349":{
       "name":"Rainbow Puffle Toque",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11390":{
       "name":"Forest Fairy",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11391":{
       "name":"The Summer Breeze",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11392":{
       "name":"The Wind Swept",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11393":{
       "name":"The Rose Weave",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11403":{
       "name":"The Sumo",
@@ -26781,49 +26781,49 @@
       "name":"Green Indie Hat",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11435":{
       "name":"Tiki Tiki Headdress",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11436":{
       "name":"Purple Headphones",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11455":{
       "name":"Watermelon Helmet",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11456":{
       "name":"Orange MP3000",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11473":{
       "name":"Hot Cross Bun",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11474":{
       "name":"The Thrill",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11475":{
       "name":"Gray Werewolf Head",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11477":{
       "name":"Happy Birthday Hat",
@@ -26877,55 +26877,55 @@
       "name":"The Boho",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11674":{
       "name":"The Wisp",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11675":{
       "name":"The Side Slick",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11676":{
       "name":"The Wave Runner",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11677":{
       "name":"The Safari",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11678":{
       "name":"The Sass",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11679":{
       "name":"The Beatster",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11680":{
       "name":"The Urban",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11681":{
       "name":"The Spike n' Style",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11699":{
       "name":"Blue Sweat Band",
@@ -26985,13 +26985,13 @@
       "name":"The Up and About",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11883":{
       "name":"The Sandy",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "11922":{
       "name":"Spanish Fifth Year Hat",
@@ -27009,31 +27009,31 @@
       "name":"Red Ski Goggles",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12006":{
       "name":"Black Diva Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12008":{
       "name":"Star Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12012":{
       "name":"Curly Moustache",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12018":{
       "name":"Green Face Paint",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12019":{
       "name":"Yellow Face Paint",
@@ -27045,31 +27045,31 @@
       "name":"Silver Aviators",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12041":{
       "name":"Viking Beard",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12042":{
       "name":"Grim Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12055":{
       "name":"Hot Sauce Helmet",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12056":{
       "name":"Comm Headset",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12058":{
       "name":"Celadon Alien Mask",
@@ -27087,7 +27087,7 @@
       "name":"Strawberry Sunglasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "12078":{
       "name":"Zombie Mask",
@@ -27111,7 +27111,7 @@
       "name":"Hipster Glasses",
       "type":3,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13002":{
       "name":"Silver Whistle",
@@ -27129,19 +27129,19 @@
       "name":"Faery Wings",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13007":{
       "name":"Yellow Cape",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13010":{
       "name":"Candycane Scarf",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13017":{
       "name":"Blue Boa",
@@ -27153,7 +27153,7 @@
       "name":"Green Hooded Cloak",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13028":{
       "name":"Jet Pack",
@@ -27165,19 +27165,19 @@
       "name":"Snow Fairy Wings",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13045":{
       "name":"Pastel Beaded Necklace",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13051":{
       "name":"Green Checkered Tote",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13054":{
       "name":"Expedition Backpack",
@@ -27189,25 +27189,25 @@
       "name":"Blue Cotton Scarf",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13059":{
       "name":"Yellow Designer Scarf",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13060":{
       "name":"Green and Blue Scarf",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13072":{
       "name":"Emerald Necklace",
       "type":4,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "13117":{
       "name":"Purple Beaded Necklace",
@@ -27243,79 +27243,79 @@
       "name":"Frankenpenguin Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14017":{
       "name":"Faery Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14018":{
       "name":"Rad Scientist Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14035":{
       "name":"White Parka",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14040":{
       "name":"Purple Figure Skating Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14041":{
       "name":"Snowman Body",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14046":{
       "name":"Red Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14051":{
       "name":"Blue Daisy Hoodie",
       "type":5,
       "cost":200,
-      "bait":1
+      "bait":0
    },
    "14052":{
       "name":"Crosshatch Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14063":{
       "name":"Pet Shop Apron",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14065":{
       "name":"Blue Tuxedo",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14073":{
       "name":"Black Penguin Band Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14074":{
       "name":"Tie Dye Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14075":{
       "name":"White Gi R",
@@ -27327,19 +27327,19 @@
       "name":"Amethyst Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14082":{
       "name":"Blue Dragon Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14084":{
       "name":"Green Tunic",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14088":{
       "name":"Green Soccer Jersey",
@@ -27357,73 +27357,73 @@
       "name":"Electro T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14104":{
       "name":"Green Peacoat",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14105":{
       "name":"Dark Denim Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14111":{
       "name":"Lobster Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14116":{
       "name":"Green Cheerleader Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14119":{
       "name":"Ring Master Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14123":{
       "name":"Snow Fairy Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14124":{
       "name":"Leafy T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14125":{
       "name":"Black Skater Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14126":{
       "name":"Santa Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14128":{
       "name":"Blizzard Wizard Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14129":{
       "name":"Ladybug Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14138":{
       "name":"Spider Costume",
@@ -27435,13 +27435,13 @@
       "name":"Yeti Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14142":{
       "name":"Silly Scarecrow Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14143":{
       "name":"Green Hockey Jersey",
@@ -27453,37 +27453,37 @@
       "name":"Reindeer Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14147":{
       "name":"Tree Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14150":{
       "name":"Beta Grid Sweater",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14151":{
       "name":"Puffle Flame Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14152":{
       "name":"Pink Kimono",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14153":{
       "name":"Tri-Color Rugby Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14191":{
       "name":"Phoenix Dress",
@@ -27495,31 +27495,31 @@
       "name":"Classy T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14201":{
       "name":"Green Crosshatched Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14202":{
       "name":"Surf Sweater",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14203":{
       "name":"Vintage Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14204":{
       "name":"Yellow Hockey Jersey",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14205":{
       "name":"Yellow Cheerleader",
@@ -27531,49 +27531,49 @@
       "name":"Water Suit 3000",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14207":{
       "name":"Green Recycle T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14209":{
       "name":"White Cocoa Bunny Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14212":{
       "name":"Crab Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14213":{
       "name":"Green Skater Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14214":{
       "name":"Pastel Petal Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14216":{
       "name":"Damsel's Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14219":{
       "name":"Iron Armor",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14220":{
       "name":"Squire's Outfit",
@@ -27603,13 +27603,13 @@
       "name":"Rustic Tunic and Skirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14240":{
       "name":"Trendy Shirt Blue",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14259":{
       "name":"Yellow Hoodie",
@@ -27627,37 +27627,37 @@
       "name":"Leather Pilots Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14268":{
       "name":"Red Polka Dot Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14278":{
       "name":"Purple Whirl Snowsuit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14279":{
       "name":"Blue Winter Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14313":{
       "name":"Fluorescent Freestyle Threads",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14314":{
       "name":"Casual Summer Threads",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14332":{
       "name":"Lightning Gi R",
@@ -27669,13 +27669,13 @@
       "name":"Dapper Sweater Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14352":{
       "name":"Chic Sweater Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14361":{
       "name":"Purple Dragon Costume",
@@ -27687,13 +27687,13 @@
       "name":"Golden Quilted Coat",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14364":{
       "name":"Puffle Skate Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14436":{
       "name":"UK Hoodie",
@@ -27705,61 +27705,61 @@
       "name":"Yellow Wheeler",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14438":{
       "name":"Elephant Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14439":{
       "name":"Jolly Roger Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14440":{
       "name":"Freaky Tiki Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14441":{
       "name":"Viking Captain Tunic",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14442":{
       "name":"Classy Vampire Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14443":{
       "name":"Present Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14444":{
       "name":"Holiday Lights",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14445":{
       "name":"Nutcracker Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14446":{
       "name":"Scarlet Admiral Coat",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14465":{
       "name":"Snowflake Costume",
@@ -27783,67 +27783,67 @@
       "name":"Loch Ness Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14520":{
       "name":"Country Jester",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14521":{
       "name":"Emerald Kilt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14522":{
       "name":"Shamrock Skirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14523":{
       "name":"Blueberry Bunny Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14524":{
       "name":"Ocean Bloom Mermaid",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14525":{
       "name":"Sea Snail",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14526":{
       "name":"Deep Diver Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14527":{
       "name":"Blue Buccaneer Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14528":{
       "name":"Helmsman Vest",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14529":{
       "name":"Orange Pufflemania Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14530":{
       "name":"The Trenchcoat Reporter",
@@ -27873,49 +27873,49 @@
       "name":"Undercover Ops Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14563":{
       "name":"Hot Sauce Gi",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14564":{
       "name":"Glowing Grid Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14565":{
       "name":"Water Lily Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14566":{
       "name":"Flit Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14567":{
       "name":"Skater Threads",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14568":{
       "name":"Hard Rocker Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14569":{
       "name":"Purple Cloud Look",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14570":{
       "name":"Speed Boat",
@@ -27963,103 +27963,103 @@
       "name":"Valley Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14651":{
       "name":"Mountain Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14652":{
       "name":"Mega Suit 3000",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14653":{
       "name":"Rainbow Puffle Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14654":{
       "name":"Ornate Band",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14655":{
       "name":"Stone Ninja Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14656":{
       "name":"Forest Ninja Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14657":{
       "name":"Puffle Scuffle Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14658":{
       "name":"Easy Listening Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14659":{
       "name":"Dubstep Puffle T-Shirt",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14678":{
       "name":"Raspberry Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14679":{
       "name":"Green Grape Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14680":{
       "name":"Orange Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14681":{
       "name":"Strawberry Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14682":{
       "name":"Kiwi Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14683":{
       "name":"Orange Citrus Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14684":{
       "name":"Cherry T",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14685":{
       "name":"Tribal Dress",
@@ -28095,31 +28095,31 @@
       "name":"Breezy Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14707":{
       "name":"Red Stylin' Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14708":{
       "name":"Gray Werewolf Costume",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14709":{
       "name":"Clear Sky Suit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14710":{
       "name":"Crashing Wave Gi",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14713":{
       "name":"Fire Ninja Gi",
@@ -28227,73 +28227,73 @@
       "name":"Cargo Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14927":{
       "name":"Smooth Stylin' Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14928":{
       "name":"Color Me Bold Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14929":{
       "name":"Classic Summer Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14930":{
       "name":"Summer Frills Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14931":{
       "name":"A Splash of Summer Dress",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14932":{
       "name":"Green Dubstep Puffle Tee",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14933":{
       "name":"Baby Blue Blouse",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14934":{
       "name":"Volcanic Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14935":{
       "name":"Snow Peak Robes",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14936":{
       "name":"Smooth Styles",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14937":{
       "name":"Leafy Hoodie",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "14953":{
       "name":"Yellow Sweatsuit",
@@ -28335,13 +28335,13 @@
       "name":"MP3000",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15017":{
       "name":"Keytar",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15026":{
       "name":"Stuffed Bunny",
@@ -28377,7 +28377,7 @@
       "name":"Fuzzy Wrist Bands",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15045":{
       "name":"Laptop",
@@ -28395,19 +28395,19 @@
       "name":"White Pompoms",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15049":{
       "name":"Cloudy Umbrella",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15053":{
       "name":"Black MP3000",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15056":{
       "name":"Brown Leather Cuffs R",
@@ -28419,7 +28419,7 @@
       "name":"Staff and Shield",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15061":{
       "name":"Pirate Arm Bands_R",
@@ -28443,13 +28443,13 @@
       "name":"Green Mittens",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15086":{
       "name":"Grey Mittens",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15112":{
       "name":"Bunch of Balloons",
@@ -28473,19 +28473,19 @@
       "name":"Striped Pompoms",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15125":{
       "name":"Freaky Tiki Staff",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15134":{
       "name":"Country Jester Staff",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15142":{
       "name":"Purple Boom Box",
@@ -28515,7 +28515,7 @@
       "name":"Tiki Shield",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "15193":{
       "name":"Checkered Flag",
@@ -28605,73 +28605,73 @@
       "name":"Leather Bracelets",
       "type":6,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16008":{
       "name":"Zoot Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16009":{
       "name":"Green Bunny Slippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16011":{
       "name":"Figure Skates",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16013":{
       "name":"Hockey Skates",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16015":{
       "name":"White Dress Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16018":{
       "name":"Light Up Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16023":{
       "name":"Canvas Cloud Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16028":{
       "name":"Beaded Slippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16029":{
       "name":"Ladybug Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16035":{
       "name":"Red Untied Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16036":{
       "name":"Red Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16037":{
       "name":"Green Sneakers",
@@ -28683,49 +28683,49 @@
       "name":"Yellow Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16041":{
       "name":"Purple Checkered Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16046":{
       "name":"Brown Canvas Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16051":{
       "name":"Green Untied Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16055":{
       "name":"Pink Fuzzy Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16056":{
       "name":"Blue Winter Boots",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16061":{
       "name":"Loose Yellow Sneaks",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16066":{
       "name":"Blue Buckle Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16069":{
       "name":"Purple Dragon Feet",
@@ -28737,43 +28737,43 @@
       "name":"Green Light Up Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16071":{
       "name":"Cherry Pumps",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16099":{
       "name":"Black Flippers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16114":{
       "name":"Undercover Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16125":{
       "name":"Aqua Sneakers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16131":{
       "name":"Sweet Shoes",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16132":{
       "name":"Gray Werewolf Feet",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16143":{
       "name":"Cool Ski Boots",
@@ -28785,25 +28785,25 @@
       "name":"Red and White Sneaks",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16188":{
       "name":"Grey Loafers",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16189":{
       "name":"Electric Purple Runners",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16190":{
       "name":"Brown Leather Sandals",
       "type":7,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "16198":{
       "name":"Barefood Runners",
@@ -28851,25 +28851,25 @@
       "name":"Very Cherry",
       "type":9,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "19152":{
       "name":"Crazy Kiwi",
       "type":9,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "19153":{
       "name":"Fruit Frenzy",
       "type":9,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "19154":{
       "name":"Wacky Watermelon",
       "type":9,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "21000":{
       "name":"Rainbow Toque",
@@ -29055,7 +29055,7 @@
       "name":"Dot's Up-Do MASCOT",
       "type":2,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "21033":{
       "name":"The Mal",
@@ -29631,7 +29631,7 @@
       "name":"Rockhopper's Santa Jacket",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "24017":{
       "name":"Flower Palm Dress",
@@ -31239,7 +31239,7 @@
       "name":"Dot's Evergreen Outfit MASCOT",
       "type":5,
       "cost":9999,
-      "bait":1
+      "bait":0
    },
    "24316":{
       "name":"Teal Tee",
@@ -31911,19 +31911,19 @@
       "name":"Daisies and Denim",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "34145":{
       "name":"Around Town Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "34158":{
       "name":"Sunset Party Outfit",
       "type":5,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "34174":{
       "name":"Olaf's CostumeR",
@@ -31947,7 +31947,7 @@
       "name":"Elsa's Braid",
       "type":2,
       "cost":0,
-      "bait":1
+      "bait":0
    },
    "slots":[
       "color",

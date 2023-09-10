@@ -113,22 +113,50 @@ export default class Get extends Handler {
     async getItemInfo(args, user) {
         let item = this.crumbs[args[0]] ? this.crumbs[args[0]][args[1]] : null
         if (item) {
-            let avaliable
+            let medals
+            let available
             let releases = []
             if (item.bait == 1) {
-                avaliable = false
+                available = false
             } else if (args[0] != 'items') {
-                avaliable = true
+                available = true
             } else {
-                avaliable = await this.handler.analytics.getItemAvailability(args[1])
+                for (let gp of this.gearPenguinItems) {
+                    if (gp[0] == args[1]) {
+                        medals = gp[1]
+                        break
+                    }
+                }
+
+                available = this.crumbs.items[args[1]].available || medals ? true : false
                 releases = await this.handler.analytics.getItemReleases(args[1])
                 releases = releases.map((j) => {
                     return JSON.stringify(j)
                 })
             }
 
-            user.sendXt('gii', `${args[0]}%${args[1]}%${item.name}%${item.cost}%${avaliable}%[${releases.join(',')}]`)
+            user.sendXt('gii', `${args[0]}%${args[1]}%${item.name}%${item.cost}%${available}%[${releases.join(',')}]%${medals}`)
         }
+    }
+
+    get gearPenguinItems() {
+        return [
+            [1149, 14],
+            [2021, 10],
+            [4223, 18],
+            [6042, 8],
+            [1150, 10],
+            [2022, 10],
+            [4224, 18],
+            [6043, 8],
+            [1217, 12],
+            [4300, 10],
+            [1201, 14],
+            [4282, 20],
+            [6057, 16],
+            [4258, 20],
+            [6049, 20]
+        ]
     }
 
     async getCost(args, user) {
@@ -142,6 +170,7 @@ export default class Get extends Handler {
         } else {
             for (let i of args[1].split('|')) {
                 let item = this.crumbs[args[0]][i]
+                item.cost = (await this.handler.analytics.getItemCost(i)) || item.cost
                 items.push(`${i}:${item.cost}`)
             }
         }

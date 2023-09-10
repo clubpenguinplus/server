@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="icon" type="image/jpeg" href="">
+        <title>Club Penguin Plus | Panel</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown hidden-md-down">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item">Logged in as <strong> {{ penguin.username }}</strong></a>
+                            <a href="/manager" class="dropdown-item">Go To Panel</a>
+                            <a href="/manager/password" class="dropdown-item">Change Password</a>
+                            <a href="/manager/email" class="dropdown-item">Change Email</a>
+                            <a href="/manager/logout" class="dropdown-item">
+                                <div class="dropdown-divider"></div>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="alert alert-success" role="alert" style="display: none;">{{ success_message }}</div>
+        <div class="alert alert-danger" role="alert" style="display: none;">{{ error_message }}</div>
+        <br>
+        <br>
+        <div class="tab-content" id="nav-tabContent">
+            <br>
+            <div class="tab-pane fade show active" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
+                <div class="row">
+                    <div class="table-responsive col-md-6">
+                        <div class="container text-center d-flex justify-content-center">
+                        <strong> Information: </strong>
+                    </div>
+                    <div class="container text-center d-flex justify-content-center"> 
+                        <table class="table table-bordered" style="width: 50vw;">
+                            <tr>
+                                <td>
+                                    Image:
+                                </td>
+                                <td>
+                                    {{ item.image }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ID:
+                                </td>
+                                <td>
+                                    <strong>
+                                        {{ item.id }}
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Name:
+                                </td>
+                                <td>
+                                    <strong>
+                                        {{ item.name }}
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cost:
+                                </td>
+                                <td>
+                                    <strong>
+                                        {{ item.cost }}
+                                    </strong>
+                                </td>
+                                <td>
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item dropdown hidden-md-down">
+                                            <a class="nav-link dropdown-toggle" style='display: inline-block;' href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Edit
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownMenuLink">
+                                                <form action="/manager/updatecost" method="POST" onsubmit="">
+                                                    <div class="container text-center d-flex justify-content-center"> 
+                                                        <div class='login' style='max-width: 40vh;'>
+                                                            <div class="form-group">
+                                                                <input type="text" class="form-control form-control-sm text-center" oninput="check_coins();" id="coins" name="coins" placeholder="Update Cost" required>
+                                                            </div>
+                                                            <div class="form-group"> 
+                                                                <button class="btn btn-primary" style='font-size: 2vh;'type="submit">Update</button>
+                                                            </div>
+                                                            <input type="hidden" name="cost" id="cost" value='coins'>
+                                                            <input type="hidden" name="item" id="item" value='{{ item.id }}'>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Is Available:
+                                </td>
+                                <td>
+                                    <strong>
+                                        {{ item.available }}
+                                    </strong>
+                                </td>
+                                <td>
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item dropdown hidden-md-down">
+                                            <a class="nav-link dropdown-toggle" style='display: inline-block;' href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                              Edit
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownMenuLink">
+                                                <form action="/manager/updateavailablity" method="POST" onsubmit="">
+                                                    <div class="container text-center d-flex justify-content-center"> 
+                                                        <div class='login' style='max-width: 40vh;'>
+                                                            <div class="form-group"> 
+                                                                {{ item.setAvailable }}
+                                                            </div>
+                                                            <input type="hidden" name="available" id="available" value='{{ item.available }}'>
+                                                            <input type="hidden" name="item" id="item" value='{{ item.id }}'>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        function check_coins(){
+    const form = document.forms['edit_coins']
+    if(isNaN(form['coins'].value)){
+        coins.setCustomValidity('The coin amount must be a number')
+        return false
+    }
+    else{
+        coins.setCustomValidity('')
+    }
+}
+    </script>
+    </body>
+</html>

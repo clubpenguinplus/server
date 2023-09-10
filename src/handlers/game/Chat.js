@@ -113,6 +113,14 @@ export default class Chat extends Handler {
 
     // Commands
 
+    /* Ranks:
+    1 - Player
+    2 - Beta Tester
+    3 - Moderator
+    4 - Administrator
+    5 - Owner 
+    */
+
     bindCommands() {
         for (let command in this.commands) {
             this.commands[command] = this.commands[command].bind(this)
@@ -137,12 +145,12 @@ export default class Chat extends Handler {
     }
 
     broadcast(args, user) {
-        if (user.data.rank < 5) return
+        if (user.data.rank < 4) return
         this.handler.broadcast(args.join(' '))
     }
 
     async addAll(args, user) {
-        if (user.data.rank < 3) return
+        if (user.data.rank < 5) return
 
         for (let i of Object.keys(this.crumbs.items)) {
             let item = await user.validatePurchase.item(i, true)
@@ -202,6 +210,7 @@ export default class Chat extends Handler {
     }
 
     async addItem(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
         let item = await user.validatePurchase.item(args[0], true)
@@ -216,6 +225,7 @@ export default class Chat extends Handler {
     }
 
     async addFurniture(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
         args[1] = parseInt(args[1])
 
@@ -232,6 +242,7 @@ export default class Chat extends Handler {
     }
 
     async addLocation(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
         let item = await user.validatePurchase.location(args[0], true)
@@ -245,6 +256,7 @@ export default class Chat extends Handler {
     }
 
     async addIgloo(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
         let item = await user.validatePurchase.igloo(args[0], true)
@@ -258,9 +270,10 @@ export default class Chat extends Handler {
     }
 
     async addFlooring(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
-        let item = await user.validatePurchase.floorinf(args[0], true)
+        let item = await user.validatePurchase.flooring(args[0], true)
         if (!item) {
             return
         }
@@ -271,6 +284,7 @@ export default class Chat extends Handler {
     }
 
     async addCoins(args, user) {
+        if (user.data.rank < 4) return
         args[0] = parseInt(args[0])
 
         user.updateCoins(args[0])

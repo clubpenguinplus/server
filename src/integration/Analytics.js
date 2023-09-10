@@ -19,30 +19,48 @@ export default class Analytics {
 
         if (handler.id == 'Login') {
             this.dailyMaintenance()
+        } else {
+            setTimeout(() => this.hourlyMaintenance(), this.distanceToNextHour)
         }
+
+        this.availabilityCache = {}
+    }
+
+    get PSTDateObject() {
+        return new Date(Date.now() - 8 * 60 * 60 * 1000)
     }
 
     get dateInPST() {
         // The offset from UTC to PST is -8 hours. If we run getUTCx() on this date, we get the correct time in PST.
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getTime()
+        return this.PSTDateObject.getTime()
+    }
+
+    get hourInPST() {
+        return this.PSTDateObject.getUTCHours()
     }
 
     get dayInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCDate()
+        return this.PSTDateObject.getUTCDate()
     }
 
     get monthInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCMonth()
+        return this.PSTDateObject.getUTCMonth()
     }
 
     get yearInPST() {
-        return new Date(Date.now() - 8 * 60 * 60 * 1000).getUTCFullYear()
+        return this.PSTDateObject.getUTCFullYear()
     }
 
     get distanceToMidnight() {
-        let midnight = new Date(this.yearInPST, this.monthInPST, this.dayInPST + 1).getTime()
+        let midnight = new Date(this.PSTDateObject.getFullYear(), this.PSTDateObject.getMonth(), this.PSTDateObject.getDate() + 1).getTime()
         let now = this.dateInPST
         return midnight - now
+    }
+
+    get distanceToNextHour() {
+        let nextHour = new Date(this.PSTDateObject.getFullYear(), this.PSTDateObject.getMonth(), this.PSTDateObject.getDate(), this.PSTDateObject.getHours() + 1).getTime()
+        let now = this.dateInPST
+        return nextHour - now
     }
 
     // Functions to track:
@@ -58,8 +76,12 @@ export default class Analytics {
                     allowNull: false,
                     primaryKey: true
                 },
+                cost: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
                 releaseDate: {
-                    type: Sequelize.DATEONLY,
+                    type: Sequelize.DATE,
                     allowNull: false,
                     primaryKey: true
                 },
@@ -71,7 +93,7 @@ export default class Analytics {
             },
             {timestamps: false, tableName: 'items'}
         )
-        await items.sync()
+        await this.tables['items'].sync()
     }
 
     // - Get item availability
@@ -83,13 +105,19 @@ export default class Analytics {
         for (let release of releases) {
             if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
         }
-        return latestRelease.availability
+        return latestRelease.availability == 1 ? true : false
     }
 
     // - Set item availability
-    async setItemAvailability(id, availability) {
+    async setItemAvailability(id, availability, cost) {
+        if (this.availabilityCache[id] && this.availabilityCache[id].expires > this.dateInPST) return
+        this.availabilityCache[id] = {
+            availability: availability,
+            expires: this.dateInPST + 10000
+        }
         if (!this.tables['items']) await this.initItemTable()
-        await this.tables['items'].create({id: id, availability: availability, releaseDate: this.timeInPST})
+        if (!cost) cost = (await this.getItemCost(id)) || this.handler.crumbs.items[id].cost || 0
+        await this.tables['items'].create({id: id, availability: availability, releaseDate: this.dateInPST, cost: cost})
     }
 
     // - Get item releases
@@ -97,6 +125,32 @@ export default class Analytics {
         if (!this.tables['items']) await this.initItemTable()
         const releases = await this.tables['items'].findAll({where: {id: id}})
         return releases
+    }
+
+    async getItemCost(id) {
+        if (!this.tables['items']) await this.initItemTable()
+        const releases = await this.tables['items'].findAll({where: {id: id}})
+        if (releases.length == 0) return false
+        let latestRelease
+        for (let release of releases) {
+            if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
+        }
+        return latestRelease.cost
+    }
+
+    async setItemCost(id, cost) {
+        if (!this.tables['items']) await this.initItemTable()
+        const releases = await this.tables['items'].findAll({where: {id: id}})
+        if (releases.length == 0) {
+            await this.tables['items'].create({id: id, releaseDate: this.dateInPST, cost: cost, availability: 0})
+            return
+        }
+        let latestRelease
+        for (let release of releases) {
+            if (!latestRelease || release.releaseDate > latestRelease.releaseDate) latestRelease = release
+        }
+        latestRelease.cost = cost
+        await latestRelease.save()
     }
 
     // Analytic functions:
@@ -599,6 +653,13 @@ export default class Analytics {
         setTimeout(() => this.dailyMaintenance(), this.distanceToMidnight)
     }
 
+    async hourlyMaintenance() {
+        if (!this.enabled) return
+        this.handler.log.info('[Analytics] Performing hourly maintenance')
+        await this.updateTranslations()
+        setTimeout(() => this.hourlyMaintenance(), this.distanceToNextHour)
+    }
+
     // - Remove chat messages older than 30 days
     async removeOldChatMessages() {
         if (!this.enabled) return
@@ -729,5 +790,63 @@ export default class Analytics {
         query = query.substring(0, query.length - 7) // Remove last 'UNION '
         query += ';' // Add semicolon
         await this.sequelize.query(query)
+    }
+
+    async initTranslationTable() {
+        this.tables['translation'] = await this.sequelize.define(
+            'translation',
+            {
+                id: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
+                enChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                enMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                ptChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                ptMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                esChars: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                esMessages: {
+                    type: Sequelize.INTEGER(11),
+                    allowNull: false
+                },
+                time: {
+                    type: Sequelize.DATE,
+                    allowNull: false
+                }
+            },
+            {timestamps: false, tableName: 'translation'}
+        )
+        await this.tables['translation'].sync()
+    }
+
+    async updateTranslations() {
+        if (!this.enabled) return
+        if (!this.tables['translation']) await this.initTranslationTable()
+        this.tables['translation'].create({enChars: this.handler.translation.enChars, enMessages: this.handler.translation.enMessages, ptChars: this.handler.translation.ptChars, ptMessages: this.handler.translation.ptMessages, esChars: this.handler.translation.esChars, esMessages: this.handler.translation.esMessages, time: this.dateInPST})
+        this.handler.translation = {
+            enChars: 0,
+            enMessages: 0,
+            ptChars: 0,
+            ptMessages: 0,
+            esChars: 0,
+            esMessages: 0
+        }
     }
 }

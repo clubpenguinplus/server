@@ -834,7 +834,8 @@ export default class Database {
         let activeChallenges = await this.findAll('challenges', {
             where: {
                 user_id: userId,
-                complete: 0
+                complete: 0,
+                global_id: null
             }
         })
         if (activeChallenges.length >= 3) return false

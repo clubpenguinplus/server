@@ -1,4 +1,5 @@
 import Email from '../integration/Email'
+import Panel from '../integration/Panel'
 import BaseHandler from './BaseHandler'
 
 const jsdom = require('jsdom')
@@ -10,13 +11,17 @@ export default class LoginHandler extends BaseHandler {
     constructor(id, users, db, log) {
         super(id, users, db, log)
         this.email = new Email(this)
+        this.panel = new Panel(this)
 
         this.dir = `${__dirname}/login`
 
         this.crumbs = {
             worlds: this.getCrumb('worlds'),
-            challenges: this.getCrumb('challenges')
+            challenges: this.getCrumb('challenges'),
+            items: this.getCrumb('items')
         }
+
+        this.updateCosts()
 
         this.updateWeeklyChallenges()
 
