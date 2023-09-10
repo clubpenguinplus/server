@@ -118,6 +118,28 @@ export default class Create extends Handler {
             isAllowed: 1
         })
 
+        const inventoryItems = [
+            {table: 'inventories', itemId: color},
+            {table: 'inventories', itemId: 9106},
+            {table: 'inventories', itemId: 1285},
+            {table: 'locationInventories', locationId: 1},
+            {table: 'iglooInventories', iglooId: 0},
+            {table: 'iglooInventories', iglooId: 1},
+            {table: 'flooringInventories', floorId: 0},
+            {table: 'furnitureInventories', itemId: 793, quantity: 1},
+            {table: 'furnitureInventories', itemId: 792, quantity: 1},
+            {table: 'furnitureInventories', itemId: 790, quantity: 1},
+            {table: 'furnitureInventories', itemId: 788, quantity: 1},
+            {table: 'furnitureInventories', itemId: 787, quantity: 1}
+        ]
+
+        for (const item of inventoryItems) {
+            await this.db[item.table].create({
+                userId: acc.id,
+                ...item
+            })
+        }
+
         let template = fs.readFileSync('templates/email/activate/en.html').toString()
 
         let templateReplacers = [
