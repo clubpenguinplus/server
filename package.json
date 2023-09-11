@@ -37,7 +37,7 @@
     "jira-client": "^8.2.2",
     "jsdom": "^22.1.0",
     "jsonwebtoken": "^9.0.1",
-    "mysql2": "^3.6.0",
+    "mysql2": "^3.6.1",
     "node-fetch": "^2.7.0",
     "profane-words": "^1.5.11",
     "rate-limiter-flexible": "^3.0.0",
