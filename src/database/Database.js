@@ -915,6 +915,45 @@ export default class Database {
         })
     }
 
+    async saveSoundstudioTrack(userId, name, mode, sounds, length) {
+        let usersTracks = await this.findAll('soundStudioTracks', {
+            where: {
+                userId: userId
+            },
+            attributes: ['name']
+        })
+
+        if (usersTracks.length >= 100) {
+            return
+        }
+
+        await this.soundStudioTracks.create({
+            userId: userId,
+            name: name,
+            mode: mode,
+            sounds: sounds,
+            length: length
+        })
+    }
+
+    async getSoundstudioTracks(userId) {
+        return await this.findAll('soundStudioTracks', {
+            where: {
+                userId: userId
+            },
+            attributes: ['trackId', 'name', 'mode', 'sounds', 'length']
+        })
+    }
+
+    async getSoundstudioTrack(trackId) {
+        return await this.findOne('soundStudioTracks', {
+            where: {
+                trackId: trackId
+            },
+            attributes: ['trackId', 'name', 'mode', 'sounds', 'length']
+        })
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {
