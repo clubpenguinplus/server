@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `flooring_inventories` (
 CREATE TABLE IF NOT EXISTS `furniture_inventories` (
   `userId` int NOT NULL,
   `itemId` int NOT NULL,
-  `quantity` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`userId`,`itemId`),
   CONSTRAINT `furniture_inventories_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -150,6 +150,18 @@ CREATE TABLE IF NOT EXISTS `quest_completion` (
   PRIMARY KEY (`user`,`id`),
   CONSTRAINT `quest_completion_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `soundstudio_tracks` (
+  `trackId` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `mode` int NOT NULL,
+  `sounds` text NOT NULL,
+  `length` int NOT NULL,
+  PRIMARY KEY (`trackId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `soundstudio_tracks_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `twofa` (
   `userId` int NOT NULL,
@@ -256,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `user_puffles` (
   `rest` int NOT NULL DEFAULT '100',
   `clean` int NOT NULL DEFAULT '100',
   `isBackyard` int NOT NULL DEFAULT '0',
-	`dateAdopted` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateAdopted` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `user_puffles_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
