@@ -28,7 +28,7 @@ export default class Igloo extends Handler {
     // Events
 
     async addIgloo(args, user) {
-        let igloo = user.validatePurchase.igloo(args[0])
+        let igloo = await user.validatePurchase.igloo(args[0])
         if (!igloo) {
             return
         }
@@ -42,7 +42,7 @@ export default class Igloo extends Handler {
     }
 
     async addLocation(args, user) {
-        let location = user.validatePurchase.location(args[0])
+        let location = await user.validatePurchase.location(args[0])
         if (!location) {
             return
         }
@@ -56,7 +56,7 @@ export default class Igloo extends Handler {
     }
 
     async addFlooring(args, user) {
-        let flooring = user.validatePurchase.flooring(args[0])
+        let flooring = await user.validatePurchase.flooring(args[0])
         if (!flooring) {
             return
         }
@@ -70,7 +70,7 @@ export default class Igloo extends Handler {
     }
 
     async addFurniture(args, user) {
-        let furniture = user.validatePurchase.furniture(args[0])
+        let furniture = await user.validatePurchase.furniture(args[0])
         if (!furniture) {
             return
         }
@@ -154,20 +154,14 @@ export default class Igloo extends Handler {
 
     updateFlooring(args, user) {
         let igloo = this.getIgloo(user.data.id)
-        if (!igloo || igloo != user.room) {
-            return
-        }
-
-        let flooring = user.validatePurchase.flooring(args[0])
-        if (!flooring) {
+        if (!args[0] || !igloo || igloo != user.room || !user.flooringInventory.includes(parseInt(args[0])) || igloo.flooring == args[0]) {
             return
         }
 
         igloo.update({flooring: args[0]})
         igloo.flooring = args[0]
 
-        user.updateCoins(-flooring.cost)
-        user.sendXt('uf', `${args[0]}%${user.data.coins}`)
+        igloo.sendXt('uf', args[0])
     }
 
     updateMusic(args, user) {
