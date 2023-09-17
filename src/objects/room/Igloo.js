@@ -70,15 +70,17 @@ export default class Igloo extends Room {
     async changeIgloo(iglooId) {
         let igloo = await this.db.getIgloo(this.userId, iglooId)
         if (!igloo) {
-            igloo = await this.db.userIgloos.create({
-                userId: this.userId,
-                iglooId: iglooId,
-                type: 1,
-                flooring: 0,
-                music: 0,
-                location: 1,
-                locked: 1
-            })
+            igloo = (
+                await this.db.userIgloos.create({
+                    userId: this.userId,
+                    iglooId: iglooId,
+                    type: 1,
+                    flooring: 0,
+                    music: 0,
+                    location: 1,
+                    locked: 1
+                })
+            ).dataValues
             igloo.furniture = []
         }
         for (let i in igloo) {
