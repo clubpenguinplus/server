@@ -11,7 +11,10 @@ export default class MiniGame extends Handler {
             'mi#eg': this.endMinigame,
             'a#pc': this.placeCounter,
             'mi#spl': this.setCannonData,
-            'j#as3': this.joinAS3
+            'j#as3': this.joinAS3,
+            'ss#str': this.saveSoundstudioTrack,
+            'ss#gts': this.getSoundstudioTracks,
+            'ss#gt': this.getSoundstudioTrack
         }
 
         this.defaultScoreGames = [904, 905, 906, 912, 916, 917, 918, 919, 950, 952]
@@ -74,5 +77,29 @@ export default class MiniGame extends Handler {
     async joinAS3(args, user) {
         user.waffleauth = crypto.randomBytes(16).toString('hex')
         user.sendXt('as3', `${args[0]}%${user.waffleauth}`)
+    }
+
+    async saveSoundstudioTrack(args, user) {
+        let name = args[0]
+        let mode = args[1]
+        let sounds = args[2]
+        let lengthInMs = args[3]
+
+        this.db.saveSoundstudioTrack(user.data.id, name, mode, sounds, lengthInMs)
+    }
+
+    async getSoundstudioTracks(args, user) {
+        let tracks = await this.db.getSoundstudioTracks(user.data.id)
+
+        tracks = tracks.map((track) => `${track.dataValues.trackId}|${track.dataValues.name}|${track.dataValues.mode}|${track.dataValues.sounds}|${track.dataValues.length}`)
+
+        user.sendXt('ssgts', tracks.join('%'))
+    }
+
+    async getSoundstudioTrack(args, user) {
+        let trackId = args[0]
+        let track = await this.db.getSoundstudioTrack(trackId)
+
+        user.sendXt('ssgt', `${track.dataValues.trackId}%${track.dataValues.name}%${track.dataValues.mode}%${track.dataValues.sounds}%${track.dataValues.length}`)
     }
 }
