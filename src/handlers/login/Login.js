@@ -81,7 +81,7 @@ export default class Login extends Handler {
     async checkVersion(xmlData, user) {
         let userVers = xmlData.getElementsByTagName('ver')[0].getAttribute('v').split('-')
         if (userVers[1] == 'beta') return user.sendXml('OK')
-        let verfile = await fetch(`https://clubpenguinplus.nyc3.digitaloceanspaces.com/client/current.version?v=${Date.now().toString()}`)
+        let verfile = await fetch(`https://media.cpplus.pw/client/current.version?v=${Date.now().toString()}`)
         let version = await verfile.text()
 
         if (userVers[0] !== version) {
