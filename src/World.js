@@ -4,26 +4,27 @@ import LoginHandler from './handlers/LoginHandler'
 import Server from './server/Server'
 
 const {Logtail} = require('@logtail/node')
+const configJson = require('../config/config.json')
 
 require('dotenv').config()
 
 class World extends Server {
-    constructor(id, iteration) {
+    constructor(id) {
         let users = {}
         let db = new Database()
 
         let handler = id == 'Login' ? LoginHandler : DataHandler
-        let log = process.env.logtailToken ? new Logtail(process.env.logtailToken) : console
+        let log = process.env[`logtailToken${id}`] ? new Logtail(process.env[`logtailToken${id}`]) : console
         handler = new handler(id, users, db, log)
 
-        super(id, users, db, handler, iteration)
+        let port = configJson.worlds[id].port
+
+        super(id, users, db, handler, port)
     }
 }
 
 let args = process.argv.slice(2)
 
-let iteration = 0
 for (let world of args) {
-    new World(world, iteration)
-    iteration++
+    new World(world)
 }

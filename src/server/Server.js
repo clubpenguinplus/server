@@ -10,7 +10,7 @@ import User from '../objects/user/User'
 import Jira from '../integration/Jira'
 
 export default class Server {
-    constructor(id, users, db, handler, iteration) {
+    constructor(id, users, db, handler, port) {
         this.users = users
         this.db = db
         this.handler = handler
@@ -19,8 +19,8 @@ export default class Server {
         this.app = express()
         http.createServer(this.app)
 
-        this.httpServer = this.app.listen(parseInt(process.env.startingPort) + iteration, () => {
-            if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Started world ${id} on port ${parseInt(process.env.startingPort) + iteration}`)
+        this.httpServer = this.app.listen(port, () => {
+            if (process.env.debugPackets == 'true') this.handler.log.info(`[Server] Started world ${id} on port ${port}`)
         })
 
         this.httpHandler = new HTTPHandler(this.app, this.handler, this.jira)
