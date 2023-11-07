@@ -29,5 +29,5 @@ jobs:
                     git pull --recurse-submodules
                     npm install
                     npm run build
-                    npm run stop
-                    npm run start
+                    screen -S cpplusdevserver -X quit
+                    screen -dmS cpplusdevserver node ./dist/World.js Development
