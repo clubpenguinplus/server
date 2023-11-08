@@ -23,7 +23,7 @@
                 "host": "localhost",
                 "port": 6111
             },
-            "Blizzard": {
+            "Dev": {
                 "host": "localhost",
                 "port": 6112,
                 "maxUsers": 300

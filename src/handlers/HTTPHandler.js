@@ -25,7 +25,9 @@ export default class HTTPHandler {
             getavailability: this.getAvailability,
             'manager/login': this.panelLogin,
             'manager/updateavailablity': this.updateAvailablity,
-            'manager/updatecost': this.updateCost
+            'manager/updatecost': this.updateCost,
+            'manager/verify/approve': this.verifyApprove,
+            'manager/verify/reject': this.verifyReject
         }
 
         this.getEvents = {
@@ -34,7 +36,13 @@ export default class HTTPHandler {
             manager: this.panel,
             'manager/items': this.getPanelItems,
             'manager/item': this.getPanelItem,
-            'manager/logout': this.panelLogout
+            'manager/logout': this.panelLogout,
+            'manager/verify': this.panelVerify,
+            'manager/manage': this.panelManagePlayers,
+            'manager/servers': this.panelServers,
+            'manager/chatlogs': this.panelChatLogs,
+            'manager/edit': this.panelEditPlayer,
+            avatar: this.getAvatar
         }
 
         for (let event in this.postEvents) {
@@ -212,5 +220,69 @@ export default class HTTPHandler {
         }
 
         this.handler.panel.logout(req, res)
+    }
+
+    async panelVerify(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getVerifyPage(req, res)
+    }
+
+    async panelManagePlayers(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getManagePlayersPage(req, res)
+    }
+
+    async panelServers(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getServersPage(req, res)
+    }
+
+    async panelChatLogs(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getChatLogsPage(req, res)
+    }
+
+    async verifyApprove(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.verifyApprove(req, res)
+    }
+
+    async verifyReject(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.verifyReject(req, res)
+    }
+
+    async panelEditPlayer(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getEditPlayerPage(req, res)
+    }
+
+    async getAvatar(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getAvatar(req, res)
     }
 }

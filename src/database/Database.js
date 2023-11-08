@@ -118,6 +118,10 @@ export default class Database {
         })
     }
 
+    async getAllUsers() {
+        return await this.findAll('users')
+    }
+
     async getAuthToken(userId, selector) {
         return await this.findOne('authTokens', {
             where: {
@@ -365,7 +369,7 @@ export default class Database {
         )
     }
 
-    async getUnverifedUsers(userId) {
+    async getUnverifiedUsers() {
         return await this.findAll('users', {
             where: {
                 username_approved: '0',

@@ -9,6 +9,7 @@ export default class Panel {
 
     getUserFromCookie(cookie) {
         let sessionKey = this.getSessionKeyFromCookie(cookie)
+        if (!sessionKey) return null
         for (let user in this.sessionKeys) {
             if (this.sessionKeys[user] == sessionKey) return user
         }
@@ -45,6 +46,7 @@ export default class Panel {
     }
 
     getSessionKeyFromCookie(cookie) {
+        if (!cookie) return null
         let sessionKey = ''
         let cookies = cookie.split(';')
         for (let cookie of cookies.reverse()) {
@@ -240,6 +242,200 @@ export default class Panel {
 
         let page = this.getTemplatePage('login')
         page = page.replace(/(<div class="alert alert-danger" role="alert" style=")display: none;(">){{ error_message }}<\/div>/g, '$1display: block;$2You are now logged out</div>')
+
+        res.send(page)
+    }
+
+    async getVerifyPage(req, res) {
+        let page = this.getTemplatePage('verify')
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        let unverifiedUsers = await this.handler.db.getUnverifiedUsers()
+        let unverifiedUsersTable = ''
+        let searchQuery = req.url.split('?')[1]
+        if (searchQuery && searchQuery.length > 0) {
+            unverifiedUsers = unverifiedUsers.filter((penguin) => {
+                return penguin.username.toLowerCase().includes(searchQuery.toLowerCase())
+            })
+            unverifiedUsers.forEach((user) => {
+                if (user.username.toLowerCase() == searchQuery.toLowerCase()) {
+                    unverifiedUsers.splice(unverifiedUsers.indexOf(user), 1)
+                    unverifiedUsers.unshift(user)
+                }
+            })
+        }
+        for (let penguin of unverifiedUsers) {
+            unverifiedUsersTable += `<table class="table table-bordered"><thead><tr><th scope="row"><button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="${penguin.joinTime}">${penguin.username}</button></th><th scope="row"><form action="/manager/verify/approve/?${penguin.id}" name='verify' method="POST" onsubmit=""><input type="submit" value="Approve" class="btn btn-success"></form></th><th scope="row"><form action="/manager/verify/reject/?${penguin.id}" name='verify' method="POST" onsubmit=""><input type="hidden" name="language" id="language" value='${penguin.language}'><input type="submit" value="Reject" class="btn btn-danger"></form></th></tr></thead></table>`
+        }
+
+        page = page.replaceAll('{{ penguin.username }}', user)
+        page = page.replaceAll('{{ unverified_users }}', unverifiedUsersTable)
+
+        res.send(page)
+    }
+
+    async verifyApprove(req, res) {
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        let penguin = await this.handler.db.getUserById(req.url.split('?')[1])
+
+        if (!penguin) {
+            return res.send('<script>window.location.href = "/manager/verify"</script>')
+        }
+
+        await this.handler.db.users.update(
+            {
+                username_approved: 1,
+                username_rejected: 0
+            },
+            {
+                where: {
+                    id: penguin.dataValues.id
+                }
+            }
+        )
+
+        res.send('<script>window.location.href = "/manager/verify"</script>')
+    }
+
+    async verifyReject(req, res) {
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        let penguin = await this.handler.db.getUserById(req.url.split('?')[1])
+
+        if (!penguin) {
+            return res.send('<script>window.location.href = "/manager/verify"</script>')
+        }
+
+        await this.handler.db.users.update(
+            {
+                username_rejected: 1,
+                username_approved: 0
+            },
+            {
+                where: {
+                    id: penguin.dataValues.id
+                }
+            }
+        )
+
+        res.send('<script>window.location.href = "/manager/verify"</script>')
+    }
+
+    async getManagePlayersPage(req, res) {
+        let page = this.getTemplatePage('manage')
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+
+        // Similar to items page, but for players
+
+        page = page.replaceAll('{{ penguin.username }}', user)
+
+        let USERS = await this.handler.db.getAllUsers()
+
+        let userTablePages = []
+
+        for (let i = 0; i < Object.keys(USERS).length / 100; i++) {
+            let userTable = ''
+            for (let j of Object.keys(USERS).slice(i * 100, i * 100 + 100 > Object.keys(USERS).length ? Object.keys(USERS).length : i * 100 + 100)) {
+                let user = USERS[j]
+                userTable += `<table class="table table-bordered"><thead><tr><th scope="row"><button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="${user.joinTime}">${user.username}</button></th><th scope="row"><a class="btn btn-success" role="button" href="/manager/edit/?${user.id}">Edit Player</a></th></tr></thead></table>`
+            }
+            userTablePages.push(userTable)
+        }
+
+        let pageNumbers = ''
+
+        for (let i = 0; i < userTablePages.length; i++) {
+            pageNumbers += `<a type="button" class="nav-item nav-link" onclick="switchUsersPage(${i})" id="page_${i}-tab" data-toggle="tab" href="#page_${i}" role="tab" aria-controls="page_${i}" aria-selected="false">${i + 1}</a>`
+        }
+
+        page = page.replace('{{ users_table }}', userTablePages[0])
+
+        page = page.replace(
+            '{{ pages }} ',
+            `[${userTablePages
+                .map((i) => {
+                    return '`' + i + '`'
+                })
+                .join(', ')}]`
+        )
+
+        page = page.replace('{{ pageNumbers }}', pageNumbers)
+
+        res.send(page)
+    }
+
+    getEditPlayerPage(req, res) {
+        let page = this.getTemplatePage('edit-player')
+        let user = this.getUserFromCookie(req.headers.cookie)
+
+        if (!user) {
+            return res.send('<script>window.location.href = "/manager/login"</script>')
+        }
+        let id = req.url.split('?')[1]
+
+        if (!id) {
+            return res.send('<script>window.location.href = "/manager/manage"</script>')
+        }
+
+        page = page.replaceAll('{{ penguin.username }}', user)
+
+        page = page.replaceAll('{{ player.avatar }}', `<iframe src="/avatar?${id}" style="width: 100%; height: 100%; border: none;"></iframe>`)
+
+        res.send(page)
+    }
+
+    async getAvatar(req, res) {
+        let page = this.getTemplatePage('avatar')
+        let args = req.url.split('?')[1]
+        let id = args.split('&')[0]
+        let size = args.split('&')[1]
+
+        if (!id) {
+            return res.send('Missing ID')
+        }
+
+        let user = await this.handler.db.getUserById(id)
+
+        if (!user) {
+            return res.send('Invalid ID')
+        }
+
+        page = page.replaceAll('{{ image_size }}', size || '88')
+
+        page = page.replaceAll('{{ background_id }}', user.photo)
+        page = page.replaceAll('{{ background_visible }}', user.photo != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ color_id }}', user.color)
+        page = page.replaceAll('{{ head_id }}', user.head)
+        page = page.replaceAll('{{ head_visible }}', user.head != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ face_id }}', user.face)
+        page = page.replaceAll('{{ face_visible }}', user.face != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ neck_id }}', user.neck)
+        page = page.replaceAll('{{ neck_visible }}', user.neck != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ body_id }}', user.body)
+        page = page.replaceAll('{{ body_visible }}', user.body != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ hand_id }}', user.hand)
+        page = page.replaceAll('{{ hand_visible }}', user.hand != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ feet_id }}', user.feet)
+        page = page.replaceAll('{{ feet_visible }}', user.feet != 0 ? 'visible' : 'hidden')
+        page = page.replaceAll('{{ flag_id }}', user.flag)
+        page = page.replaceAll('{{ flag_visible }}', user.flag != 0 ? 'visible' : 'hidden')
 
         res.send(page)
     }
