@@ -27,7 +27,9 @@ export default class HTTPHandler {
             'manager/updateavailablity': this.updateAvailablity,
             'manager/updatecost': this.updateCost,
             'manager/verify/approve': this.verifyApprove,
-            'manager/verify/reject': this.verifyReject
+            'manager/verify/reject': this.verifyReject,
+            'manager/manage/edit': this.panelEditPlayer,
+            'manager/addban': this.panelAddBan
         }
 
         this.getEvents = {
@@ -41,8 +43,9 @@ export default class HTTPHandler {
             'manager/manage': this.panelManagePlayers,
             'manager/servers': this.panelServers,
             'manager/chatlogs': this.panelChatLogs,
-            'manager/edit': this.panelEditPlayer,
-            avatar: this.getAvatar
+            'manager/edit': this.getPanelEditPlayer,
+            avatar: this.getAvatar,
+            'manager/addban': this.getPanelAddBan
         }
 
         for (let event in this.postEvents) {
@@ -270,7 +273,7 @@ export default class HTTPHandler {
         this.handler.panel.verifyReject(req, res)
     }
 
-    async panelEditPlayer(req, res) {
+    async getPanelEditPlayer(req, res) {
         if (!this.handler.panel) {
             return res.send({error: 'Panel not enabled'})
         }
@@ -284,5 +287,29 @@ export default class HTTPHandler {
         }
 
         this.handler.panel.getAvatar(req, res)
+    }
+
+    async panelEditPlayer(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.editPlayer(req, res)
+    }
+
+    async getPanelAddBan(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.getAddBanPage(req, res)
+    }
+
+    async panelAddBan(req, res) {
+        if (!this.handler.panel) {
+            return res.send({error: 'Panel not enabled'})
+        }
+
+        this.handler.panel.addBan(req, res)
     }
 }

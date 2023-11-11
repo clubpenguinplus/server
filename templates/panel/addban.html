@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="icon" type="image/jpeg" href="">
+        <title>Club Penguin Plus | Panel</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown hidden-md-down">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Profile
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item">Logged in as <strong> {{ penguin.username }}</strong></a>
+                            <a href="/manager" class="dropdown-item">Go To Panel</a>
+                            <a href="/manager/password" class="dropdown-item">Change Password</a>
+                            <a href="/manager/email" class="dropdown-item">Change Email</a>
+                            <a href="/manager/logout" class="dropdown-item">
+                                <div class="dropdown-divider"></div>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="alert alert-success" role="alert" style="display: none;">{{ success_message }}</div>
+        <div class="alert alert-danger" role="alert" style="display: none;">{{ error_message }}</div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card mb-3" style="max-width: 400px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                {{ player.avatar }}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{ player.username }}
+                                    </h5>
+                                    {{ player.rank }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-header">
+                            Add Ban
+                        </div>
+                        <div class="card-body">
+                            <form action="/manager/addban" method="POST">
+                                <div class="form-group">
+                                    <label for="banLength">Ban Duration</label>
+                                    <select class="form-control" id="banLength" name="banLength">
+                                        <option value="24">1 day</option>
+                                        <option value="72">3 days</option>
+                                        <option value="168">1 week</option>
+                                        <option value="672">1 month</option>
+                                        <option value="2160">3 months</option>
+                                        <option value="87600">Permanent</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="banReason">Ban Reason</label>
+                                    <textarea class="form-control" id="banReason" name="banReason" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <input type="hidden" name="playerId" value="{{ player.id }}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="/manager/static/js/checks.js"></script>
+    </body>
+</html>

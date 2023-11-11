@@ -74,7 +74,7 @@ export default class Moderation extends Handler {
         let banCount = await this.db.getBanCount(id)
         // 5th ban is a permanent ban
         if (banCount >= 4) {
-            this.db.users.update({permaBan: true}, {where: {id: id}})
+            expires = Date.now() + 87600 * 60 * 60 * 1000
         }
 
         this.db.bans.create({

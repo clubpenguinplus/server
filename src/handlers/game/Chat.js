@@ -98,7 +98,9 @@ export default class Chat extends Handler {
         } else if (banCount == 4) {
             time = 2160
         } else if (banCount > 4) {
-            await this.db.users.update({permaBan: true}, {where: {id: user.data.id}})
+            time = 87600
+            let expiry = date.getTime() + time * 60 * 60 * 1000
+            await this.db.ban(user.data.id, expiry, null, `blacklist: ${reason}`)
             user.sendXt('b', 'o')
             user.close()
             return

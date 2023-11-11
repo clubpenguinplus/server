@@ -172,7 +172,11 @@ export default class Panel extends Handler {
 
     async banUser(args, user) {
         args[0] = parseInt(args[0])
-        args[1] = parseInt(args[1])
+        if (args[1] == 'p') {
+            args[1] = 87600
+        } else {
+            args[1] = parseInt(args[1])
+        }
         if (user.data.rank < 3) {
             user.sendXt('e', 15)
             return
