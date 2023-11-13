@@ -118,6 +118,10 @@ export default class Database {
         })
     }
 
+    async getAllUsers() {
+        return await this.findAll('users')
+    }
+
     async getAuthToken(userId, selector) {
         return await this.findOne('authTokens', {
             where: {
@@ -145,11 +149,39 @@ export default class Database {
         return longestBan ? longestBan.expires : 0
     }
 
+    async getActiveBanDetails(userId) {
+        var longestBan
+        let bans = await this.findAll('bans', {
+            where: {
+                userId: userId,
+                expires: {
+                    [Op.gt]: Date.now()
+                }
+            }
+        })
+        for (let x in bans) {
+            if (!longestBan || bans[x].expires > longestBan.expires) {
+                longestBan = bans[x]
+            }
+        }
+        return longestBan
+    }
+
     async getBanCount(userId) {
         return await this.bans.count({
             where: {
                 userId: userId
             }
+        })
+    }
+
+    async getAllBans(userId) {
+        return await this.findAll('bans', {
+            where: {
+                userId: userId
+            }
+        }).sort((a, b) => {
+            return a.issued > b.issued
         })
     }
 
@@ -365,7 +397,7 @@ export default class Database {
         )
     }
 
-    async getUnverifedUsers(userId) {
+    async getUnverifiedUsers() {
         return await this.findAll('users', {
             where: {
                 username_approved: '0',

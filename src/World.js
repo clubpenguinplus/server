@@ -17,7 +17,7 @@ class World extends Server {
         let log = process.env[`logtailToken${id}`] ? new Logtail(process.env[`logtailToken${id}`]) : console
         handler = new handler(id, users, db, log)
 
-        let port = configJson.worlds[id].port
+        let port = configJson.worlds[process.env.environment || 'local'][id].port
 
         super(id, users, db, handler, port)
     }

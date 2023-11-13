@@ -4,7 +4,7 @@ export default class Panel extends Handler {
     constructor(users, rooms) {
         super(users, rooms)
         this.events = {
-            'o#gu': this.getUnverifedUsers,
+            'o#gu': this.getUnverifiedUsers,
             'o#vp': this.verifyUser,
             'o#vj': this.rejectUser,
             'o#se': this.getUserInfo,
@@ -19,13 +19,13 @@ export default class Panel extends Handler {
         }
     }
 
-    async getUnverifedUsers(args, user) {
+    async getUnverifiedUsers(args, user) {
         if (user.data.rank < 3) {
             user.sendXt('e', 15)
             return
         }
 
-        let users = await this.db.getUnverifedUsers()
+        let users = await this.db.getUnverifiedUsers()
 
         let small = []
         for (let i = 0; i < users.length; i++) {
@@ -56,7 +56,7 @@ export default class Panel extends Handler {
             }
         )
 
-        this.getUnverifedUsers(args, user)
+        this.getUnverifiedUsers(args, user)
     }
 
     async rejectUser(args, user) {
@@ -77,7 +77,7 @@ export default class Panel extends Handler {
             }
         )
 
-        this.getUnverifedUsers(args, user)
+        this.getUnverifiedUsers(args, user)
     }
 
     async getUserInfo(args, user) {
@@ -172,7 +172,11 @@ export default class Panel extends Handler {
 
     async banUser(args, user) {
         args[0] = parseInt(args[0])
-        args[1] = parseInt(args[1])
+        if (args[1] == 'p') {
+            args[1] = 87600
+        } else {
+            args[1] = parseInt(args[1])
+        }
         if (user.data.rank < 3) {
             user.sendXt('e', 15)
             return
