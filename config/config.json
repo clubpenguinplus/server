@@ -1,33 +1,13 @@
 {
     "worlds": {
-        "production":{
-            "Login": {
-                "host": "localhost",
-                "port": 6111
-            },
-            "Blizzard": {
-                "host": "localhost",
-                "port": 6112,
-                "maxUsers": 300
-            }
+        "Login": {
+            "host": "localhost",
+            "port": 6111
         },
-        "development":{
-            "Development":{
-                "host": "localhost",
-                "port": 6113,
-                "maxUsers": 300
-            }
-        },
-        "local":{
-            "Login": {
-                "host": "localhost",
-                "port": 6111
-            },
-            "Dev": {
-                "host": "localhost",
-                "port": 6112,
-                "maxUsers": 300
-            }
+        "Blizzard": {
+            "host": "localhost",
+            "port": 6112,
+            "maxUsers": 300
         }
     }
 }
