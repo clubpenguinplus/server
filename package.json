@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
-    "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Dev",
+    "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Blizzard",
     "build": "babel src -d dist --copy-files",
     "start": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop ecosystem.config.js",
