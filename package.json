@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Blizzard",
