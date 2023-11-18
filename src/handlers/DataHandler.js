@@ -1,5 +1,5 @@
 import Room from '../objects/room/Room'
-import WaddleRoom from '../objects/room/WaddleRoom'
+import Waddle from '../objects/room/waddle/Waddle'
 import OpenIgloos from '../objects/room/OpenIgloos'
 import Filter from '../integration/Filter'
 import BaseHandler from './BaseHandler'
@@ -65,7 +65,7 @@ export default class DataHandler extends BaseHandler {
     async setWaddles() {
         for (let w in this.crumbs.waddles) {
             let waddle = this.crumbs.waddles[w]
-            this.rooms[waddle.roomId].waddles[w] = new WaddleRoom(waddle, w)
+            this.rooms[waddle.roomId].waddles[w] = new Waddle(waddle)
         }
     }
 
@@ -96,6 +96,7 @@ export default class DataHandler extends BaseHandler {
                 return
             }
 
+            user.events.emit(identifier, args, user)
             this.events.emit(identifier, args, user)
         } catch (error) {
             this.log.error(`[${this.id}] Error: ${error}`)

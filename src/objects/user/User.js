@@ -7,7 +7,7 @@ import Ignore from './Ignore'
 import Inventory from './Inventory'
 import Stamps from './Stamps'
 import PurchaseValidator from './PurchaseValidator'
-import fs from 'fs'
+import {EventEmitter} from 'events'
 import AES from 'crypto-js/aes'
 
 export default class User {
@@ -47,6 +47,8 @@ export default class User {
         this.setChallenges()
 
         this.setPuffleDecay()
+
+        this.events = new EventEmitter()
     }
 
     get string() {
