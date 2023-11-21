@@ -437,4 +437,12 @@ export default class User {
             this.updateMedals(reward)
         }
     }
+
+    joinTable(table) {
+        if (table && !this.minigameRoom) {
+            this.minigameRoom = table
+
+            this.minigameRoom.add(this)
+        }
+    }
 }

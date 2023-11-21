@@ -81,7 +81,7 @@ export default class CardMatchmaker {
 
         this.players[user.id] = new MatchmakerPlayer(user, this.matchEvery)
 
-        user.send('join_matchmaking')
+        user.sendXt('join_matchmaking')
     }
 
     remove(user) {

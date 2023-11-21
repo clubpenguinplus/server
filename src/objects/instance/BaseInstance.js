@@ -75,6 +75,7 @@ export default class BaseInstance {
     }
 
     send(action, args = {}, user = null, filter = [user]) {
+        if (typeof args == 'object') args = JSON.stringify(args)
         let users = this.users.filter((u) => !filter.includes(u)).filter(Boolean)
 
         for (let u of users) {

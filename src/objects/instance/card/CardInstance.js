@@ -60,8 +60,8 @@ export default class CardInstance extends BaseInstance {
 
         let cards = me.dealCards()
 
-        user.send('send_deal', {cards: cards})
-        me.opponent.send('send_opponent_deal', {deal: cards.length})
+        user.sendXt('send_deal', JSON.stringify({cards: cards}))
+        me.opponent.sendXt('send_opponent_deal', JSON.stringify({deal: cards.length}))
     }
 
     handlePickCard(args, user) {
@@ -386,7 +386,7 @@ export default class CardInstance extends BaseInstance {
         user.update({ninjaRank: rank})
         user.update({ninjaProgress: 0})
 
-        user.send('award', {rank: user.ninjaRank})
+        user.sendXt('award', {rank: user.ninjaRank})
     }
 
     addAward(user, rank) {

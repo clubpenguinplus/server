@@ -1,5 +1,3 @@
-import {CIDR} from 'sequelize'
-
 const {Translate} = require('@google-cloud/translate').v2
 const projectId = 'clubpenguinplus'
 const tlate = new Translate({projectId, key: 'AIzaSyDICJHx-loC6mJKgLGBywBh3p33cU-YDxc'})
@@ -18,6 +16,7 @@ export default class Room {
 
         // Only used by rooms with waddles
         this.waddles = {}
+        this.tables = {}
 
         this.wiretapMods = []
     }

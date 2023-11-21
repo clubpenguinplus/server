@@ -22,47 +22,5 @@
         "roomId": 230,
         "seats": 2,
         "game": "sled"
-    },
-    "104":{
-        "id": 104,
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "105":{
-        "id": 105,
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "106":{
-        "id": 106,
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "107":{
-        "id": 107,
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "108":{
-        "id": 108,
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "109":{
-        "id": 109,
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "110":{
-        "id": 110,
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
     }
 }

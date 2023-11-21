@@ -26,7 +26,9 @@ export default class FourTable extends BaseTable {
 
         if (this.isWin(move[0], move[1])) {
             user.updateCoins(10, true)
+            user.sendXt('eg', `${user.data.coins}%four%10`)
             opponent.updateCoins(5, true)
+            opponent.sendXt('eg', `${opponent.data.coins}%four%5`)
 
             this.reset()
             return
@@ -34,7 +36,9 @@ export default class FourTable extends BaseTable {
 
         if (this.isFull()) {
             user.updateCoins(5, true)
+            user.sendXt('eg', `${user.data.coins}%four%5`)
             opponent.updateCoins(5, true)
+            opponent.sendXt('eg', `${opponent.data.coins}%four%5`)
 
             this.reset()
             return

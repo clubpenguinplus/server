@@ -56,8 +56,8 @@ export default class SenseiInstance extends CardInstance {
         let cards = this.me.dealCards(canBeatSensei)
         let senseiCards = this.sensei.dealCards(cards, canBeatSensei)
 
-        user.send('send_deal', {cards: cards})
-        user.send('send_opponent_deal', {deal: senseiCards.length})
+        user.sendXt('send_deal', JSON.stringify({cards: cards}))
+        user.sendXt('send_opponent_deal', JSON.stringify({deal: senseiCards.length}))
     }
 
     handlePickCard(args, user) {

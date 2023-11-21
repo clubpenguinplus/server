@@ -3,7 +3,7 @@ import Waddle from '../objects/room/waddle/Waddle'
 import OpenIgloos from '../objects/room/OpenIgloos'
 import Filter from '../integration/Filter'
 import BaseHandler from './BaseHandler'
-import fs from 'fs'
+import TableFactory from '../objects/room/table/TableFactory'
 
 export default class DataHandler extends BaseHandler {
     constructor(id, users, db, log) {
@@ -48,7 +48,8 @@ export default class DataHandler extends BaseHandler {
             rooms: this.getCrumb('rooms'),
             stamps: this.getCrumb('stamps'),
             waddles: this.getCrumb('waddles'),
-            worlds: this.getCrumb('worlds')
+            worlds: this.getCrumb('worlds'),
+            tables: this.getCrumb('tables')
         }
 
         this.updateCosts()
@@ -56,16 +57,25 @@ export default class DataHandler extends BaseHandler {
         this.rooms = await this.setRooms()
 
         await this.setWaddles()
+        await this.setTables()
 
         this.loadHandlers()
 
         this.log.info(`[${this.id}] Created DataHandler for server: ${this.id}`)
     }
 
-    async setWaddles() {
+    setWaddles() {
         for (let w in this.crumbs.waddles) {
             let waddle = this.crumbs.waddles[w]
             this.rooms[waddle.roomId].waddles[w] = new Waddle(waddle)
+        }
+    }
+
+    setTables() {
+        for (let table of this.crumbs.tables) {
+            let room = this.rooms[table.roomId]
+
+            room.tables[table.id] = TableFactory.createTable(table, room)
         }
     }
 
@@ -134,6 +144,10 @@ export default class DataHandler extends BaseHandler {
 
                 if (user.data && user.data.id) {
                     this.openIgloos.remove(user)
+                }
+
+                if (user.minigameRoom) {
+                    user.minigameRoom.remove(user)
                 }
 
                 delete this.users[user.socket.id]

@@ -103,6 +103,7 @@ export default class Ninja {
     }
 
     send(action, args = {}) {
-        this.user.send(action, args)
+        if (typeof args == 'object') args = JSON.stringify(args)
+        this.user.sendXt(action, args)
     }
 }
