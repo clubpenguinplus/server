@@ -79,7 +79,7 @@ export default class BaseInstance {
         let users = this.users.filter((u) => !filter.includes(u)).filter(Boolean)
 
         for (let u of users) {
-            u.sendXt(action, JSON.stringify(args))
+            u.sendXt(action, args)
         }
     }
 }
