@@ -136,6 +136,12 @@ export default class User {
         if (!coins) {
             return
         }
+        // During CFC, all spent coins are donated to CFC
+        if (coins < 0) {
+            this.donateCoins(-coins)
+            return
+        }
+
         if (!this.data.coins || this.data.coins < 0) {
             this.data.coins = 0
         }
@@ -143,6 +149,28 @@ export default class User {
         this.data.coins += parseInt(coins)
         this.update({
             coins: this.data.coins
+        })
+    }
+
+    donateCoins(coins) {
+        if (!coins) {
+            return
+        }
+        if (!this.data.coins || this.data.coins < 0) {
+            this.data.coins = 0
+        }
+
+        if (coins < 0) {
+            coins = -coins
+        }
+
+        this.handler.partyData.cfcTotal += coins
+
+        this.data.coins -= parseInt(coins)
+        this.data.cfcDonations += parseInt(coins)
+        this.update({
+            coins: this.data.coins,
+            cfcDonations: this.data.cfcDonations
         })
     }
 

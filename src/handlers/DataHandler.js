@@ -9,7 +9,9 @@ export default class DataHandler extends BaseHandler {
     constructor(id, users, db, log) {
         super(id, users, db, log)
 
-        this.partyData = {}
+        this.partyData = {
+            cfcTotal: 0
+        }
 
         this.usersById = {}
         this.usersBySessionId = {}
