@@ -61,7 +61,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 210,
@@ -117,7 +117,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 300,
@@ -125,7 +125,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 310,
@@ -149,7 +149,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 322,
@@ -325,7 +325,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 801,
@@ -333,7 +333,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 802,
@@ -341,7 +341,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 803,
@@ -365,7 +365,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 806,
@@ -397,7 +397,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 810,
@@ -405,7 +405,7 @@
       "member": 0,
       "maxUsers": 80,
       "game": 0,
-      "spawn": 1
+      "spawn": 0
     },
     {
       "id": 811,
