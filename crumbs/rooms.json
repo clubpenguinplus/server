@@ -1,1 +1,1194 @@
-[{"id":100,"name":"Town Center","member":0,"maxUsers":100,"game":0,"spawn":1},{"id":110,"name":"Coffee Shop","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":111,"name":"Book Room","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":120,"name":"Night Club","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":121,"name":"Lounge","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":122,"name":"School","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":130,"name":"Clothes Shop","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":200,"name":"Ski Village","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":210,"name":"Sports Shop","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":211,"name":"Agent Lobby Solo","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":212,"name":"Agent Lobby Multi","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":213,"name":"Agent VR","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":220,"name":"Ski Lodge","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":221,"name":"Lodge Attic","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":230,"name":"Ski Hill","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":300,"name":"The Plaza","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":310,"name":"Pet Shop","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":320,"name":"The Dojo","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":321,"name":"Dojo Exterior","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":322,"name":"Dojo Hide","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":323,"name":"Agent Command","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":324,"name":"Dojo Exterior Solo","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":326,"name":"Dojo Snow","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":330,"name":"Pizza Parlor","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":340,"name":"The Mall","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":400,"name":"The Beach","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":410,"name":"Lighthouse","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":411,"name":"Beacon","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":420,"name":"Pirate Ship","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":421,"name":"Ship's Hold","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":422,"name":"Captain's Quarters","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":423,"name":"The Crows Nest","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":430,"name":"Puffle Hotel Lobby","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":431,"name":"Puffle Hotel Spa","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":432,"name":"Puffle Hotel Roof","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":433,"name":"Cloud Forest","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":434,"name":"Puffle Park","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":435,"name":"Skatepark","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":436,"name":"Puffle Wild","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":437,"name":"UFO","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":800,"name":"The Dock","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":801,"name":"Snow Forts","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":802,"name":"Ice Rink","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":803,"name":"HQ","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":804,"name":"Boiler Room","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":805,"name":"Ice Berg","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":806,"name":"Underground Pool","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":807,"name":"Mine Shack","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":808,"name":"The Mine","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":809,"name":"Forest","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":810,"name":"Cove","member":0,"maxUsers":80,"game":0,"spawn":1},{"id":811,"name":"Box Dimension","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":812,"name":"Dojo Fire","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":813,"name":"Gold Mine","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":814,"name":"Lake","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":815,"name":"Underwater","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":816,"name":"Dojo Water","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":851,"name":"Party1","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":852,"name":"Party2","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":853,"name":"Party3","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":854,"name":"Party4","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":855,"name":"Party5","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":856,"name":"Party6","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":857,"name":"Party7","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":858,"name":"Party8","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":859,"name":"Party9","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":860,"name":"Party10","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":861,"name":"Party11","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":862,"name":"Party12","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":863,"name":"Party13","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":864,"name":"Party14","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":865,"name":"Party15","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":866,"name":"Party16","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":867,"name":"Party17","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":868,"name":"Party18","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":869,"name":"Party19","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":874,"name":"Party24","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":875,"name":"Party25","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":876,"name":"Party26","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":877,"name":"Party27","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":878,"name":"Party28","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":890,"name":"Party99","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":891,"name":"partysolo1","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":898,"name":"Sound Room","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":899,"name":"Party","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":900,"name":"Astro","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":901,"name":"Beans","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":902,"name":"Puffle","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":903,"name":"Biscuit","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":904,"name":"Fish","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":905,"name":"MineCar1","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":906,"name":"JetPack","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":907,"name":"Mission1","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":908,"name":"Mission2","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":909,"name":"ThinIce","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":910,"name":"PizzaTron","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":911,"name":"Mission3","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":912,"name":"Wave","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":913,"name":"Mission4","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":914,"name":"Mission5","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":915,"name":"Mission6","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":916,"name":"SubGame","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":917,"name":"BookGame1","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":918,"name":"BookGame2","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":919,"name":"BookGame3","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":920,"name":"Mission7","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":921,"name":"Mission8","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":922,"name":"Mission9","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":923,"name":"Mission10","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":924,"name":"Game24","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":925,"name":"Game25","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":926,"name":"MixMaster","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":927,"name":"Mission11","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":928,"name":"launch","member":0,"maxUsers":800,"game":0,"spawn":0},{"id":935,"name":"gamesrink","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":940,"name":"soundstudio","member":0,"maxUsers":800,"game":0,"spawn":0},{"id":941,"name":"Puffle Soaker","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":942,"name":"Balloon Pop","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":943,"name":"Ring the Bell","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":944,"name":"Feed a Puffle","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":945,"name":"Memory Card","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":946,"name":"Puffle paddle","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":947,"name":"Puffle Shuffle","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":948,"name":"Grab and Spin","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":949,"name":"Puffle Rescue","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":950,"name":"System Defender","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":951,"name":"Sensei","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":952,"name":"Dancing","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":953,"name":"Fire Sensei","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":954,"name":"Water Sensei","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":955,"name":"Puffle Launch","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":956,"name":"Bits and Bolts","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":957,"name":"Rollerscape","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":958,"name":"Scorn Battle","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":959,"name":"Smoothie","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":960,"name":"Ice Jam","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":961,"name":"Dino Treasure Hunt","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":962,"name":"Party Game","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":963,"name":"Spy Drills","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":994,"name":"igloo_card","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":995,"name":"Water","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":996,"name":"Snow","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":997,"name":"Fire","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":998,"name":"Card Jitsu","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":999,"name":"Sled Race","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":1100,"name":"My Penguin","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":1104,"name":"Gold Mine","member":0,"maxUsers":80,"game":0,"spawn":0},{"id":2000,"name":"Solo","member":0,"maxUsers":99999,"game":0,"spawn":0}]
+[
+    {
+      "id": 100,
+      "name": "Town Center",
+      "member": 0,
+      "maxUsers": 100,
+      "game": 0,
+      "spawn": 1
+    },
+    {
+      "id": 110,
+      "name": "Coffee Shop",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 111,
+      "name": "Book Room",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 120,
+      "name": "Night Club",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 121,
+      "name": "Lounge",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 122,
+      "name": "School",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 130,
+      "name": "Clothes Shop",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 200,
+      "name": "Ski Village",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 210,
+      "name": "Sports Shop",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 211,
+      "name": "Agent Lobby Solo",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 212,
+      "name": "Agent Lobby Multi",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 213,
+      "name": "Agent VR",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 220,
+      "name": "Ski Lodge",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 221,
+      "name": "Lodge Attic",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 230,
+      "name": "Ski Hill",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 300,
+      "name": "The Plaza",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 310,
+      "name": "Pet Shop",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 320,
+      "name": "The Dojo",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 321,
+      "name": "Dojo Exterior",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 322,
+      "name": "Dojo Hide",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 323,
+      "name": "Agent Command",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 324,
+      "name": "Dojo Exterior Solo",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 326,
+      "name": "Dojo Snow",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 330,
+      "name": "Pizza Parlor",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 340,
+      "name": "The Mall",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 400,
+      "name": "The Beach",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 410,
+      "name": "Lighthouse",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 411,
+      "name": "Beacon",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 420,
+      "name": "Pirate Ship",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 421,
+      "name": "Ship's Hold",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 422,
+      "name": "Captain's Quarters",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 423,
+      "name": "The Crows Nest",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 430,
+      "name": "Puffle Hotel Lobby",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 431,
+      "name": "Puffle Hotel Spa",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 432,
+      "name": "Puffle Hotel Roof",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 433,
+      "name": "Cloud Forest",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 434,
+      "name": "Puffle Park",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 435,
+      "name": "Skatepark",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 436,
+      "name": "Puffle Wild",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 437,
+      "name": "UFO",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 800,
+      "name": "The Dock",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 801,
+      "name": "Snow Forts",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 802,
+      "name": "Ice Rink",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 803,
+      "name": "HQ",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 804,
+      "name": "Boiler Room",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 805,
+      "name": "Ice Berg",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 806,
+      "name": "Underground Pool",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 807,
+      "name": "Mine Shack",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 808,
+      "name": "The Mine",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 809,
+      "name": "Forest",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 810,
+      "name": "Cove",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 811,
+      "name": "Box Dimension",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 812,
+      "name": "Dojo Fire",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 813,
+      "name": "Gold Mine",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 814,
+      "name": "Lake",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 815,
+      "name": "Underwater",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 816,
+      "name": "Dojo Water",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 850,
+      "name": "Holiday Train",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 851,
+      "name": "Party1",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 852,
+      "name": "Party2",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 853,
+      "name": "Party3",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 854,
+      "name": "Party4",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 855,
+      "name": "Party5",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 856,
+      "name": "Party6",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 857,
+      "name": "Party7",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 858,
+      "name": "Party8",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 859,
+      "name": "Party9",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 860,
+      "name": "Party10",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 861,
+      "name": "Party11",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 862,
+      "name": "Party12",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 863,
+      "name": "Party13",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 864,
+      "name": "Party14",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 865,
+      "name": "Party15",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 866,
+      "name": "Party16",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 867,
+      "name": "Party17",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 868,
+      "name": "Party18",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 869,
+      "name": "Party19",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 874,
+      "name": "Party24",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 875,
+      "name": "Party25",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 876,
+      "name": "Party26",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 877,
+      "name": "Party27",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 878,
+      "name": "Party28",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 890,
+      "name": "Party99",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 891,
+      "name": "partysolo1",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 898,
+      "name": "Sound Room",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 899,
+      "name": "Party",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 900,
+      "name": "Astro",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 901,
+      "name": "Beans",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 902,
+      "name": "Puffle",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 903,
+      "name": "Biscuit",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 904,
+      "name": "Fish",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 905,
+      "name": "MineCar1",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 906,
+      "name": "JetPack",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 907,
+      "name": "Mission1",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 908,
+      "name": "Mission2",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 909,
+      "name": "ThinIce",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 910,
+      "name": "PizzaTron",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 911,
+      "name": "Mission3",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 912,
+      "name": "Wave",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 913,
+      "name": "Mission4",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 914,
+      "name": "Mission5",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 915,
+      "name": "Mission6",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 916,
+      "name": "SubGame",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 917,
+      "name": "BookGame1",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 918,
+      "name": "BookGame2",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 919,
+      "name": "BookGame3",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 920,
+      "name": "Mission7",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 921,
+      "name": "Mission8",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 922,
+      "name": "Mission9",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 923,
+      "name": "Mission10",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 924,
+      "name": "Game24",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 925,
+      "name": "Game25",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 926,
+      "name": "MixMaster",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 927,
+      "name": "Mission11",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 928,
+      "name": "launch",
+      "member": 0,
+      "maxUsers": 800,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 935,
+      "name": "gamesrink",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 940,
+      "name": "soundstudio",
+      "member": 0,
+      "maxUsers": 800,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 941,
+      "name": "Puffle Soaker",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 942,
+      "name": "Balloon Pop",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 943,
+      "name": "Ring the Bell",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 944,
+      "name": "Feed a Puffle",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 945,
+      "name": "Memory Card",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 946,
+      "name": "Puffle paddle",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 947,
+      "name": "Puffle Shuffle",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 948,
+      "name": "Grab and Spin",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 949,
+      "name": "Puffle Rescue",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 950,
+      "name": "System Defender",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 951,
+      "name": "Sensei",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 952,
+      "name": "Dancing",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 953,
+      "name": "Fire Sensei",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 954,
+      "name": "Water Sensei",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 955,
+      "name": "Puffle Launch",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 956,
+      "name": "Bits and Bolts",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 957,
+      "name": "Rollerscape",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 958,
+      "name": "Scorn Battle",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 959,
+      "name": "Smoothie",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 960,
+      "name": "Ice Jam",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 961,
+      "name": "Dino Treasure Hunt",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 962,
+      "name": "Party Game",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 963,
+      "name": "Spy Drills",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 994,
+      "name": "igloo_card",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 995,
+      "name": "Water",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 996,
+      "name": "Snow",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 997,
+      "name": "Fire",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 998,
+      "name": "Card Jitsu",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 999,
+      "name": "Sled Race",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 1100,
+      "name": "My Penguin",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 1104,
+      "name": "Gold Mine",
+      "member": 0,
+      "maxUsers": 80,
+      "game": 0,
+      "spawn": 0
+    },
+    {
+      "id": 2000,
+      "name": "Solo",
+      "member": 0,
+      "maxUsers": 99999,
+      "game": 0,
+      "spawn": 0
+    }
+  ]

@@ -1,57 +1,26 @@
 {
     "100":{
+        "id": 100,
         "roomId": 230,
         "seats": 4,
         "game": "sled"
     },
     "101":{
+        "id": 101,
         "roomId": 230,
         "seats": 3,
         "game": "sled"
     },
     "102":{
+        "id": 102,
         "roomId": 230,
         "seats": 2,
         "game": "sled"
     },
     "103":{
+        "id": 103,
         "roomId": 230,
         "seats": 2,
         "game": "sled"
-    },
-    "104":{
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "105":{
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "106":{
-        "roomId": 220,
-        "seats": 2,
-        "game": "four"
-    },
-    "107":{
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "108":{
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "109":{
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
-    },
-    "110":{
-        "roomId": 221,
-        "seats": 2,
-        "game": "four"
     }
 }

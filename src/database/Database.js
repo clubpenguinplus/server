@@ -554,14 +554,16 @@ export default class Database {
     }
 
     async getPuffleSpecies(puffleId) {
-        return (
-            await this.findOne('userPuffles', {
-                where: {
-                    id: puffleId
-                },
-                attributes: ['species']
-            })
-        ).species
+        let puffle = await this.findOne('userPuffles', {
+            where: {
+                id: puffleId
+            },
+            attributes: ['species']
+        })
+        if (puffle) {
+            return puffle.species
+        }
+        return 0
     }
 
     async getPuffleCount(userId) {

@@ -7,7 +7,7 @@ import Ignore from './Ignore'
 import Inventory from './Inventory'
 import Stamps from './Stamps'
 import PurchaseValidator from './PurchaseValidator'
-import fs from 'fs'
+import {EventEmitter} from 'events'
 import AES from 'crypto-js/aes'
 
 export default class User {
@@ -47,6 +47,8 @@ export default class User {
         this.setChallenges()
 
         this.setPuffleDecay()
+
+        this.events = new EventEmitter()
     }
 
     get string() {
@@ -134,6 +136,12 @@ export default class User {
         if (!coins) {
             return
         }
+        // During CFC, all spent coins are donated to CFC
+        if (coins < 0) {
+            this.donateCoins(-coins)
+            return
+        }
+
         if (!this.data.coins || this.data.coins < 0) {
             this.data.coins = 0
         }
@@ -141,6 +149,28 @@ export default class User {
         this.data.coins += parseInt(coins)
         this.update({
             coins: this.data.coins
+        })
+    }
+
+    donateCoins(coins) {
+        if (!coins) {
+            return
+        }
+        if (!this.data.coins || this.data.coins < 0) {
+            this.data.coins = 0
+        }
+
+        if (coins < 0) {
+            coins = -coins
+        }
+
+        this.handler.partyData.cfcTotal += coins
+
+        this.data.coins -= parseInt(coins)
+        this.data.cfcDonations += parseInt(coins)
+        this.update({
+            coins: this.data.coins,
+            cfcDonations: this.data.cfcDonations
         })
     }
 
@@ -433,6 +463,14 @@ export default class User {
 
         if (isComplete) {
             this.updateMedals(reward)
+        }
+    }
+
+    joinTable(table) {
+        if (table && !this.minigameRoom) {
+            this.minigameRoom = table
+
+            this.minigameRoom.add(this)
         }
     }
 }

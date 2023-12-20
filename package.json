@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Club Penguin Plus's backend NodeJS server.",
   "scripts": {
     "dev": "node ./utils/update-hooks && babel-watch ./src/World.js Login Blizzard",
@@ -37,7 +37,7 @@
     "@logtail/node": "^0.4.6",
     "@sendgrid/mail": "^7.7.0",
     "bcrypt": "^5.1.1",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "fastest-validator": "^1.17.0",

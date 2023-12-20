@@ -181,6 +181,11 @@ export default class Users extends Sequelize.Model {
                     type: DataTypes.INTEGER(11),
                     allowNull: false,
                     defaultValue: 0
+                },
+                cfcDonations: {
+                    type: DataTypes.INTEGER(11),
+                    allowNull: false,
+                    defaultValue: 0
                 }
             },
             {sequelize, timestamps: false, tableName: 'users'}

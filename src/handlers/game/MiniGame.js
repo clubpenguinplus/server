@@ -6,7 +6,7 @@ export default class MiniGame extends Handler {
         super(users, rooms)
         this.events = {
             'a#sg': this.startGame,
-            'a#sg': this.sendMove,
+            send_move: this.sendMove,
             'a#eg': this.gameOver,
             'mi#eg': this.endMinigame,
             'a#pc': this.placeCounter,
@@ -38,8 +38,8 @@ export default class MiniGame extends Handler {
     }
 
     sendMove(args, user) {
-        if (user.inWaddleGame) {
-            user.waddle.sendMove(args, user)
+        if (user.minigameRoom) {
+            user.minigameRoom.sendMove(args[0], user)
         }
     }
 
